@@ -106,19 +106,9 @@ const mistakes = [
       <h2>Request EU Responsible Person service quotes</h2>
       <p>Get in touch with qualified EU Responsible Person service providers.</p>
       <div class="cta-section-buttons">
-        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} />
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
         <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="secondary" />
       </div>
     </div>
   </div>
 </Layout>
-
-<style>
-  .cta-section { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); color: #fff; border-radius: 0.75rem; padding: 2.5rem 2rem; margin: 3rem 0; text-align: center; }
-  .cta-section h2 { color: #fff; margin: 0 0 0.75rem; }
-  .cta-section p { color: #bfdbfe; margin: 0 0 1.5rem; }
-  .cta-section-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-  .cta-section-buttons :global(.cta-primary) { background: #fff; color: #1e3a5f; }
-  .cta-section-buttons :global(.cta-secondary) { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
-  .cta-section-buttons :global(.cta-secondary:hover) { background: rgba(255,255,255,0.1); text-decoration: none; }
-</style>

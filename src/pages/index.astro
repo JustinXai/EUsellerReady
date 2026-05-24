@@ -4,6 +4,7 @@ import GuideCard from '../components/GuideCard.astro';
 import FAQBlock from '../components/FAQBlock.astro';
 import DisclaimerBlock from '../components/DisclaimerBlock.astro';
 import AISummary from '../components/AISummary.astro';
+import CTABox from '../components/CTABox.astro';
 import { site } from '../data/site';
 import { routes } from '../data/routes';
 import { homepageFAQs } from '../data/faq';
@@ -34,25 +35,25 @@ const clusters = [
     href: '/gpsr-compliance-for-shopify/',
     icon: '📋',
     title: 'GPSR & EU Responsible Person',
-    desc: 'General Product Safety Regulation guidance and EU RP obligations.',
+    desc: 'General Product Safety Regulation guidance and EU RP obligations for non-EU sellers.',
   },
   {
     href: '/epr-compliance-for-shopify/',
     icon: '♻️',
     title: 'EPR Packaging Registration',
-    desc: 'Extended Producer Responsibility packaging topics for Germany, France and more.',
+    desc: 'Extended Producer Responsibility packaging topics for Germany, France and EU markets.',
   },
   {
     href: '/eu-seller-compliance-checklist/',
     icon: '✅',
-    title: 'Platform Guides',
-    desc: 'Step-by-step guides for Shopify, Amazon, Etsy and WooCommerce sellers.',
+    title: 'Compliance Checklist',
+    desc: 'Step-by-step checklist covering GPSR, EU RP and EPR topics for ecommerce sellers.',
   },
   {
     href: '/tools/eu-seller-compliance-checker/',
     icon: '🔍',
     title: 'Free Compliance Checker',
-    desc: 'Free scoping tool to identify which EU topics to review.',
+    desc: 'Free scoping tool to identify which EU topics apply to your store.',
   },
   {
     href: '/request-eu-compliance-quotes/',
@@ -60,6 +61,13 @@ const clusters = [
     title: 'Provider Quote Request',
     desc: 'Request quotes from qualified EU compliance service providers.',
   },
+];
+
+const trustChips = [
+  { icon: '🎯', label: 'Educational guidance' },
+  { icon: '🏪', label: 'Built for ecommerce sellers' },
+  { icon: '⚖️', label: 'Not legal advice' },
+  { icon: '🔒', label: 'No compliance determination' },
 ];
 ---
 
@@ -79,68 +87,269 @@ const clusters = [
       <div class="hero-ctas">
         <a href={site.primaryCtaHref} class="cta-primary">
           {site.primaryCtaText}
+          <span class="hero-cta-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
         </a>
         <a href={site.secondaryCtaHref} class="cta-secondary">
           {site.secondaryCtaText}
         </a>
       </div>
+      <div class="hero-chips">
+        {trustChips.map((chip) => (
+          <span class="hero-chip">
+            <span aria-hidden="true">{chip.icon}</span>
+            {chip.label}
+          </span>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- Quick Answer -->
-  <div class="container" style="padding-top: 2.5rem;">
+  <!-- Quick Answer + AI Summary -->
+  <div class="home-intro container">
     <div class="quick-answer">
-      <p class="quick-answer-label">Quick Answer</p>
+      <div class="quick-answer-label">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M7 4.5v3M7 9.5v.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
+        Quick Answer
+      </div>
       <p>
         EUReadySeller helps ecommerce sellers identify EU compliance topics to review before selling to EU consumers. It starts with GPSR, EU Responsible Person and EPR packaging. It does not provide legal advice or determine compliance. Use the free checker to scope your situation.
       </p>
     </div>
 
-    <!-- AI Summary -->
     <AISummary summary={site.aiSummary} />
+  </div>
 
-    <!-- Topic Clusters -->
-    <section class="topic-clusters" style="padding-left: 0; padding-right: 0; margin: 0 -1.5rem; padding: 3rem 1.5rem;">
-      <div style="max-width: 1200px; margin: 0 auto;">
-        <h2 class="section-title">Core Compliance Topics</h2>
-        <div class="clusters-grid">
-          {clusters.map((c) => (
-            <a href={c.href} class="cluster-card">
-              <span class="cluster-icon" aria-hidden="true">{c.icon}</span>
-              <span class="cluster-title">{c.title}</span>
-              <p class="cluster-desc">{c.desc}</p>
-            </a>
-          ))}
+  <!-- Topic Clusters -->
+  <section class="topic-clusters">
+    <div class="container">
+      <div class="section-label">
+        <span class="section-label-dot"></span>
+        Core Topics
+      </div>
+      <h2 class="section-title">What ecommerce sellers may need to review</h2>
+      <p class="section-subtitle">
+        EU compliance starts with understanding which topics apply to your business. Explore each area below.
+      </p>
+      <div class="clusters-grid">
+        {clusters.map((c) => (
+          <a href={c.href} class="cluster-card">
+            <div class="cluster-icon" aria-hidden="true">{c.icon}</div>
+            <span class="cluster-title">{c.title}</span>
+            <p class="cluster-desc">{c.desc}</p>
+            <span class="cluster-arrow">
+              Learn more
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid-page CTA strip -->
+  <div class="container">
+    <div class="mid-cta-strip">
+      <div class="mid-cta-content">
+        <div class="mid-cta-text">
+          <h2 class="mid-cta-title">Start with a free compliance check</h2>
+          <p class="mid-cta-desc">
+            Answer 8 quick questions about your business location, platform, products and target markets. Get a personalized list of EU compliance topics to review.
+          </p>
+        </div>
+        <div class="mid-cta-actions">
+          <CTABox text="Start the free checker" href="/tools/eu-seller-compliance-checker/" size="lg" />
+          <CTABox text="Get provider quotes" href="/request-eu-compliance-quotes/" variant="secondary" size="lg" />
         </div>
       </div>
-    </section>
-
-    <!-- Latest Guides -->
-    <section class="section">
-      <h2 class="section-title">Latest Guides</h2>
-      <GuideCard routes={guidePages} heading="" />
-    </section>
-
-    <!-- FAQ -->
-    <FAQBlock faqs={homepageFAQs} />
-
-    <!-- Disclaimer -->
-    <DisclaimerBlock />
+    </div>
   </div>
+
+  <!-- Latest Guides -->
+  <section class="section container">
+    <div class="section-label">
+      <span class="section-label-dot"></span>
+      Guides
+    </div>
+    <h2 class="section-title">Latest guides & resources</h2>
+    <p class="section-subtitle">
+      Practical compliance guidance for Shopify, Amazon, Etsy and WooCommerce sellers.
+    </p>
+    <GuideCard routes={guidePages} heading="" />
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--soft" style="padding-left: 0; padding-right: 0;">
+    <div class="container">
+      <FAQBlock faqs={homepageFAQs} />
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section container">
+    <div class="cta-section">
+      <h2>Ready to scope your EU compliance?</h2>
+      <p>Use the free checker or request quotes from compliance providers.</p>
+      <div class="cta-section-buttons">
+        <CTABox text="Start free checker" href="/tools/eu-seller-compliance-checker/" size="lg" />
+        <CTABox text="Request provider quotes" href="/request-eu-compliance-quotes/" variant="secondary" size="lg" />
+      </div>
+    </div>
+
+    <DisclaimerBlock />
+  </section>
 </Layout>
 
 <style>
-  .hero-ctas .cta-primary {
+  /* Hero CTA overrides */
+  .hero .cta-primary {
     background: #ffffff;
-    color: #1e3a5f;
-    font-weight: 700;
+    color: var(--color-primary-deep);
   }
-  .hero-ctas .cta-secondary {
-    border: 2px solid rgba(255,255,255,0.4);
+
+  .hero .cta-primary:hover {
+    background: #f0f9ff;
+    color: var(--color-primary);
+  }
+
+  .hero .cta-secondary {
+    background: transparent;
     color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
   }
-  .hero-ctas .cta-secondary:hover {
-    background: rgba(255,255,255,0.1);
-    text-decoration: none;
+
+  .hero .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .hero-cta-icon {
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+    transition: transform var(--transition-fast);
+  }
+
+  .hero .cta-primary:hover .hero-cta-icon {
+    transform: translateX(3px);
+    opacity: 1;
+  }
+
+  /* Home intro */
+  .home-intro {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-4);
+  }
+
+  /* Mid CTA strip */
+  .mid-cta-strip {
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10) var(--space-10);
+    margin: var(--space-12) 0;
+  }
+
+  .mid-cta-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-10);
+  }
+
+  .mid-cta-text {
+    flex: 1;
+  }
+
+  .mid-cta-title {
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: var(--space-3);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .mid-cta-desc {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: var(--leading-relaxed);
+    max-width: 500px;
+  }
+
+  .mid-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  /* Section soft override */
+  .section--soft {
+    background: var(--color-bg-soft);
+  }
+
+  /* Footer CTA override */
+  .cta-section .cta-btn--primary {
+    background: #ffffff;
+    color: var(--color-primary-deep);
+    border-color: #ffffff;
+    box-shadow: var(--shadow-md);
+  }
+
+  .cta-section .cta-btn--primary:hover {
+    background: #f0f9ff;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .mid-cta-content {
+      flex-direction: column;
+      gap: var(--space-6);
+      text-align: center;
+    }
+
+    .mid-cta-desc {
+      max-width: none;
+    }
+
+    .mid-cta-actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .mid-cta-strip {
+      padding: var(--space-8);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: var(--space-12) var(--container-padding) var(--space-10);
+    }
+
+    .hero-ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-ctas a {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
   }
 </style>

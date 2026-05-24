@@ -10,89 +10,151 @@ const { sources, heading = 'Official Sources' } = Astro.props;
 ---
 
 {sources.length > 0 && (
-  <section class="official-sources">
-    <h2 class="sources-heading">{heading}</h2>
-    <ul class="sources-list">
+  <section class="sources-block">
+    <div class="sources-header">
+      <div class="section-label">
+        <span class="section-label-dot"></span>
+        References
+      </div>
+      <h2 class="sources-heading">{heading}</h2>
+      <p class="sources-sub">Official and authoritative sources for compliance topics.</p>
+    </div>
+    <div class="sources-grid">
       {sources.map((source) => (
-        <li class="source-item">
-          <a
-            href={source.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="source-link"
-          >
-            <svg class="source-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            {source.title}
-          </a>
-          {source.description && (
-            <p class="source-desc">{source.description}</p>
-          )}
-        </li>
+        <a
+          href={source.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="source-card"
+        >
+          <div class="source-card-inner">
+            <div class="source-card-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.5 2.5h6a1 1 0 011 1v8a1 1 0 01-1 1h-6a1 1 0 01-1-1v-8a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M4.5 2.5V1.5a1 1 0 011-1h5a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M6 7l2 2-2 2M9 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="source-card-content">
+              <span class="source-card-title">{source.title}</span>
+              {source.description && (
+                <p class="source-card-desc">{source.description}</p>
+              )}
+            </div>
+            <div class="source-card-arrow" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </a>
       ))}
-    </ul>
+    </div>
   </section>
 )}
 
 <style>
-  .official-sources {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    margin: 2rem 0;
+  .sources-block {
+    margin: var(--space-10) 0;
+  }
+
+  .sources-header {
+    margin-bottom: var(--space-6);
   }
 
   .sources-heading {
-    font-size: 1rem;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
     font-weight: 700;
-    color: #1e3a5f;
-    margin: 0 0 1rem;
+    color: var(--color-text-main);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
   }
 
-  .sources-list {
-    list-style: none;
+  .sources-sub {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.875rem;
   }
 
-  .source-item {
+  .sources-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-3);
   }
 
-  .source-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: #2563eb;
+  .source-card {
+    display: block;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.875rem;
-    transition: color 0.15s;
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-base);
   }
 
-  .source-link:hover {
-    color: #1d4ed8;
-    text-decoration: underline;
+  .source-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateX(2px);
+    text-decoration: none;
   }
 
-  .source-icon {
+  .source-card-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .source-card-icon {
     flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-surface);
+    border-radius: var(--radius-md);
+    color: var(--color-primary);
   }
 
-  .source-desc {
+  .source-card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .source-card-title {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+    line-height: var(--leading-snug);
+  }
+
+  .source-card:hover .source-card-title {
+    color: var(--color-primary-dark);
+  }
+
+  .source-card-desc {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
     margin: 0;
-    font-size: 0.8125rem;
-    color: #64748b;
-    padding-left: 1.4rem;
-    line-height: 1.5;
+    line-height: var(--leading-normal);
+  }
+
+  .source-card-arrow {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-fast), color var(--transition-fast);
+  }
+
+  .source-card:hover .source-card-arrow {
+    transform: translateX(2px);
+    color: var(--color-primary);
   }
 </style>

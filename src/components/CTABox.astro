@@ -2,8 +2,9 @@
 export interface Props {
   text?: string;
   href: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'ghost';
   id?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const {
@@ -11,57 +12,123 @@ const {
   href,
   variant = 'primary',
   id,
+  size = 'md',
 } = Astro.props;
 ---
 
-<a href={href} class={`cta-box cta-${variant}`} {...(id ? { id } : {})}>
-  <span class="cta-text">{text}</span>
-  <span class="cta-arrow" aria-hidden="true">&#8594;</span>
+<a href={href} class={`cta-btn cta-btn--${variant} cta-btn--${size}`} {...(id ? { id } : {})}>
+  <span class="cta-btn__text">{text}</span>
+  <span class="cta-btn__arrow" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
 </a>
 
 <style>
-  .cta-box {
+  .cta-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.875rem 1.5rem;
-    border-radius: 0.5rem;
+    gap: var(--space-2);
+    border-radius: var(--radius-md);
     font-weight: 600;
-    font-size: 1rem;
     text-decoration: none;
-    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     cursor: pointer;
+    transition:
+      background var(--transition-fast),
+      color var(--transition-fast),
+      transform var(--transition-base),
+      box-shadow var(--transition-base),
+      border-color var(--transition-fast);
+    white-space: nowrap;
+    border: 2px solid transparent;
+    line-height: 1;
+    font-family: var(--font-sans);
   }
 
-  .cta-primary {
-    background: #2563eb;
+  /* Sizes */
+  .cta-btn--sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--text-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  .cta-btn--md {
+    padding: 0.75rem 1.5rem;
+    font-size: var(--text-base);
+  }
+
+  .cta-btn--lg {
+    padding: 0.9375rem 2rem;
+    font-size: var(--text-lg);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Primary */
+  .cta-btn--primary {
+    background: var(--color-primary);
     color: #ffffff;
+    border-color: var(--color-primary);
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(37, 99, 235, 0.1);
+  }
+
+  .cta-btn--primary:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  .cta-btn--primary:active {
+    transform: translateY(0);
     box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
   }
 
-  .cta-primary:hover {
-    background: #1d4ed8;
+  /* Secondary */
+  .cta-btn--secondary {
+    background: var(--color-bg);
+    color: var(--color-primary);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .cta-btn--secondary:hover {
+    background: var(--color-primary-surface);
+    border-color: var(--color-primary);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    color: var(--color-primary);
   }
 
-  .cta-secondary {
-    background: #ffffff;
-    color: #2563eb;
-    border: 2px solid #2563eb;
+  /* Ghost / light */
+  .cta-btn--ghost {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
   }
 
-  .cta-secondary:hover {
-    background: #eff6ff;
+  .cta-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.35);
     transform: translateY(-1px);
+    text-decoration: none;
+    color: #ffffff;
   }
 
-  .cta-arrow {
-    font-size: 1.1rem;
-    transition: transform 0.15s;
+  /* Arrow animation */
+  .cta-btn__arrow {
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-fast);
+    opacity: 0.85;
   }
 
-  .cta-box:hover .cta-arrow {
+  .cta-btn:hover .cta-btn__arrow {
     transform: translateX(3px);
+    opacity: 1;
   }
 </style>
