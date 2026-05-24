@@ -1,0 +1,47 @@
+---
+export interface Props {
+  heading?: string;
+  subheading?: string;
+}
+
+const {
+  heading = 'Page heading',
+  subheading,
+} = Astro.props;
+---
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1 class="page-h1">{heading}</h1>
+    {subheading && <p class="page-subheading">{subheading}</p>}
+  </div>
+</div>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: #ffffff;
+    padding: 3rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .page-header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-h1 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subheading {
+    font-size: 1.125rem;
+    color: #bfdbfe;
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

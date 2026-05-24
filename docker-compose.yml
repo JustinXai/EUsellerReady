@@ -1,0 +1,28 @@
+# docker-compose.yml for EUReadySeller
+version: '3.8'
+
+services:
+  eureadyseller-web:
+    image: eureadyseller:latest
+    container_name: eureadyseller-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./dist:/srv:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    environment:
+      - TZ=UTC
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge

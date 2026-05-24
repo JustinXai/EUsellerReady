@@ -1,0 +1,101 @@
+---
+import type { FAQItem } from '../data/faq';
+
+export interface Props {
+  faqs: FAQItem[];
+  heading?: string;
+}
+
+const { faqs, heading = 'Frequently Asked Questions' } = Astro.props;
+---
+
+<section class="faq-block">
+  <h2 class="faq-heading">{heading}</h2>
+  <div class="faq-list">
+    {faqs.map((faq, index) => (
+      <details class="faq-item">
+        <summary class="faq-question">
+          <span class="faq-number">{String(index + 1).padStart(2, '0')}</span>
+          {faq.question}
+        </summary>
+        <div class="faq-answer">
+          <p>{faq.answer}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq-block {
+    margin: 3rem 0;
+  }
+
+  .faq-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin: 0 0 1.5rem;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .faq-item {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .faq-item[open] {
+    border-color: #2563eb;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1e3a5f;
+    list-style: none;
+    line-height: 1.5;
+    transition: background 0.15s;
+  }
+
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::marker { display: none; }
+
+  .faq-item[open] .faq-question {
+    background: #eff6ff;
+  }
+
+  .faq-question:hover {
+    background: #f3f4f6;
+  }
+
+  .faq-number {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #2563eb;
+    padding-top: 0.2rem;
+  }
+
+  .faq-answer {
+    padding: 0.5rem 1.25rem 1rem calc(1.25rem + 2.5rem);
+    color: #4b5563;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .faq-answer p {
+    margin: 0;
+  }
+</style>

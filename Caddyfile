@@ -1,0 +1,55 @@
+# Caddyfile for EUReadySeller
+# Serves static dist files at eureadyseller.com
+
+eureadyseller.com {
+    root * /srv
+    encode gzip zstd
+
+    # Security headers
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'"
+    }
+
+    # Cache static assets aggressively
+    @static {
+        path *.css *.js *.svg *.png *.jpg *.jpeg *.gif *.ico *.woff *.woff2
+    }
+    header @static Cache-Control "public, max-age=31536000, immutable"
+
+    # HTML pages — no cache
+    @html {
+        path *.html
+    }
+    header @html Cache-Control "no-cache, no-store, must-revalidate"
+    header @html Pragma "no-cache"
+    header @html Expires "0"
+
+    # Try files
+    try_files {path} {path}/ /index.html
+
+    # Serve
+    file_server
+
+    # Redirect www to non-www
+    @www {
+        header Host www.eureadyseller.com
+    }
+    redirect @www https://eureadyseller.com{uri} 301
+}
+
+www.eureadyseller.com {
+    # Redirect www to non-www
+    redir https://eureadyseller.com{uri} 301
+}
+
+# Local development fallback (port 8080)
+:8080 {
+    root * /srv
+    file_server
+    encode gzip
+}

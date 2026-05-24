@@ -1,0 +1,191 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { checklistFAQs } from '../data/faq';
+import { getSourcesForTopic } from '../data/officialSources';
+import {
+  buildWebPageSchema,
+  buildFAQPageSchema,
+} from '../lib/schema';
+
+const pagePath = '/eu-seller-compliance-checklist/';
+const canonical = `${site.siteUrl}/eu-seller-compliance-checklist/`;
+const route = routes.find((r) => r.path === pagePath)!;
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(checklistFAQs),
+];
+
+const sources = [
+  ...getSourcesForTopic('gpsr'),
+  ...getSourcesForTopic('epr').slice(0, 2),
+];
+
+const gpsrItems = [
+  'Identify whether GPSR applies to your products and selling model',
+  'Determine if you need an EU Responsible Person (non-EU sellers typically do)',
+  'Assign an EU Responsible Person if you are outside the EU',
+  'Prepare product technical documentation',
+  'Add EU Responsible Person contact details to product listings',
+  'Ensure product traceability records are in place',
+  'Review incident reporting procedures',
+];
+
+const rpItems = [
+  'Confirm whether you need an EU Responsible Person under GPSR',
+  'Select and appoint a qualified EU Responsible Person',
+  'Share product documentation with your EU Responsible Person',
+  'Ensure EU Responsible Person details appear on product packaging and listings',
+];
+
+const eprItems = [
+  'Identify which EU countries you sell to (Germany and France are most active)',
+  'Determine whether EPR packaging registration applies',
+  'Register with relevant EPR scheme(s) — e.g., LUCID in Germany',
+  'Report packaging volumes to EPR schemes',
+  'Pay recycling contributions based on packaging weight and material',
+  'Retain registration numbers for platform verification',
+];
+
+const mistakes = [
+  {
+    title: 'Assuming compliance is automatic',
+    desc: 'Registering with a provider does not automatically make your store compliant. Each seller\'s situation is different.',
+  },
+  {
+    title: 'Ignoring country-specific EPR requirements',
+    desc: 'EPR rules differ by country. Selling to Germany without LUCID registration is a common and costly mistake.',
+  },
+  {
+    title: 'Missing EU Responsible Person requirements',
+    desc: 'Non-EU sellers shipping to EU consumers need an EU Responsible Person under GPSR. This is a legal requirement, not optional.',
+  },
+  {
+    title: 'Copying competitor product listings without verification',
+    desc: 'Product listings must reflect your own compliance information. Generic or incorrect information can create risk.',
+  },
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading={route.h1}
+    subheading="A practical EU seller compliance checklist covering GPSR, EU Responsible Person and EPR packaging topics for ecommerce sellers preparing to sell to the EU."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        This checklist helps ecommerce sellers identify GPSR, EU Responsible Person and EPR packaging topics to review before selling physical products to EU consumers. Complete each section relevant to your business to scope your compliance preparation.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this checklist applies to</h2>
+      <p>
+        This checklist applies to ecommerce sellers — on Shopify, Amazon, Etsy, WooCommerce or any custom store — who sell or plan to sell physical products to consumers in the European Union. If you sell from inside or outside the EU, GPSR obligations may apply.
+      </p>
+
+      <h2>GPSR Compliance Checklist</h2>
+      <ul class="checklist" aria-label="GPSR checklist">
+        {gpsrItems.map((item) => (
+          <li class="checklist-item">
+            <span class="checklist-icon" aria-hidden="true"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>EU Responsible Person Checklist</h2>
+      <ul class="checklist" aria-label="EU Responsible Person checklist">
+        {rpItems.map((item) => (
+          <li class="checklist-item">
+            <span class="checklist-icon" aria-hidden="true"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>EPR Packaging Checklist</h2>
+      <ul class="checklist" aria-label="EPR packaging checklist">
+        {eprItems.map((item) => (
+          <li class="checklist-item">
+            <span class="checklist-icon" aria-hidden="true"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Common Mistakes to Avoid</h2>
+      <div class="mistakes-list">
+        {mistakes.map((m) => (
+          <div class="mistake-item">
+            <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <div>
+              <strong>{m.title}</strong>
+              <p class="mistake-text">{m.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>Service Options</h2>
+      <p>
+        If you need help completing any section of this checklist, you can request quotes from qualified EU compliance service providers who specialize in GPSR, EU Responsible Person, and EPR packaging topics.
+      </p>
+    </div>
+
+    <OfficialSources sources={sources} />
+
+    <FAQBlock faqs={checklistFAQs} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Ready to scope your compliance situation?</h2>
+      <p>Use the free checker to identify which topics apply to your store.</p>
+      <div class="cta-section-buttons">
+        <CTABox
+          text={site.primaryCtaText}
+          href={site.primaryCtaHref}
+          variant="primary"
+        />
+        <CTABox
+          text={site.secondaryCtaText}
+          href={site.secondaryCtaHref}
+          variant="secondary"
+        />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .cta-section { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); color: #fff; border-radius: 0.75rem; padding: 2.5rem 2rem; margin: 3rem 0; text-align: center; }
+  .cta-section h2 { color: #fff; margin: 0 0 0.75rem; }
+  .cta-section p { color: #bfdbfe; margin: 0 0 1.5rem; }
+  .cta-section-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .cta-section-buttons :global(.cta-primary) { background: #fff; color: #1e3a5f; }
+  .cta-section-buttons :global(.cta-secondary) { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+  .cta-section-buttons :global(.cta-secondary:hover) { background: rgba(255,255,255,0.1); text-decoration: none; }
+</style>

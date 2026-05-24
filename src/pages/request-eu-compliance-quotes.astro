@@ -1,0 +1,75 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { quotesFAQs } from '../data/faq';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pagePath = '/request-eu-compliance-quotes/';
+const canonical = `${site.siteUrl}/request-eu-compliance-quotes/`;
+const route = routes.find((r) => r.path === pagePath)!;
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(quotesFAQs),
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading={route.h1}
+    subheading="Request quotes from EU compliance providers for GPSR, EU Responsible Person and EPR packaging topics."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        Use this form to request quotes from EU compliance service providers. Fill in your business details, store platform, product category, target EU markets and the compliance topics you need help with. Providers will contact you directly. EUReadySeller does not charge for this service and does not determine compliance.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>How provider matching works</h2>
+      <p>
+        Submitting this form sends your compliance needs to service providers who offer GPSR, EU Responsible Person and EPR packaging services. Providers review your details and contact you with relevant quotes. This service is free for sellers.
+      </p>
+
+      <h2>What to include in your request</h2>
+      <ul>
+        <li>Your business location (US, UK, China, Canada, EU, etc.)</li>
+        <li>Store platform (Shopify, Amazon, Etsy, WooCommerce, custom, etc.)</li>
+        <li>Product categories you sell</li>
+        <li>Target EU countries (Germany, France, multiple, etc.)</li>
+        <li>Specific compliance topics you need help with</li>
+        <li>Any existing compliance preparations already in place</li>
+      </ul>
+
+      <h2>Topics you can request quotes for</h2>
+      <ul>
+        <li>GPSR General Product Safety Regulation compliance</li>
+        <li>EU Responsible Person service</li>
+        <li>EPR packaging registration (Germany, France, other EU countries)</li>
+        <li>General EU market compliance scoping</li>
+      </ul>
+    </div>
+
+    <LeadForm topic="gpsr" />
+
+    <FAQBlock faqs={quotesFAQs} />
+
+    <DisclaimerBlock />
+  </div>
+</Layout>

@@ -1,0 +1,564 @@
+---
+import Layout from '../../components/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import DisclaimerBlock from '../../components/DisclaimerBlock.astro';
+import CTABox from '../../components/CTABox.astro';
+import { site } from '../../data/site';
+import { routes } from '../../data/routes';
+import { checkerFAQs } from '../../data/faq';
+import FAQBlock from '../../components/FAQBlock.astro';
+import {
+  buildWebPageSchema,
+  buildFAQPageSchema,
+  buildSoftwareAppSchema,
+} from '../../lib/schema';
+
+const pagePath = '/tools/eu-seller-compliance-checker/';
+const canonical = `${site.siteUrl}/tools/eu-seller-compliance-checker/`;
+const route = routes.find((r) => r.path === pagePath)!;
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildSoftwareAppSchema(route.h1, route.description),
+  buildFAQPageSchema(checkerFAQs),
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading={route.h1}
+    subheading="A free educational scoping tool that helps ecommerce sellers identify GPSR, EU Responsible Person and EPR packaging topics to review before selling to the EU."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        Answer 8 questions about your business location, selling platform, product type and target EU markets. The checker will suggest compliance topics to review. It is a free educational scoping tool, not a compliance determination.
+      </p>
+    </div>
+
+    <!-- Checker Tool -->
+    <div class="checker-container" id="checker">
+      <div class="checker-progress" id="progress" aria-live="polite">
+        <span class="progress-text" id="progress-text">Question 1 of 8</span>
+        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="8">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="checker-step" id="step-1">
+        <p class="step-label">Question 1 of 8</p>
+        <h2 class="step-question">Where is your business located?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="eu" data-next="2">European Union (EU)</button>
+          <button class="option-btn" data-value="uk" data-next="2">United Kingdom (UK)</button>
+          <button class="option-btn" data-value="us" data-next="2">United States (US)</button>
+          <button class="option-btn" data-value="canada" data-next="2">Canada</button>
+          <button class="option-btn" data-value="china" data-next="2">China</button>
+          <button class="option-btn" data-value="other-non-eu" data-next="2">Other non-EU country</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="checker-step hidden" id="step-2">
+        <p class="step-label">Question 2 of 8</p>
+        <h2 class="step-question">What platform do you primarily sell on?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="shopify" data-next="3">Shopify</button>
+          <button class="option-btn" data-value="amazon" data-next="3">Amazon</button>
+          <button class="option-btn" data-value="etsy" data-next="3">Etsy</button>
+          <button class="option-btn" data-value="woocommerce" data-next="3">WooCommerce</button>
+          <button class="option-btn" data-value="custom-store" data-next="3">Custom store</button>
+          <button class="option-btn" data-value="multiple-platforms" data-next="3">Multiple platforms</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="checker-step hidden" id="step-3">
+        <p class="step-label">Question 3 of 8</p>
+        <h2 class="step-question">What category best describes your products?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="general-goods" data-next="4">General goods</button>
+          <button class="option-btn" data-value="apparel" data-next="4">Apparel</button>
+          <button class="option-btn" data-value="electronics" data-next="4">Electronics</button>
+          <button class="option-btn" data-value="toys" data-next="4">Toys</button>
+          <button class="option-btn" data-value="cosmetics" data-next="4">Cosmetics</button>
+          <button class="option-btn" data-value="batteries" data-next="4">Batteries</button>
+          <button class="option-btn" data-value="home-goods" data-next="4">Home goods</button>
+          <button class="option-btn" data-value="other" data-next="4">Other</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="checker-step hidden" id="step-4">
+        <p class="step-label">Question 4 of 8</p>
+        <h2 class="step-question">Do you sell physical goods to EU consumers?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="yes" data-next="5">Yes</button>
+          <button class="option-btn" data-value="no" data-next="5">No</button>
+          <button class="option-btn" data-value="not-sure" data-next="5">Not sure</button>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="checker-step hidden" id="step-5">
+        <p class="step-label">Question 5 of 8</p>
+        <h2 class="step-question">Do you use product packaging for your shipments?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="yes" data-next="6">Yes</button>
+          <button class="option-btn" data-value="no" data-next="6">No</button>
+          <button class="option-btn" data-value="not-sure" data-next="6">Not sure</button>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="checker-step hidden" id="step-6">
+        <p class="step-label">Question 6 of 8</p>
+        <h2 class="step-question">Do you already have an EU Responsible Person?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="yes" data-next="7">Yes</button>
+          <button class="option-btn" data-value="no" data-next="7">No</button>
+          <button class="option-btn" data-value="not-sure" data-next="7">Not sure</button>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="checker-step hidden" id="step-7">
+        <p class="step-label">Question 7 of 8</p>
+        <h2 class="step-question">Do you sell in Germany or France?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="germany" data-next="8">Germany</button>
+          <button class="option-btn" data-value="france" data-next="8">France</button>
+          <button class="option-btn" data-value="both" data-next="8">Both Germany and France</button>
+          <button class="option-btn" data-value="neither" data-next="8">Neither</button>
+          <button class="option-btn" data-value="not-sure" data-next="8">Not sure</button>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="checker-step hidden" id="step-8">
+        <p class="step-label">Question 8 of 8</p>
+        <h2 class="step-question">Do you sell digital or ecommerce services to EU consumers?</h2>
+        <div class="step-options">
+          <button class="option-btn" data-value="yes" data-next="results">Yes</button>
+          <button class="option-btn" data-value="no" data-next="results">No</button>
+          <button class="option-btn" data-value="not-sure" data-next="results">Not sure</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="checker-step hidden" id="step-results">
+        <h2 class="results-heading">Likely topics to review</h2>
+        <p class="results-intro">Based on your answers, here are the EU compliance topics you may need to review:</p>
+        <div id="results-container"></div>
+      </div>
+    </div>
+
+    <DisclaimerBlock />
+
+    <div class="cta-section" id="bottom-cta" style="display: none;">
+      <h2>Ready to take the next step?</h2>
+      <p>Review the guides and request quotes from compliance providers.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} />
+        <CTABox text="Download Compliance Checklist" href="/eu-seller-compliance-checklist/" variant="secondary" />
+      </div>
+    </div>
+
+    <FAQBlock faqs={checkerFAQs} />
+  </div>
+</Layout>
+
+<style>
+  .hidden { display: none !important; }
+
+  .checker-container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    max-width: 680px;
+  }
+
+  .checker-progress {
+    margin-bottom: 2rem;
+  }
+
+  .progress-text {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+    width: 12.5%;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #2563eb;
+    margin: 0 0 0.5rem;
+  }
+
+  .step-question {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin: 0 0 1.5rem;
+    line-height: 1.3;
+  }
+
+  .step-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .option-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.875rem 1.25rem;
+    background: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    font-family: inherit;
+  }
+
+  .option-btn:hover {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #1e40af;
+  }
+
+  .option-btn.selected {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #1e40af;
+    font-weight: 600;
+  }
+
+  /* Results */
+  .results-heading {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin: 0 0 0.75rem;
+  }
+
+  .results-intro {
+    font-size: 0.9375rem;
+    color: #6b7280;
+    margin: 0 0 1.5rem;
+  }
+
+  .topic-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    background: #f9fafb;
+  }
+
+  .topic-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .topic-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .topic-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin: 0;
+  }
+
+  .topic-why {
+    font-size: 0.875rem;
+    color: #374151;
+    margin: 0 0 0.75rem;
+    line-height: 1.6;
+  }
+
+  .topic-prepare {
+    font-size: 0.875rem;
+    color: #374151;
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+  }
+
+  .topic-prepare-list {
+    margin: 0.25rem 0 0.75rem;
+    padding-left: 1.25rem;
+  }
+
+  .topic-prepare-list li {
+    font-size: 0.8125rem;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
+  }
+
+  .topic-next {
+    font-size: 0.8125rem;
+    color: #2563eb;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+
+  .topic-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .topic-link:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+  }
+
+  .no-topics {
+    padding: 1.5rem;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 0.5rem;
+    color: #166534;
+    font-size: 0.9375rem;
+  }
+
+  .cta-section { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); color: #fff; border-radius: 0.75rem; padding: 2.5rem 2rem; margin: 3rem 0; text-align: center; }
+  .cta-section h2 { color: #fff; margin: 0 0 0.75rem; }
+  .cta-section p { color: #bfdbfe; margin: 0 0 1.5rem; }
+  .cta-section-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .cta-section-buttons :global(.cta-primary) { background: #fff; color: #1e3a5f; }
+  .cta-section-buttons :global(.cta-secondary) { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+  .cta-section-buttons :global(.cta-secondary:hover) { background: rgba(255,255,255,0.1); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .checker-container { padding: 1.25rem; }
+    .step-question { font-size: 1.125rem; }
+  }
+</style>
+
+<script>
+  const TOPIC_DATA: Record<string, { icon: string; name: string; why: string; prepare: string[]; next: string; guide: string }> = {
+    'gpsr': {
+      icon: '📋',
+      name: 'GPSR - General Product Safety Regulation',
+      why: 'GPSR (EU Regulation 2023/988) applies to all physical products sold to EU consumers. Sellers on Shopify, Amazon, Etsy, WooCommerce or any platform may need to comply.',
+      prepare: [
+        'Product safety documentation',
+        'Traceability information (manufacturing date, batch number)',
+        'EU Responsible Person designation (for non-EU sellers)',
+        'EU Responsible Person contact details on product listings',
+        'Incident reporting procedures',
+      ],
+      next: 'Review the GPSR compliance guide and identify if your product categories have specific requirements.',
+      guide: '/gpsr-compliance-for-shopify/',
+    },
+    'eu-responsible-person': {
+      icon: '🌍',
+      name: 'EU Responsible Person',
+      why: 'Non-EU sellers placing physical products on the EU market are required to designate an EU Responsible Person under GPSR.',
+      prepare: [
+        'Product technical documentation package',
+        'Declaration of conformity or safety assessment',
+        'Contact information for your EU Responsible Person on product labels and listings',
+        'Traceability records',
+      ],
+      next: 'Request quotes from EU Responsible Person service providers.',
+      guide: '/eu-responsible-person-service/',
+    },
+    'epr-packaging': {
+      icon: '♻️',
+      name: 'EPR Packaging Registration',
+      why: 'Extended Producer Responsibility (EPR) packaging schemes operate in Germany and France. Sellers shipping with packaging to EU consumers may need to register.',
+      prepare: [
+        'Identify which EU countries you sell to',
+        'Calculate or estimate packaging volumes',
+        'Register with the relevant EPR scheme(s)',
+        'Report packaging data periodically',
+        'Pay recycling contributions',
+      ],
+      next: 'Review the EPR compliance guide and identify which countries require registration.',
+      guide: '/epr-compliance-for-shopify/',
+    },
+    'de-fr-epr': {
+      icon: '🇩🇪🇫🇷',
+      name: 'Germany & France EPR Packaging',
+      why: 'Germany and France have active EPR packaging schemes. Sellers shipping to consumers in these countries may need to register with LUCID (Germany) and French EPR schemes.',
+      prepare: [
+        'Register with LUCID (Germany\'s central packaging register)',
+        'Register with relevant French EPR scheme (e.g., CITEO)',
+        'Report packaging volumes to each scheme',
+        'Pay recycling contributions based on packaging weight and material',
+        'Keep registration numbers ready for platform verification',
+      ],
+      next: 'Request quotes from EPR packaging compliance providers for Germany and France.',
+      guide: '/epr-compliance-for-shopify/',
+    },
+    'eaa-accessibility': {
+      icon: '🌐',
+      name: 'EAA Accessibility (Related Topic)',
+      why: 'The European Accessibility Act (EAA) may affect ecommerce platforms and sellers offering digital services to EU consumers.',
+      prepare: [
+        'Review whether your online store falls within EAA scope',
+        'Assess accessibility of your website and product listings',
+        'Consult a qualified accessibility professional for specific guidance',
+      ],
+      next: 'Review EAA requirements and consult an accessibility professional. This topic may expand on EUReadySeller in a future update.',
+      guide: '/',
+    },
+  };
+
+  const answers: Record<string, string> = {};
+
+  function showStep(stepId: string) {
+    document.querySelectorAll('.checker-step').forEach((el) => el.classList.add('hidden'));
+    document.getElementById(stepId)?.classList.remove('hidden');
+    document.getElementById('progress-text')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function updateProgress(current: number, total = 8) {
+    const text = current > total ? 'Results' : `Question ${current} of ${total}`;
+    const pct = Math.min((current / total) * 100, 100);
+    const textEl = document.getElementById('progress-text');
+    const fillEl = document.getElementById('progress-fill');
+    if (textEl) textEl.textContent = text;
+    if (fillEl) fillEl.style.width = `${pct}%`;
+  }
+
+  function computeResults() {
+    const results: string[] = [];
+
+    if (answers.physicalGoods === 'yes') {
+      results.push('gpsr');
+
+      const nonEuLocations = ['uk', 'us', 'canada', 'china', 'other-non-eu'];
+      if (
+        nonEuLocations.includes(answers.businessLocation) &&
+        answers.hasEuResponsiblePerson !== 'yes'
+      ) {
+        results.push('eu-responsible-person');
+      }
+    }
+
+    if ((answers.usesPackaging === 'yes') && answers.physicalGoods === 'yes') {
+      if (answers.targetDeOrFr === 'germany' || answers.targetDeOrFr === 'both' || answers.targetDeOrFr === 'france') {
+        results.push('de-fr-epr');
+      } else {
+        results.push('epr-packaging');
+      }
+    }
+
+    if (answers.digitalServices === 'yes') {
+      results.push('eaa-accessibility');
+    }
+
+    return [...new Set(results)];
+  }
+
+  function renderResults() {
+    const topics = computeResults();
+    const container = document.getElementById('results-container');
+    if (!container) return;
+
+    if (topics.length === 0) {
+      container.innerHTML = `<div class="no-topics">Based on your answers, no specific EU compliance topics were identified. If your situation changes or you sell physical products to EU consumers, revisit this checker.</div>`;
+    } else {
+      container.innerHTML = topics.map((id) => {
+        const t = TOPIC_DATA[id];
+        if (!t) return '';
+        return `
+          <div class="topic-card">
+            <div class="topic-card-header">
+              <span class="topic-icon" aria-hidden="true">${t.icon}</span>
+              <h3 class="topic-name">${t.name}</h3>
+            </div>
+            <p class="topic-why">${t.why}</p>
+            <p class="topic-prepare">What to prepare:</p>
+            <ul class="topic-prepare-list">
+              ${t.prepare.map((p) => `<li>${p}</li>`).join('')}
+            </ul>
+            <p class="topic-next">${t.next}</p>
+            <a href="${t.guide}" class="topic-link">Read guide &#8594;</a>
+          </div>`;
+      }).join('');
+    }
+
+    const cta = document.getElementById('bottom-cta');
+    if (cta) cta.style.display = 'block';
+  }
+
+  document.querySelectorAll('.option-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const btn2 = btn as HTMLButtonElement;
+      const step = btn2.closest('.checker-step') as HTMLElement;
+      const stepNum = parseInt(step.id.replace('step-', ''));
+      const next = btn2.dataset.next as string;
+      const key = [
+        '', 'businessLocation', 'sellingPlatform', 'productCategory',
+        'physicalGoods', 'usesPackaging', 'hasEuResponsiblePerson', 'targetDeOrFr', 'digitalServices'
+      ][stepNum];
+
+      document.querySelectorAll(`#step-${stepNum} .option-btn`).forEach((b) =>
+        b.classList.remove('selected')
+      );
+      btn2.classList.add('selected');
+
+      if (key) answers[key] = btn2.dataset.value as string;
+
+      if (next === 'results') {
+        updateProgress(8);
+        showStep('step-results');
+        renderResults();
+      } else {
+        const nextNum = parseInt(next);
+        updateProgress(nextNum);
+        showStep(`step-${next}`);
+      }
+    });
+  });
+</script>

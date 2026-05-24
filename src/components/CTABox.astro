@@ -1,0 +1,67 @@
+---
+export interface Props {
+  text?: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+  id?: string;
+}
+
+const {
+  text = 'Start the free EU Seller Compliance Checker',
+  href,
+  variant = 'primary',
+  id,
+} = Astro.props;
+---
+
+<a href={href} class={`cta-box cta-${variant}`} {...(id ? { id } : {})}>
+  <span class="cta-text">{text}</span>
+  <span class="cta-arrow" aria-hidden="true">&#8594;</span>
+</a>
+
+<style>
+  .cta-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+
+  .cta-primary {
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+  }
+
+  .cta-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  }
+
+  .cta-secondary {
+    background: #ffffff;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+  }
+
+  .cta-secondary:hover {
+    background: #eff6ff;
+    transform: translateY(-1px);
+  }
+
+  .cta-arrow {
+    font-size: 1.1rem;
+    transition: transform 0.15s;
+  }
+
+  .cta-box:hover .cta-arrow {
+    transform: translateX(3px);
+  }
+</style>

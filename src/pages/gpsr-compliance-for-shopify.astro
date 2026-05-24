@@ -1,0 +1,124 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { gpsrFAQs } from '../data/faq';
+import { getSourcesForTopic } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pagePath = '/gpsr-compliance-for-shopify/';
+const canonical = `${site.siteUrl}/gpsr-compliance-for-shopify/`;
+const route = routes.find((r) => r.path === pagePath)!;
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(gpsrFAQs),
+];
+
+const sources = getSourcesForTopic('gpsr');
+
+const checklist = [
+  'Determine whether GPSR applies to your products and selling model',
+  'Confirm whether you need an EU Responsible Person',
+  'Appoint an EU Responsible Person if you are a non-EU seller',
+  'Prepare product technical documentation and safety information',
+  'Add EU Responsible Person contact details to your Shopify product listings',
+  'Set up traceability records for your products',
+  'Review Shopify GPSR compliance resources and app integrations',
+];
+
+const mistakes = [
+  'Assuming GPSR only applies to certain product categories — it applies to all physical products',
+  'Forgetting that EU Responsible Person details must appear on product packaging and listings',
+  'Not keeping product technical documentation accessible',
+  'Assuming your platform\'s terms mean you are exempt from compliance obligations',
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading={route.h1}
+    subheading="A practical GPSR guide for Shopify sellers preparing to sell physical products to EU consumers, including EU Responsible Person and product safety information topics."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        GPSR (General Product Safety Regulation) applies to all physical products sold to EU consumers. Shopify sellers preparing to sell to the EU may need to appoint an EU Responsible Person, add product safety documentation and ensure traceability. Review each requirement carefully before listing products on EU-targeted Shopify stores.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who does GPSR apply to?</h2>
+      <p>
+        GPSR applies to all sellers — whether based inside or outside the EU — who sell physical products to consumers in the European Union. Shopify sellers with EU-targeted stores, EU fulfillment setups or cross-border Shopify sales may need to comply with GPSR requirements.
+      </p>
+
+      <h2>What Shopify sellers may need to prepare</h2>
+      <ul class="checklist">
+        {checklist.map((item) => (
+          <li class="checklist-item">
+            <span class="checklist-icon"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Common GPSR mistakes for Shopify sellers</h2>
+      <div class="mistakes-list">
+        {mistakes.map((m) => (
+          <div class="mistake-item">
+            <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <p class="mistake-text">{m}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>Service options</h2>
+      <p>
+        Shopify sellers who need support with GPSR compliance can request quotes from qualified compliance service providers through EUReadySeller.
+      </p>
+    </div>
+
+    <OfficialSources sources={sources} />
+
+    <FAQBlock faqs={gpsrFAQs} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Start your GPSR compliance review</h2>
+      <p>Use the free checker to identify what applies to your Shopify store.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} />
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="secondary" />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .cta-section { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); color: #fff; border-radius: 0.75rem; padding: 2.5rem 2rem; margin: 3rem 0; text-align: center; }
+  .cta-section h2 { color: #fff; margin: 0 0 0.75rem; }
+  .cta-section p { color: #bfdbfe; margin: 0 0 1.5rem; }
+  .cta-section-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .cta-section-buttons :global(.cta-primary) { background: #fff; color: #1e3a5f; }
+  .cta-section-buttons :global(.cta-secondary) { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+  .cta-section-buttons :global(.cta-secondary:hover) { background: rgba(255,255,255,0.1); text-decoration: none; }
+</style>

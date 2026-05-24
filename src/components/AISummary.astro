@@ -1,0 +1,56 @@
+---
+export interface Props {
+  summary: string;
+}
+
+const { summary } = Astro.props;
+---
+
+<div class="ai-summary-block">
+  <div class="ai-summary-header">
+    <svg class="ai-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+    <span class="ai-label">AI-readable summary</span>
+  </div>
+  <p class="ai-summary-text">{summary}</p>
+</div>
+
+<style>
+  .ai-summary-block {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .ai-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ai-icon {
+    color: #16a34a;
+    flex-shrink: 0;
+  }
+
+  .ai-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #16a34a;
+  }
+
+  .ai-summary-text {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: #166534;
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,149 @@
+---
+import { footerLinks } from '../data/navigation';
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">EUReadySeller</a>
+      <p class="footer-tagline">
+        Educational EU compliance navigation for ecommerce sellers.
+      </p>
+      <p class="footer-disclaimer">
+        {site.disclaimer}
+      </p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      {footerLinks.map((section) => (
+        <div class="footer-section">
+          <h3 class="footer-heading">{section.heading}</h3>
+          <ul>
+            {section.links.map((link) => (
+              <li>
+                <a href={link.href} class="footer-link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {new Date().getFullYear()} EUReadySeller. All rights reserved.</p>
+    <p class="footer-notice">
+      EUReadySeller is an educational resource. It does not provide legal advice.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #1e3a5f;
+    color: #d1d5db;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.875rem;
+    margin: 0 0 1rem;
+    color: #9ca3af;
+  }
+
+  .footer-disclaimer {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: #6b7280;
+    max-width: 380px;
+    margin: 0;
+  }
+
+  .footer-nav {
+    display: contents;
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    margin: 0 0 1rem;
+  }
+
+  .footer-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-link:hover {
+    color: #ffffff;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #374151;
+    padding: 1.25rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-notice {
+    font-style: italic;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,31 @@
+{
+  "name": "eureadyseller",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "EUReadySeller - EU Compliance Guidance for Ecommerce Sellers",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && npm run generate:sitemap && npm run generate:robots && npm run generate:llms",
+    "preview": "astro preview",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "generate:robots": "node scripts/generate-robots.mjs",
+    "generate:llms": "node scripts/generate-llms.mjs",
+    "validate:routes": "node scripts/validate-routes.mjs",
+    "validate:seo": "node scripts/validate-seo.mjs",
+    "validate:claims": "node scripts/validate-claims.mjs",
+    "validate:links": "node scripts/validate-links.mjs",
+    "validate:schema": "node scripts/validate-schema.mjs",
+    "report": "node scripts/build-report.mjs",
+    "verify": "npm run build && npm run validate:routes && npm run validate:seo && npm run validate:claims && npm run validate:links && npm run validate:schema && npm run report"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

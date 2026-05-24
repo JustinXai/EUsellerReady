@@ -1,0 +1,146 @@
+---
+import Layout from '../components/Layout.astro';
+import GuideCard from '../components/GuideCard.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import AISummary from '../components/AISummary.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { homepageFAQs } from '../data/faq';
+import {
+  buildWebSiteSchema,
+  buildWebPageSchema,
+  buildFAQPageSchema,
+} from '../lib/schema';
+
+const pagePath = '/';
+const canonical = `${site.siteUrl}/`;
+
+const webPageSchema = buildWebPageSchema(
+  pagePath,
+  'EUReadySeller - Know What Your Store Needs Before Selling to the EU',
+  site.defaultDescription,
+  'Know what your store needs before selling to the EU.'
+);
+
+const jsonLd = [webPageSchema, buildWebSiteSchema(), buildFAQPageSchema(homepageFAQs)];
+
+const guidePages = routes.filter(
+  (r) => r.path !== '/' && r.category !== 'quote-request'
+).slice(0, 4);
+
+const clusters = [
+  {
+    href: '/gpsr-compliance-for-shopify/',
+    icon: '📋',
+    title: 'GPSR & EU Responsible Person',
+    desc: 'General Product Safety Regulation guidance and EU RP obligations.',
+  },
+  {
+    href: '/epr-compliance-for-shopify/',
+    icon: '♻️',
+    title: 'EPR Packaging Registration',
+    desc: 'Extended Producer Responsibility packaging topics for Germany, France and more.',
+  },
+  {
+    href: '/eu-seller-compliance-checklist/',
+    icon: '✅',
+    title: 'Platform Guides',
+    desc: 'Step-by-step guides for Shopify, Amazon, Etsy and WooCommerce sellers.',
+  },
+  {
+    href: '/tools/eu-seller-compliance-checker/',
+    icon: '🔍',
+    title: 'Free Compliance Checker',
+    desc: 'Free scoping tool to identify which EU topics to review.',
+  },
+  {
+    href: '/request-eu-compliance-quotes/',
+    icon: '💬',
+    title: 'Provider Quote Request',
+    desc: 'Request quotes from qualified EU compliance service providers.',
+  },
+];
+---
+
+<Layout
+  title={routes[0].title}
+  description={routes[0].description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Know what your store needs before selling to the EU.</h1>
+      <p class="hero-sub">
+        GPSR, EU Responsible Person and EPR guidance for ecommerce sellers preparing to sell into Europe.
+      </p>
+      <div class="hero-ctas">
+        <a href={site.primaryCtaHref} class="cta-primary">
+          {site.primaryCtaText}
+        </a>
+        <a href={site.secondaryCtaHref} class="cta-secondary">
+          {site.secondaryCtaText}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Answer -->
+  <div class="container" style="padding-top: 2.5rem;">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        EUReadySeller helps ecommerce sellers identify EU compliance topics to review before selling to EU consumers. It starts with GPSR, EU Responsible Person and EPR packaging. It does not provide legal advice or determine compliance. Use the free checker to scope your situation.
+      </p>
+    </div>
+
+    <!-- AI Summary -->
+    <AISummary summary={site.aiSummary} />
+
+    <!-- Topic Clusters -->
+    <section class="topic-clusters" style="padding-left: 0; padding-right: 0; margin: 0 -1.5rem; padding: 3rem 1.5rem;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 class="section-title">Core Compliance Topics</h2>
+        <div class="clusters-grid">
+          {clusters.map((c) => (
+            <a href={c.href} class="cluster-card">
+              <span class="cluster-icon" aria-hidden="true">{c.icon}</span>
+              <span class="cluster-title">{c.title}</span>
+              <p class="cluster-desc">{c.desc}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Guides -->
+    <section class="section">
+      <h2 class="section-title">Latest Guides</h2>
+      <GuideCard routes={guidePages} heading="" />
+    </section>
+
+    <!-- FAQ -->
+    <FAQBlock faqs={homepageFAQs} />
+
+    <!-- Disclaimer -->
+    <DisclaimerBlock />
+  </div>
+</Layout>
+
+<style>
+  .hero-ctas .cta-primary {
+    background: #ffffff;
+    color: #1e3a5f;
+    font-weight: 700;
+  }
+  .hero-ctas .cta-secondary {
+    border: 2px solid rgba(255,255,255,0.4);
+    color: #ffffff;
+  }
+  .hero-ctas .cta-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    text-decoration: none;
+  }
+</style>

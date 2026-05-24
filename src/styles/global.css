@@ -1,0 +1,368 @@
+/* =====================================================
+   EUReadySeller - Global Styles
+   Mobile-first, fast-loading, clean design
+   ===================================================== */
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #111827;
+  background: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1e3a5f;
+  line-height: 1.3;
+  margin-top: 0;
+}
+
+p {
+  line-height: 1.7;
+  color: #374151;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 600;
+}
+
+/* --- Layout --- */
+main {
+  min-height: calc(100vh - 64px - 300px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+  color: #ffffff;
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #bfdbfe;
+  margin: 0 0 2rem;
+  line-height: 1.6;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.hero-ctas a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.hero-ctas .cta-primary {
+  background: #ffffff;
+  color: #1e3a5f;
+}
+
+.hero-ctas .cta-primary:hover {
+  background: #f0f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  text-decoration: none;
+}
+
+.hero-ctas .cta-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+
+.hero-ctas .cta-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* --- Quick Answer --- */
+.quick-answer {
+  background: #eff6ff;
+  border-left: 4px solid #2563eb;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+}
+
+.quick-answer-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}
+
+.quick-answer p {
+  margin: 0;
+  color: #1e40af;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+/* --- Topic Clusters --- */
+.topic-clusters {
+  padding: 3rem 1.5rem;
+  background: #f9fafb;
+}
+
+.clusters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cluster-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.cluster-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  border-color: #2563eb;
+  text-decoration: none;
+}
+
+.cluster-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.cluster-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1e3a5f;
+}
+
+.cluster-desc {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* --- Content Sections --- */
+.section {
+  padding: 2.5rem 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin: 0 0 1.5rem;
+}
+
+.content-block {
+  margin: 2rem 0;
+}
+
+.content-block h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin: 2rem 0 0.75rem;
+}
+
+.content-block h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e3a5f;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.content-block ul,
+.content-block ol {
+  padding-left: 1.5rem;
+  color: #374151;
+}
+
+.content-block li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* --- Checklist --- */
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  color: #374151;
+}
+
+.checklist-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 0.25rem;
+  margin-top: 0.1rem;
+}
+
+/* --- Mistakes --- */
+.mistakes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.mistake-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+}
+
+.mistake-icon {
+  color: #dc2626;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.mistake-text {
+  font-size: 0.9375rem;
+  color: #991b1b;
+  margin: 0;
+}
+
+/* --- CTA Section --- */
+.cta-section {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+  color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 2.5rem 2rem;
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.cta-section h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.cta-section p {
+  color: #bfdbfe;
+  font-size: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.cta-section-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .hero { padding: 3rem 1rem 2.5rem; }
+  .clusters-grid { grid-template-columns: 1fr 1fr; }
+  .cta-section { padding: 2rem 1rem; }
+}
+
+/* --- Utilities --- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

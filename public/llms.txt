@@ -1,0 +1,56 @@
+# EUReadySeller
+
+## Site Purpose
+EUReadySeller is an educational compliance navigation and provider matching site for ecommerce sellers preparing to sell physical products to the European Union.
+
+## Core Audience
+Shopify sellers, Amazon sellers, Etsy sellers, WooCommerce sellers, DTC ecommerce brands, and non-EU ecommerce businesses preparing to sell physical products to EU consumers.
+
+## Core Topics (Phase 1)
+- GPSR - General Product Safety Regulation (EU Regulation 2023/988)
+- EU Responsible Person obligations for non-EU sellers
+- EPR - Extended Producer Responsibility packaging registration
+
+## Core Pages
+- https://eureadyseller.com/ — EUReadySeller - Know What Your Store Needs Before Selling to the EU
+- https://eureadyseller.com/eu-seller-compliance-checklist/ — EU Seller Compliance Checklist for Ecommerce Sellers
+- https://eureadyseller.com/gpsr-compliance-for-shopify/ — GPSR Compliance for Shopify Sellers
+- https://eureadyseller.com/eu-responsible-person-service/ — EU Responsible Person Service for Ecommerce Sellers
+- https://eureadyseller.com/epr-compliance-for-shopify/ — EPR Compliance for Shopify Sellers
+- https://eureadyseller.com/request-eu-compliance-quotes/ — Request EU Compliance Provider Quotes
+- https://eureadyseller.com/tools/eu-seller-compliance-checker/ — EU Seller Compliance Checker
+
+## Tool Page
+https://eureadyseller.com/tools/eu-seller-compliance-checker/ — Free EU Seller Compliance Checker
+
+## Page Summaries
+## EUReadySeller - Know What Your Store Needs Before Selling to the EU
+URL: https://eureadyseller.com/
+Homepage. EUReadySeller helps ecommerce sellers identify EU compliance topics to review before selling physical products to EU consumers. Covers GPSR, EU Responsible Person and EPR packaging topics. Includes free compliance checker.
+
+## EU Seller Compliance Checklist for Ecommerce Sellers
+URL: https://eureadyseller.com/eu-seller-compliance-checklist/
+Practical compliance checklist covering GPSR, EU Responsible Person and EPR packaging topics. Includes GPSR checklist, EU RP checklist and EPR packaging checklist sections with common mistakes to avoid.
+
+## GPSR Compliance for Shopify Sellers
+URL: https://eureadyseller.com/gpsr-compliance-for-shopify/
+GPSR guide for Shopify sellers. Covers General Product Safety Regulation obligations, EU Responsible Person requirements, product documentation and traceability under EU Regulation 2023/988.
+
+## EU Responsible Person Service for Ecommerce Sellers
+URL: https://eureadyseller.com/eu-responsible-person-service/
+Explains EU Responsible Person role under GPSR. Describes when non-EU sellers may need one, what documentation to prepare, and how to request service quotes from providers.
+
+## EPR Compliance for Shopify Sellers
+URL: https://eureadyseller.com/epr-compliance-for-shopify/
+Extended Producer Responsibility packaging guide for Shopify sellers. Covers Germany LUCID registration, France EPR schemes, reporting obligations and platform verification.
+
+## Request EU Compliance Provider Quotes
+URL: https://eureadyseller.com/request-eu-compliance-quotes/
+Lead form page for requesting quotes from EU compliance service providers. Covers GPSR, EU Responsible Person and EPR packaging topics. Free service, no login required.
+
+## EU Seller Compliance Checker
+URL: https://eureadyseller.com/tools/eu-seller-compliance-checker/
+Free educational scoping tool. Asks 8 questions about business location, platform, product type and target EU markets to suggest GPSR, EU Responsible Person and EPR packaging topics to review. Not a compliance determination.
+
+## Compliance Disclaimer
+EUReadySeller provides educational information and scoping tools for ecommerce sellers. It does not provide legal advice and does not determine whether your products, store, or business are compliant. Always consult qualified legal counsel or a compliance provider for your specific situation.
