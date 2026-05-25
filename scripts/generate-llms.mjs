@@ -39,6 +39,11 @@ const pages = [
     summary: 'GPSR guide for Amazon sellers. Covers EU Responsible Person requirements, product safety information topics, and Amazon listing fields to review before selling to EU consumers.',
   },
   {
+    path: '/gpsr-compliance-for-etsy-sellers/',
+    title: 'GPSR Compliance for Etsy Sellers',
+    summary: 'GPSR guide for Etsy sellers. Covers product safety information topics, EU Responsible Person requirements, manufacturer details and Etsy listing or shop information areas to review before selling to EU consumers.',
+  },
+  {
     path: '/do-i-need-an-eu-responsible-person/',
     title: 'Do I Need an EU Responsible Person?',
     summary: 'Decision guide to help ecommerce sellers understand when EU Responsible Person topics may apply. Covers factors affecting applicability, example scenarios, and decision factors for non-EU sellers preparing to sell to EU consumers.',

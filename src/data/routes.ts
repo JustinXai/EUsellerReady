@@ -144,6 +144,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-25',
     aiSummary: 'Decision guide for ecommerce sellers unsure about EU Responsible Person obligations. Covers when non-EU sellers may need an EU Responsible Person, key decision factors, and example scenarios.',
   },
+  {
+    path: '/gpsr-compliance-for-etsy-sellers/',
+    title: 'GPSR Compliance for Etsy Sellers',
+    description: 'A practical GPSR guide for Etsy sellers reviewing EU Responsible Person, product safety information and listing topics before selling to EU consumers.',
+    h1: 'GPSR Compliance for Etsy Sellers',
+    category: 'platform-guide',
+    priority: '0.8',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-25',
+    aiSummary: 'GPSR guide for Etsy sellers. Covers product safety information topics, EU Responsible Person requirements, manufacturer details and Etsy listing or shop information areas to review before selling to EU consumers. Educational guidance only, not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {

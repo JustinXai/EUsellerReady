@@ -43,6 +43,10 @@ export const officialSources: Record<string, OfficialSource[]> = {
   shopifyGpsr: [
     { title: 'Shopify - EU General Product Safety Regulation (GPSR)', url: 'https://www.shopify.com/blog/gpsr', description: "Shopify's guidance for merchants on preparing for GPSR requirements in the EU." },
   ],
+  etsyGpsr: [
+    { title: 'Etsy - EU GPSR for Sellers', url: 'https://www.etsy.com/uk/seller-handbook/article/understanding-the-gpsr/660584834745', description: "Etsy's official EU GPSR guidance for sellers on the Etsy platform." },
+    { title: 'Etsy Help - Product Safety and Compliance', url: 'https://help.etsy.com/hc/en-gb/sections/360000352367-Product-Safety-and-Compliance', description: "Etsy's help centre section on product safety and compliance topics." },
+  ],
   general: [
     {
       title: 'European Commission - Single Market',

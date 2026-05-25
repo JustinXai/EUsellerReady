@@ -16,6 +16,7 @@ Shopify sellers, Amazon sellers, Etsy sellers, WooCommerce sellers, DTC ecommerc
 - https://eureadyseller.com/eu-seller-compliance-checklist/ — EU Seller Compliance Checklist for Ecommerce Sellers
 - https://eureadyseller.com/gpsr-compliance-for-shopify/ — GPSR Compliance for Shopify Sellers
 - https://eureadyseller.com/gpsr-compliance-for-amazon-sellers/ — GPSR Compliance for Amazon Sellers
+- https://eureadyseller.com/gpsr-compliance-for-etsy-sellers/ — GPSR Compliance for Etsy Sellers
 - https://eureadyseller.com/do-i-need-an-eu-responsible-person/ — Do I Need an EU Responsible Person?
 - https://eureadyseller.com/eu-responsible-person-service/ — EU Responsible Person Service for Ecommerce Sellers
 - https://eureadyseller.com/epr-compliance-for-shopify/ — EPR Compliance for Shopify Sellers
@@ -41,6 +42,10 @@ GPSR guide for Shopify sellers. Covers General Product Safety Regulation obligat
 ## GPSR Compliance for Amazon Sellers
 URL: https://eureadyseller.com/gpsr-compliance-for-amazon-sellers/
 GPSR guide for Amazon sellers. Covers EU Responsible Person requirements, product safety information topics, and Amazon listing fields to review before selling to EU consumers.
+
+## GPSR Compliance for Etsy Sellers
+URL: https://eureadyseller.com/gpsr-compliance-for-etsy-sellers/
+GPSR guide for Etsy sellers. Covers product safety information topics, EU Responsible Person requirements, manufacturer details and Etsy listing or shop information areas to review before selling to EU consumers.
 
 ## Do I Need an EU Responsible Person?
 URL: https://eureadyseller.com/do-i-need-an-eu-responsible-person/
