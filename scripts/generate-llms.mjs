@@ -2,9 +2,11 @@
  * generate-llms.mjs
  * Generates llms.txt to dist/ (Astro copies public/ → dist/, so we write to dist/ directly).
  * Also writes to public/ for consistency.
- * Hardcoded page list — update when new live pages are added.
+ *
+ * Dynamically reads all includeInLlms=true routes from src/data/routes.ts.
+ * No hardcoded page list — new pages are included automatically.
  */
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -17,65 +19,54 @@ const SITE_URL = 'https://eureadyseller.com';
 const SITE_NAME = 'EUReadySeller';
 const DISCLAIMER = 'EUReadySeller provides educational information and scoping tools for ecommerce sellers. It does not provide legal advice and does not determine whether your products, store, or business are compliant. Always consult qualified legal counsel or a compliance provider for your specific situation.';
 
-const pages = [
-  {
-    path: '/',
-    title: 'EUReadySeller - Know What Your Store Needs Before Selling to the EU',
-    summary: 'Homepage. EUReadySeller helps ecommerce sellers identify EU compliance topics to review before selling physical products to EU consumers. Covers GPSR, EU Responsible Person and EPR packaging topics. Includes free compliance checker.',
-  },
-  {
-    path: '/eu-seller-compliance-checklist/',
-    title: 'EU Seller Compliance Checklist for Ecommerce Sellers',
-    summary: 'Practical compliance checklist covering GPSR, EU Responsible Person and EPR packaging topics. Includes GPSR checklist, EU RP checklist and EPR packaging checklist sections with common mistakes to avoid.',
-  },
-  {
-    path: '/gpsr-compliance-for-shopify/',
-    title: 'GPSR Compliance for Shopify Sellers',
-    summary: 'GPSR guide for Shopify sellers. Covers General Product Safety Regulation obligations, EU Responsible Person requirements, product documentation and traceability under EU Regulation 2023/988.',
-  },
-  {
-    path: '/gpsr-compliance-for-amazon-sellers/',
-    title: 'GPSR Compliance for Amazon Sellers',
-    summary: 'GPSR guide for Amazon sellers. Covers EU Responsible Person requirements, product safety information topics, and Amazon listing fields to review before selling to EU consumers.',
-  },
-  {
-    path: '/gpsr-compliance-for-etsy-sellers/',
-    title: 'GPSR Compliance for Etsy Sellers',
-    summary: 'GPSR guide for Etsy sellers. Covers product safety information topics, EU Responsible Person requirements, manufacturer details and Etsy listing or shop information areas to review before selling to EU consumers.',
-  },
-  {
-    path: '/do-i-need-an-eu-responsible-person/',
-    title: 'Do I Need an EU Responsible Person?',
-    summary: 'Decision guide to help ecommerce sellers understand when EU Responsible Person topics may apply. Covers factors affecting applicability, example scenarios, and decision factors for non-EU sellers preparing to sell to EU consumers.',
-  },
-  {
-    path: '/eu-responsible-person-service/',
-    title: 'EU Responsible Person Service for Ecommerce Sellers',
-    summary: 'Explains EU Responsible Person role under GPSR. Describes when non-EU sellers may need one, what documentation to prepare, and how to request service quotes from providers.',
-  },
-  {
-    path: '/epr-compliance-for-shopify/',
-    title: 'EPR Compliance for Shopify Sellers',
-    summary: 'Extended Producer Responsibility packaging guide for Shopify sellers. Covers Germany LUCID registration, France EPR schemes, reporting obligations and platform verification.',
-  },
-  {
-    path: '/request-eu-compliance-quotes/',
-    title: 'Request EU Compliance Provider Quotes',
-    summary: 'Lead form page for requesting quotes from EU compliance service providers. Covers GPSR, EU Responsible Person and EPR packaging topics. Free service, no login required.',
-  },
-  {
-    path: '/tools/eu-seller-compliance-checker/',
-    title: 'EU Seller Compliance Checker',
-    summary: 'Free educational scoping tool. Asks 8 questions about business location, platform, product type and target EU markets to suggest GPSR, EU Responsible Person and EPR packaging topics to review. Not a compliance determination.',
-  },
-];
+// --- Parse routes from routes.ts ---
+function parseRoutes() {
+  const content = readFileSync(resolve(rootDir, 'src/data/routes.ts'), 'utf-8');
+
+  const pathMatches = [...content.matchAll(/path:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  const titleMatches = [...content.matchAll(/title:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  const h1Matches = [...content.matchAll(/h1:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  const descriptionMatches = [...content.matchAll(/description:\s*(['"`])([^'"]+)\1/g)].map(m => m[2]);
+  const aiSummaryMatches = [...content.matchAll(/aiSummary:\s*(['"`])([^'"]+)\1/g)].map(m => m[2]);
+  const categoryMatches = [...content.matchAll(/category:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  const llmsMatches = [...content.matchAll(/includeInLlms:\s*(true|false)/g)].map(m => m[1] === 'true');
+  const lastmodMatches = [...content.matchAll(/lastmod:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+
+  return pathMatches.map((path, i) => ({
+    path,
+    title: titleMatches[i] ?? '',
+    h1: h1Matches[i] ?? '',
+    description: descriptionMatches[i] ?? '',
+    aiSummary: aiSummaryMatches[i] ?? '',
+    category: categoryMatches[i] ?? '',
+    includeInLlms: llmsMatches[i] ?? false,
+    lastmod: lastmodMatches[i] ?? '',
+  }));
+}
 
 function generateLlms() {
-  const pageLines = pages.map(
-    (p) => `## ${p.title}
+  const allRoutes = parseRoutes();
+  const llmsRoutes = allRoutes.filter(r => r.includeInLlms);
+
+  // Sort: home first, then by lastmod descending, then by path
+  const sortedRoutes = [...llmsRoutes].sort((a, b) => {
+    if (a.path === '/') return -1;
+    if (b.path === '/') return 1;
+    if (a.lastmod !== b.lastmod) return (b.lastmod ?? '').localeCompare(a.lastmod ?? '');
+    return a.path.localeCompare(b.path);
+  });
+
+  const pageLines = sortedRoutes.map((p) => {
+    // Use description as summary; fall back to aiSummary or title
+    const summary = p.description || p.aiSummary || p.title;
+    return `## ${p.title}
 URL: ${SITE_URL}${p.path}
-${p.summary}`
-  );
+${summary}`;
+  });
+
+  const corePages = sortedRoutes
+    .filter(r => r.path !== '/tools/eu-seller-compliance-checker/')
+    .map(r => `- ${SITE_URL}${r.path} — ${r.title}`);
 
   const content = `# ${SITE_NAME}
 
@@ -91,7 +82,7 @@ Shopify sellers, Amazon sellers, Etsy sellers, WooCommerce sellers, DTC ecommerc
 - EPR - Extended Producer Responsibility packaging registration
 
 ## Core Pages
-${pages.map((p) => `- ${SITE_URL}${p.path} — ${p.title}`).join('\n')}
+${corePages.join('\n')}
 
 ## Tool Page
 ${SITE_URL}/tools/eu-seller-compliance-checker/ — Free EU Seller Compliance Checker
@@ -100,8 +91,7 @@ ${SITE_URL}/tools/eu-seller-compliance-checker/ — Free EU Seller Compliance Ch
 ${pageLines.join('\n\n')}
 
 ## Compliance Disclaimer
-${DISCLAIMER}
-`;
+${DISCLAIMER}`;
 
   function writeLlms(dir) {
     mkdirSync(dir, { recursive: true });
@@ -111,7 +101,7 @@ ${DISCLAIMER}
   try {
     writeLlms(distDir);
     writeLlms(publicDir);
-    console.log(`✓ llms.txt generated (${pages.length} pages)`);
+    console.log(`✓ llms.txt generated (${sortedRoutes.length} pages)`);
   } catch (e) {
     console.error('Failed to write llms.txt:', e.message);
     process.exit(1);
