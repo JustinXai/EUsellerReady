@@ -1,0 +1,73 @@
+---
+description: EUReadySeller claim safety and safe language rules
+globs:
+  - "src/pages/**/*.astro"
+  - "src/data/**/*.ts"
+  - "scripts/**/*.mjs"
+alwaysApply: true
+---
+
+# EUReadySeller Claim Safety Rules
+
+## Core Principle
+1. **EUReadySeller is educational guidance. It is NOT legal advice.**
+2. EUReadySeller does not determine whether any seller or product is compliant or non-compliant.
+3. The site does not provide legal services and should never be represented as such.
+
+## Prohibited Claims
+The following phrases and concepts are **never permitted** anywhere on the site:
+
+4. "guaranteed compliance" or "guarantees compliance"
+5. "certified compliant" or "compliance certified"
+6. "avoid all fines" or "avoid fines"
+7. "official EU certified" or similar language implying official government endorsement
+8. "this page makes you compliant" or "this guide makes you compliant"
+9. "Amazon will definitely remove listings" or any statement of certainty about enforcement
+10. "this page determines whether you are compliant / non-compliant"
+11. "you are compliant" or "you are not compliant"
+12. "legal advice" (except in the permitted context below)
+13. "legal service" or "legal representation"
+
+## Required Safe Language
+Use these phrases instead:
+
+14. **"may need to review"** — for obligations that could apply
+15. **"topics to prepare"** — for preparation steps
+16. **"requirements may apply"** — for uncertain applicability
+17. **"platform requirements may change"** — for platform-specific guidance
+18. **"check current official guidance"** — for regulatory questions
+19. **"consult qualified legal counsel or compliance provider"** — for professional help
+
+## Required Disclaimer
+Every page that discusses compliance topics MUST include this disclaimer (or equivalent):
+> "This page provides educational guidance and identifies topics to review. It does not constitute legal advice or a compliance determination. Consult qualified legal counsel or a compliance provider for your specific situation."
+
+The disclaimer must:
+- Be clearly visible
+- Appear near the bottom of each compliance content page
+- Never be softened (e.g., "this is not legal advice but..." is not acceptable)
+
+## AI Summary and Snippet Rules
+20. AI summaries must not imply compliance determination.
+21. Snippet answers must include "educational guidance" framing.
+22. Never state "this guide covers all requirements for compliance" in any auto-generated text.
+
+## FAQ Answer Rules
+23. FAQ answers must use "may", "could", "might", "should review", "check" — not "will" or "must" for applicability.
+24. When the answer is uncertain, include: "review official guidance" or "consult a compliance provider".
+
+## External Source Framing
+25. When citing external sources, use: "For official information, review..." not "According to the official regulation, you must..." (since we are not legal counsel).
+
+## Validation
+26. `npm run validate:claims` must pass before every commit.
+27. If `validate:claims` fails, fix the unsafe language before committing.
+28. The claim scanner looks for patterns including: "guarantee", "certified", "avoid all", "official EU", "you are compliant", "this page makes you compliant", "avoid fines", "legal advice" (outside the disclaimer context).
+
+## What to Never Do
+- Determine compliance status for the reader
+- Imply official government endorsement
+- Use enforcement certainty language
+- Soften or remove the required disclaimer
+- Use "legal advice" language outside the required disclaimer framing
+- Skip `npm run validate:claims`

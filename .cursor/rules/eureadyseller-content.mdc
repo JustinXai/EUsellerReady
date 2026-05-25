@@ -1,0 +1,84 @@
+---
+description: EUReadySeller content factory rules for creating and maintaining pages
+globs:
+  - "src/pages/**/*.astro"
+  - "src/data/**/*.ts"
+  - "scripts/**/*.mjs"
+alwaysApply: true
+---
+
+# EUReadySeller Content Factory Rules
+
+## Prerequisite: Roadmap First
+1. **Do NOT create a new public page unless it exists in `src/data/contentRoadmap.ts`.**
+2. Add the page as a `planned` item in `contentRoadmap.ts` with all required Content Factory metadata before creating any files.
+3. Every planned item must include: `categoryId`, `templateId`, `primaryKeyword`, `secondaryKeywords`, `longTailQuestions`, `monetizationPath`, `officialSourceTopics`, and `requiredInternalLinks`.
+
+## Category and Template Mapping
+4. Every new page must map to a valid `categoryId` defined in `src/data/contentTaxonomy.ts`.
+5. Every new page must use a `templateId` defined in `src/data/pageTemplates.ts`.
+6. Use the `npm run page:create -- <slug>` command to scaffold a new page from the roadmap template.
+
+## Routes Registration
+7. Every new page must be registered in `src/data/routes.ts` with: `path`, `title`, `description`, `h1`, `category`, `priority`, `changefreq`, `includeInSitemap`, `includeInLlms`, `lastmod`, and `aiSummary`.
+8. Do NOT create a page file without adding the route to `routes.ts`.
+
+## Lifecycle: Planned Before Live
+9. A page must be `status: "planned"` in `contentRoadmap.ts` before scaffolding.
+10. Change the status from `planned` to `live` only after the page is complete and verified.
+11. Never make a live route public without a corresponding `contentRoadmap.ts` entry with `status: "live"`.
+
+## Source of Truth
+12. **Never hardcode page lists** in any generator or validation script.
+13. Use `src/data/routes.ts` and `src/data/contentRoadmap.ts` as the authoritative source of truth.
+14. Scripts that read pages must parse `routes.ts` or `contentRoadmap.ts` dynamically, not use hardcoded arrays.
+
+## Required Page Sections
+Every page must include ALL of the following:
+
+15. **Quick Answer** — 2-4 sentences answering the searcher's question directly.
+16. **AI Summary** — 3-5 sentences suitable for AI search snippets. Include primary keyword and clear topic description.
+17. **FAQ** — Minimum 5 questions covering primary keywords and common confusion points. Use safe language.
+18. **Official Sources** — Minimum 2 relevant official sources from `src/data/officialSources.ts` (or added to it).
+19. **Disclaimer** — Must state: "This page provides educational guidance and identifies topics to review. It does not constitute legal advice." Never soften or remove the disclaimer.
+20. **CTA** — Primary CTA (EU Seller Compliance Checker) and Secondary CTA (message form). Do not remove either CTA.
+21. **Related Guides** — Internal links to at least 3 relevant pages using `requiredInternalLinks` from the roadmap.
+
+## Safe Compliance Language
+22. Use cautious, conditional language: "may need to review", "topics to prepare", "requirements may apply", "platform guidance may change".
+23. **NEVER** use these phrases:
+    - "guaranteed compliance" / "guarantees compliance"
+    - "certified compliant" / "compliance certified"
+    - "avoid all fines" / "avoid fines"
+    - "official EU certified"
+    - "this page makes you compliant"
+    - "Amazon will definitely remove listings"
+    - any statement that determines whether the reader is compliant or non-compliant
+24. **Always** include "not legal advice" framing where compliance topics are discussed.
+25. When uncertain, use: "check current official guidance" or "consult qualified legal counsel or compliance provider".
+
+## Deployment Safety
+26. **Run `npm run verify` before every commit.** Do not skip any validation step.
+27. **Run `npm run external:smoke` after every deployment.** Do not skip smoke tests.
+28. If any verification step fails, fix the issue before committing.
+
+## File Naming
+29. Page files must be named: `src/pages/<slug>.astro` where `<slug>` matches the path segment in `routes.ts`.
+30. Use hyphenated lowercase slugs matching the route path (e.g., `gpsr-compliance-for-amazon-sellers.astro`).
+
+## Content Factory Metadata
+31. All Content Factory metadata fields must be kept up to date in `contentRoadmap.ts`:
+    - `primaryKeyword` must appear in SEO title, H1, and meta description
+    - `secondaryKeywords` should appear naturally in body content
+    - `longTailQuestions` should be answered by FAQ items
+    - `officialSourceTopics` must have corresponding entries in `src/data/officialSources.ts`
+    - `requiredInternalLinks` must have working internal links on the page
+
+## What to Never Do
+- Create a page not in the roadmap
+- Hardcode page lists in generator or validation scripts
+- Bypass `routes.ts` by creating pages without routes
+- Skip official sources section
+- Skip disclaimer or CTA
+- Skip running `npm run verify`
+- Use unsafe compliance claims

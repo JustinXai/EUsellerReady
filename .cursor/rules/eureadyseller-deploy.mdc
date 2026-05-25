@@ -1,0 +1,49 @@
+---
+description: EUReadySeller deployment safety rules
+globs:
+  - "scripts/**/*.mjs"
+  - "scripts/**/*.sh"
+  - "package.json"
+alwaysApply: true
+---
+
+# EUReadySeller Deployment Safety Rules
+
+## Working Directory
+1. **Only edit files inside `/opt/eureadyseller/repo/`** (the git working directory).
+2. **Never directly edit `/opt/eureadyseller/current/`**, `/opt/eureadyseller/releases/*/`, or any generated symlink target.
+3. All changes must be committed and pushed to GitHub before deployment.
+
+## Deployment Command
+4. **Always use `/opt/eureadyseller/deploy.sh`** to deploy. Never manually copy files, change symlinks, or reload Caddy.
+5. The `deploy.sh` script handles: git pull, npm install, build, quality gate, release creation, symlink switching, Caddy reload, and smoke tests.
+6. Never bypass the deployment script unless in a documented emergency.
+
+## Pre-Deployment Checklist
+7. **Commit and push all changes to `origin/main`** before running `deploy.sh`.
+8. **Ensure the working tree is clean** before deploying. The script will refuse a dirty tree.
+9. Ensure all unpushed commits are pushed — the script checks for unpushed work.
+10. Ensure GitHub Quality Gate (GitHub Actions workflow) has passed for the latest commit.
+
+## GitHub Quality Gate
+11. **Do not bypass the GitHub Quality Gate** except in a documented emergency.
+12. To skip CI wait, set `SKIP_GITHUB_CI_WAIT=1` before running `deploy.sh`.
+13. Monitor the workflow at: `https://github.com/JustinXai/EUsellerReady/actions`
+
+## Post-Deployment
+14. **Run `npm run external:smoke`** after deployment to verify the live site.
+15. If external smoke fails, the `deploy.sh` script will automatically rollback to the previous release.
+16. After rollback, fix the issue in the repo, commit, push, and run `deploy.sh` again.
+
+## Rollback
+17. **Never manually revert the `current` symlink.** Let `deploy.sh` handle it.
+18. Previous releases are preserved under `/opt/eureadyseller/releases/`. The most recent two are kept.
+
+## What to Never Do
+- Edit files in `/opt/eureadyseller/current/` or `/opt/eureadyseller/releases/*/`
+- Manually run `astro build` and copy `dist/` to the server
+- Manually run `sudo ln -sfn` to switch symlinks
+- Manually run `sudo systemctl reload caddy`
+- Bypass the GitHub Quality Gate without documented justification
+- Deploy with a dirty working tree
+- Skip `npm run verify` before committing

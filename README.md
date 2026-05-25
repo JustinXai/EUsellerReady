@@ -562,6 +562,56 @@ ls -lt /opt/eureadyseller/releases/
 
 ---
 
-## 25. Next Recommended Prompt
+## 25. Page Factory
+
+EUReadySeller uses a **Page Factory** system to ensure every new page is created consistently with SEO, GEO, Content Factory, and deployment rules.
+
+### Page Factory Commands
+
+```bash
+# Scaffold a new page from the roadmap
+npm run page:create -- <slug>
+
+# Example
+npm run page:create -- germany-epr-packaging-registration
+```
+
+### Page Factory Validation
+
+```bash
+# Validate page template sections (required sections from pageTemplates.ts)
+npm run validate:page-template
+
+# Check no hardcoded page lists in scripts
+npm run validate:no-hardcoded-pages
+
+# Check official source topics and page sections
+npm run validate:official-sources
+```
+
+### How to Add a New Page
+
+1. Add a `planned` item to `src/data/contentRoadmap.ts`
+2. Run `npm run page:create -- <slug>` to scaffold the page
+3. Fill in the TODO sections with researched content
+4. Add FAQ data to `src/data/faq.ts`
+5. Ensure official sources exist in `src/data/officialSources.ts`
+6. Add the route to `src/data/routes.ts`
+7. Change contentRoadmap status from `"planned"` to `"live"`
+8. Run `npm run verify`
+9. Commit and push
+10. Deploy with `/opt/eureadyseller/deploy.sh`
+
+### Cursor Rules
+
+The `.cursor/rules/` directory contains AI agent rules that prevent common mistakes:
+
+- `.cursor/rules/eureadyseller-content.mdc` — Content Factory rules (roadmap-first, required sections, safe language)
+- `.cursor/rules/eureadyseller-deploy.mdc` — Deployment safety rules (never edit current/, use deploy.sh)
+- `.cursor/rules/eureadyseller-claims.mdc` — Claim safety rules (no guaranteed compliance, required disclaimer)
+
+---
+
+## 26. Next Recommended Prompt
 
 > "Add Google Analytics 4 integration, create a Google Search Console verification meta tag, and set up an uptime monitoring cron job on the server."
