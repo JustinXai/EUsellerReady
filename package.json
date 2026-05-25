@@ -16,9 +16,12 @@
     "validate:links": "node scripts/validate-links.mjs",
     "validate:schema": "node scripts/validate-schema.mjs",
     "validate:robots": "node scripts/validate-robots.mjs",
+    "validate:artifacts": "node scripts/validate-artifacts.mjs",
     "report": "node scripts/build-report.mjs",
-    "verify": "npm run build && npm run validate:routes && npm run validate:seo && npm run validate:claims && npm run validate:links && npm run validate:schema && npm run validate:robots && npm run report",
-    "external:smoke": "node scripts/external-smoke.mjs"
+    "verify": "npm run build && npm run validate:routes && npm run validate:seo && npm run validate:claims && npm run validate:links && npm run validate:schema && npm run validate:robots && npm run validate:artifacts && npm run report",
+    "external:smoke": "node scripts/external-smoke.mjs",
+    "ci:wait": "node scripts/wait-github-ci.mjs",
+    "external:github": "node scripts/trigger-github-external-smoke.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0"

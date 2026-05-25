@@ -1,0 +1,260 @@
+#!/usr/bin/env bash
+# =============================================================================
+# EUReadySeller Deploy Script
+#
+# One-command deployment: pulls latest, builds, waits GitHub CI, deploys,
+# runs smoke tests, and optionally triggers GitHub-hosted external smoke.
+#
+# Usage:
+#   /opt/eureadyseller/deploy.sh
+#
+# Optional environment variables:
+#   SKIP_GITHUB_CI_WAIT=1          — skip waiting for GitHub Quality Gate
+#   RUN_GITHUB_EXTERNAL_SMOKE=1   — trigger GitHub-hosted external smoke
+#
+# Server-side config (optional):
+#   /opt/eureadyseller/deploy.env  — loaded automatically if present
+# =============================================================================
+
+set -euo pipefail
+
+APP_DIR="/opt/eureadyseller"
+REPO_DIR="$APP_DIR/repo"
+RELEASES_DIR="$APP_DIR/releases"
+CURRENT_LINK="$APP_DIR/current"
+
+# Load optional deploy.env (must not be in Git)
+if [ -f "$APP_DIR/deploy.env" ]; then
+  set -a
+  . "$APP_DIR/deploy.env"
+  set +a
+fi
+
+cd "$REPO_DIR"
+
+# =============================================================================
+# Step 1: Check working tree is clean
+# =============================================================================
+echo ""
+echo "==> Step 1: Check working tree"
+if [ -n "$(git status --porcelain)" ]; then
+  echo "❌ Working tree is dirty. Commit and push first."
+  exit 1
+fi
+echo "✅ Working tree is clean"
+
+# =============================================================================
+# Step 2: Check upstream branch exists
+# =============================================================================
+echo ""
+echo "==> Step 2: Check upstream branch"
+if ! git rev-parse --abbrev-ref --symbolic-full-name @{u} > /dev/null 2>&1; then
+  echo "⚠️  No upstream branch configured. Run: git push -u origin main"
+  exit 1
+fi
+echo "✅ Upstream branch exists"
+
+# =============================================================================
+# Step 3: Check local commits are pushed and local is not behind origin
+# =============================================================================
+echo ""
+echo "==> Step 3: Check unpushed / behind commits"
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse @{u})
+BASE=$(git merge-base @ @{u})
+
+if [ "$LOCAL" != "$REMOTE" ]; then
+  if [ "$LOCAL" != "$BASE" ]; then
+    echo "❌ Local branch has commits not pushed to origin/main."
+    echo "    Run: git push origin main"
+    exit 1
+  fi
+  if [ "$REMOTE" != "$BASE" ]; then
+    echo "❌ Local branch is behind origin/main."
+    echo "    Run: git pull --ff-only"
+    exit 1
+  fi
+fi
+echo "✅ All commits pushed to origin/main"
+
+# =============================================================================
+# Step 4: Pull latest code from origin/main
+# =============================================================================
+echo ""
+echo "==> Step 4: Pull latest code"
+git fetch origin
+git reset --hard origin/main
+COMMIT_SHA=$(git rev-parse --short HEAD)
+echo "✅ Pulled $(git rev-parse --short HEAD)"
+
+# =============================================================================
+# Step 5: Install dependencies
+# =============================================================================
+echo ""
+echo "==> Step 5: Install dependencies"
+npm install
+echo "✅ Dependencies installed"
+
+# =============================================================================
+# Step 6: Run local quality gate (npm run verify)
+# =============================================================================
+echo ""
+echo "==> Step 6: Run local quality gate"
+npm run verify
+echo "✅ Local quality gate passed"
+
+# =============================================================================
+# Step 7: Wait for GitHub Quality Gate
+# =============================================================================
+echo ""
+echo "==> Step 7: Wait for GitHub Quality Gate"
+if [ "${SKIP_GITHUB_CI_WAIT:-0}" = "1" ]; then
+  echo "⚠️  Skipping GitHub CI wait (SKIP_GITHUB_CI_WAIT=1)"
+else
+  echo "⏳ Waiting for GitHub Quality Gate to pass..."
+  echo "    If you want to skip this, set SKIP_GITHUB_CI_WAIT=1"
+  echo ""
+  if ! npm run ci:wait; then
+    echo ""
+    echo "❌ GitHub Quality Gate failed or timed out."
+    echo "    Fix the failing checks in GitHub Actions before deploying."
+    exit 1
+  fi
+fi
+
+# Capture previous release before deploying (for rollback)
+PREVIOUS_RELEASE=""
+if [ -L "$CURRENT_LINK" ] && [ -e "$CURRENT_LINK" ]; then
+  PREVIOUS_RELEASE=$(readlink -f "$CURRENT_LINK")
+  echo "Previous release: $PREVIOUS_RELEASE"
+fi
+
+# =============================================================================
+# Step 8: Create release
+# =============================================================================
+echo ""
+echo "==> Step 8: Create release"
+RELEASE_ID=$(date +%Y%m%d-%H%M%S)
+RELEASE_DIR="$RELEASES_DIR/$RELEASE_ID"
+mkdir -p "$RELEASE_DIR"
+cp -r dist/* "$RELEASE_DIR/"
+echo "✅ Release created: $RELEASE_ID"
+
+# =============================================================================
+# Step 9: Switch current symlink
+# =============================================================================
+echo ""
+echo "==> Step 9: Switch current symlink"
+ln -sfn "$RELEASE_DIR" "$CURRENT_LINK"
+echo "✅ Symlink switched to $RELEASE_DIR"
+
+# =============================================================================
+# Step 10: Reload Caddy
+# =============================================================================
+echo ""
+echo "==> Step 10: Reload Caddy"
+if sudo systemctl reload caddy; then
+  echo "✅ Caddy reloaded"
+else
+  echo "⚠️  Caddy reload failed (may need manual attention)"
+fi
+
+# =============================================================================
+# Step 11: Restart Message API if installed
+# =============================================================================
+echo ""
+echo "==> Step 11: Restart Message API"
+if systemctl list-unit-files | grep -q "eureadyseller-message-api.service"; then
+  if sudo systemctl restart eureadyseller-message-api; then
+    sleep 2
+    if systemctl is-active --quiet eureadyseller-message-api; then
+      echo "✅ Message API restarted"
+    else
+      echo "⚠️  Message API restarted but not responding"
+    fi
+  else
+    echo "⚠️  Message API restart failed"
+  fi
+else
+  echo "ℹ️  Message API service not installed; skipping"
+fi
+
+# =============================================================================
+# Step 12: Local smoke tests (curl checks)
+# =============================================================================
+echo ""
+echo "==> Step 12: Local smoke tests"
+SMOKE_URLS=(
+  "https://eureadyseller.com"
+  "https://eureadyseller.com/sitemap.xml"
+  "https://eureadyseller.com/llms.txt"
+  "https://eureadyseller.com/robots.txt"
+  "https://eureadyseller.com/tools/eu-seller-compliance-checker/"
+)
+SMOKE_FAILED=0
+for smoke_url in "${SMOKE_URLS[@]}"; do
+  if curl -s -o /dev/null -w "%{http_code}" --connect-timeout 10 "$smoke_url" | grep -q "200"; then
+    echo "✅ $smoke_url"
+  else
+    echo "❌ $smoke_url"
+    SMOKE_FAILED=1
+  fi
+done
+
+# =============================================================================
+# Step 13: Server-side external smoke test
+# =============================================================================
+echo ""
+echo "==> Step 13: Server-side external smoke test"
+if ! npm run external:smoke; then
+  echo ""
+  echo "❌ Server-side external smoke failed"
+  echo "    Rolling back to previous release..."
+
+  # Rollback
+  if [ -n "$PREVIOUS_RELEASE" ] && [ -d "$PREVIOUS_RELEASE" ]; then
+    ln -sfn "$PREVIOUS_RELEASE" "$CURRENT_LINK"
+    sudo systemctl reload caddy
+    echo "✅ Rolled back to: $PREVIOUS_RELEASE"
+  else
+    echo "⚠️  No previous release found; manual intervention may be needed"
+  fi
+
+  echo ""
+  echo "❌ Deploy aborted. Check the site at https://eureadyseller.com"
+  exit 1
+fi
+echo "✅ Server-side external smoke passed"
+
+# =============================================================================
+# Step 14: Optional GitHub-hosted external smoke
+# =============================================================================
+echo ""
+echo "==> Step 14: Optional GitHub-hosted external smoke"
+if [ "${RUN_GITHUB_EXTERNAL_SMOKE:-0}" = "1" ]; then
+  echo "⏳ Triggering GitHub-hosted external smoke..."
+  if ! npm run external:github; then
+    echo "❌ GitHub-hosted external smoke failed"
+    exit 1
+  fi
+else
+  echo "ℹ️  GitHub-hosted external smoke not triggered."
+  echo "    To enable, run: RUN_GITHUB_EXTERNAL_SMOKE=1 /opt/eureadyseller/deploy.sh"
+fi
+
+# =============================================================================
+# Step 15: Deploy summary
+# =============================================================================
+echo ""
+echo "======================================================================"
+echo "✅ DEPLOY COMPLETE"
+echo "======================================================================"
+echo "  Release ID:       $RELEASE_ID"
+echo "  Commit SHA:       $COMMIT_SHA"
+echo "  Current link:     $(readlink $CURRENT_LINK)"
+if [ -n "$PREVIOUS_RELEASE" ]; then
+  echo "  Previous link:   $PREVIOUS_RELEASE"
+fi
+echo "  Site URL:         https://eureadyseller.com"
+echo "======================================================================"
+echo ""

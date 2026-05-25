@@ -335,6 +335,233 @@ Push to `main` branch triggers:
 
 ---
 
-## 13. Next Recommended Prompt
+## 14. One-Command Deployment
 
-> "Add Google Analytics 4 integration, create a GitHub Actions workflow for CI/CD deployment to a VPS, add a contact email setup with Resend or SendGrid for the lead form, create a Google Search Console verification meta tag, and set up structured data testing in the CI pipeline."
+From the server, a single command handles everything: git checks, build, GitHub CI gate, release creation, Caddy reload, smoke tests, and optional GitHub-hosted external smoke.
+
+```bash
+/opt/eureadyseller/deploy.sh
+```
+
+**What it does automatically:**
+
+| Step | Action |
+|------|--------|
+| 1 | Check working tree is clean |
+| 2 | Confirm upstream branch exists |
+| 3 | Confirm all local commits are pushed to origin/main |
+| 4 | Pull latest from origin/main (`git reset --hard origin/main`) |
+| 5 | `npm install` |
+| 6 | `npm run verify` (local quality gate) |
+| 7 | Wait for GitHub Quality Gate to pass (polls GitHub Actions) |
+| 8 | Capture previous release path (for rollback) |
+| 9 | Create timestamped release directory under `$APP_DIR/releases/` |
+| 10 | Copy `dist/` to new release |
+| 11 | Switch `current` symlink to new release |
+| 12 | `sudo systemctl reload caddy` |
+| 13 | Restart `eureadyseller-message-api` if installed |
+| 14 | curl smoke tests on 5 key URLs |
+| 15 | `npm run external:smoke` (checks live site — **auto-rollback on failure**) |
+| 16 | Optionally trigger GitHub-hosted external smoke |
+
+**Skip GitHub CI wait** (e.g., GitHub is down):
+
+```bash
+SKIP_GITHUB_CI_WAIT=1 /opt/eureadyseller/deploy.sh
+```
+
+---
+
+## Deployment Safety Rules
+
+1. **GitHub origin/main is the only source of truth.**
+   Never edit files directly on the server and deploy from there. All changes must go through GitHub.
+
+2. **Server requires a GitHub Deploy Key to push.**
+   If you ever need to push from the server, configure a read-only Deploy Key. The `deploy.sh` script never pushes — it only pulls.
+
+3. **External smoke failure triggers automatic rollback.**
+   If `npm run external:smoke` fails, `deploy.sh` restores the previous release automatically. The live site is never left broken.
+
+4. **Never deploy unpushed code.**
+   The `deploy.sh` script blocks deployment if local branch has commits not pushed to origin/main.
+
+5. **All quality gates must pass before deploying.**
+   Do not routinely use `SKIP_GITHUB_CI_WAIT=1` — only in emergencies.
+
+---
+
+## 15. Optional GitHub-Hosted External Smoke
+
+By default, `deploy.sh` runs `external:smoke` from the server. To also trigger a GitHub Actions external smoke workflow (runs from GitHub's infrastructure, simulating a real user):
+
+1. Create `/opt/eureadyseller/deploy.env` on the server:
+
+```bash
+sudo nano /opt/eureadyseller/deploy.env
+```
+
+2. Add your GitHub Personal Access Token:
+
+```bash
+GITHUB_TOKEN=ghp_your_token_here
+```
+
+3. Run deploy with the flag:
+
+```bash
+RUN_GITHUB_EXTERNAL_SMOKE=1 /opt/eureadyseller/deploy.sh
+```
+
+**Token requirements:**
+- `Actions: read/write` — needed for `workflow_dispatch`
+- `Contents: read` — for higher API rate limits
+- `Metadata: read` — always included
+
+**Security:** The token stays only on the server (`/opt/eureadyseller/deploy.env`). It is gitignored and never committed to the repository.
+
+---
+
+## 16. GitHub CI Token Requirements
+
+If you only need `deploy.sh` to **wait** for the GitHub Quality Gate:
+
+- **Public repo:** No token needed for read-only API access (60 req/hr limit).
+- **Private repo or rate limited:** Set `GITHUB_TOKEN` in `deploy.env`.
+
+If you also need `deploy.sh` to **trigger** GitHub-hosted external smoke:
+
+- **Token required.** See Section 15 above.
+
+---
+
+## 17. Environment Variables
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `GITHUB_REPOSITORY` | `JustinXai/EUsellerReady` | GitHub repo slug |
+| `GITHUB_CI_WORKFLOW_NAME` | `EUReadySeller Quality Gate` | Workflow name to wait for |
+| `GITHUB_EXTERNAL_SMOKE_WORKFLOW` | `external-smoke.yml` | Workflow file for GitHub external smoke |
+| `SITE_URL` | `https://eureadyseller.com` | Live site URL |
+| `SKIP_GITHUB_CI_WAIT` | `0` | Set to `1` to skip CI wait |
+| `RUN_GITHUB_EXTERNAL_SMOKE` | `0` | Set to `1` to trigger GitHub external smoke |
+| `GITHUB_TOKEN` | _(empty)_ | GitHub PAT (optional for CI wait, required for trigger) |
+| `GITHUB_CI_TIMEOUT_SECONDS` | `600` | Max wait time for CI gate (seconds) |
+| `GITHUB_EXTERNAL_SMOKE_TIMEOUT_SECONDS` | `600` | Max wait time for GitHub external smoke (seconds) |
+
+See `deploy.env.example` for the full template.
+
+---
+
+## 18. Server-Side Script Setup
+
+On the server, copy the deploy script template to the right location:
+
+```bash
+sudo cp /opt/eureadyseller/repo/scripts/deploy.sh.template /opt/eureadyseller/deploy.sh
+sudo chmod +x /opt/eureadyseller/deploy.sh
+```
+
+Optional: create `deploy.env` for GitHub integration:
+
+```bash
+sudo nano /opt/eureadyseller/deploy.env
+# Add GITHUB_TOKEN=ghp_your_token if needed
+```
+
+---
+
+## 19. Rollback
+
+If a deploy fails or the site breaks:
+
+```bash
+# List releases (oldest last)
+ls -lt /opt/eureadyseller/releases/
+
+# Switch back to a previous release
+RELEASE_ID="20260524-120000"
+sudo ln -sfn "/opt/eureadyseller/releases/$RELEASE_ID" /opt/eureadyseller/current
+sudo systemctl reload caddy
+```
+
+---
+
+## 20. Common Deployment Failures
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `Working tree is dirty` | Uncommitted changes on server | `git add . && git commit` or `git stash` |
+| `Local branch has commits not pushed` | Server has unpushed commits | `git push origin main` before deploying |
+| `Local branch is behind origin` | origin/main has new commits | `git pull --ff-only` |
+| `GitHub Quality Gate failed` | CI checks failing on GitHub | Fix the failing checks, push again |
+| `External smoke failed` | Site serving wrong content or missing files | `current` symlink auto-restored to previous release. Check `current` symlink, verify Caddy config |
+| `Caddy reload failed` | Caddy misconfigured | `sudo journalctl -u caddy -n 50` |
+| `Message API restart failed` | Service misconfigured | `sudo journalctl -u eureadyseller-message-api -n 50` |
+
+---
+
+## 21. GitHub Token Security
+
+- **Never commit `deploy.env`** — it is in `.gitignore`
+- **Never put a real token in Git** — not in GitHub Actions secrets (unless intentional), not in any committed file
+- **Token location:** Server-only file at `/opt/eureadyseller/deploy.env`
+- **Token scope:** Minimal — only `Actions: read/write` and `Contents: read` needed
+
+---
+
+## 22. New npm Scripts Added
+
+| Script | Command | Purpose |
+|--------|---------|---------|
+| `npm run ci:wait` | `node scripts/wait-github-ci.mjs` | Wait for GitHub Quality Gate |
+| `npm run external:github` | `node scripts/trigger-github-external-smoke.mjs` | Trigger GitHub external smoke workflow |
+| `npm run validate:artifacts` | `node scripts/validate-artifacts.mjs` | Validate dist/robots.txt, sitemap.xml, llms.txt |
+
+`ci:wait` and `external:github` are NOT part of `verify`. They are deployment-time tools.
+`validate:artifacts` IS part of `verify` — it checks the built artifacts are correct.
+
+---
+
+## 23. Monitoring & Observability
+
+After a deploy, check the live site:
+
+```bash
+# Check HTTP status of key pages
+curl -s -o /dev/null -w "%{http_code}" https://eureadyseller.com
+curl -s -o /dev/null -w "%{http_code}" https://eureadyseller.com/sitemap.xml
+
+# Check Caddy logs
+sudo journalctl -u caddy -n 20 --no-pager
+
+# Check Message API
+curl http://127.0.0.1:8787/health
+
+# View current release
+readlink /opt/eureadyseller/current
+
+# List all releases
+ls -lt /opt/eureadyseller/releases/
+```
+
+---
+
+## 24. Known Limitations (Updated)
+
+1. **Lead form has no backend** — Form shows mailto fallback and "backend coming soon" notice. No database, no email service, no CRM.
+2. **No analytics** — No Google Analytics, Search Console, or tracking pixels configured.
+3. **No image optimization** — No image processing pipeline or CDN.
+4. **Static sitemap generation** — sitemap.xml is generated at build time; needs rebuilding if pages are added.
+5. **No A/B testing** — No experimentation framework.
+6. **English only** — No i18n or localization support.
+7. **No dark mode** — Single color scheme only.
+8. **FAQ data duplication** — FAQ arrays are duplicated across pages; could be consolidated.
+9. **Interactive checker** — Client-side JS only; no server-side persistence or result sharing.
+10. **GitHub API rate limit** — Without `GITHUB_TOKEN`, CI wait polls at 60 req/hr. Fine for occasional deploys; consider token for heavy use.
+
+---
+
+## 25. Next Recommended Prompt
+
+> "Add Google Analytics 4 integration, create a Google Search Console verification meta tag, and set up an uptime monitoring cron job on the server."

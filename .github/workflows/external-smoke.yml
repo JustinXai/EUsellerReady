@@ -1,0 +1,40 @@
+name: EUReadySeller External Smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'Site URL to smoke test'
+        required: true
+        default: 'https://eureadyseller.com'
+        type: string
+  schedule:
+    # Run daily at 06:00 UTC — catches any late-night deploy regressions
+    - cron: '0 6 * * *'
+
+jobs:
+  external-smoke:
+    name: External Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Run external smoke tests
+        run: npm run external:smoke
+        env:
+          SITE_URL: ${{ inputs.site_url || 'https://eureadyseller.com' }}
