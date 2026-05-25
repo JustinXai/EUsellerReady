@@ -5,7 +5,7 @@
   "description": "EUReadySeller - EU Compliance Guidance for Ecommerce Sellers",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npm run generate:sitemap && npm run generate:robots && npm run generate:llms",
+    "build": "npm run generate:sitemap && npm run generate:robots && npm run generate:llms && astro build",
     "preview": "astro preview",
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "generate:robots": "node scripts/generate-robots.mjs",
@@ -15,8 +15,10 @@
     "validate:claims": "node scripts/validate-claims.mjs",
     "validate:links": "node scripts/validate-links.mjs",
     "validate:schema": "node scripts/validate-schema.mjs",
+    "validate:robots": "node scripts/validate-robots.mjs",
     "report": "node scripts/build-report.mjs",
-    "verify": "npm run build && npm run validate:routes && npm run validate:seo && npm run validate:claims && npm run validate:links && npm run validate:schema && npm run report"
+    "verify": "npm run build && npm run validate:routes && npm run validate:seo && npm run validate:claims && npm run validate:links && npm run validate:schema && npm run validate:robots && npm run report",
+    "external:smoke": "node scripts/external-smoke.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0"

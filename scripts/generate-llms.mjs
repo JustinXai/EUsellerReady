@@ -1,6 +1,8 @@
 /**
  * generate-llms.mjs
- * Generates public/llms.txt — AI-readable site summary for LLMs and crawlers.
+ * Generates llms.txt to dist/ (Astro copies public/ → dist/, so we write to dist/ directly).
+ * Also writes to public/ for consistency.
+ * Hardcoded page list — update when new live pages are added.
  */
 import { writeFileSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
@@ -8,11 +10,12 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(__dirname, '..');
+const distDir = resolve(rootDir, 'dist');
 const publicDir = resolve(rootDir, 'public');
 
 const SITE_URL = 'https://eureadyseller.com';
 const SITE_NAME = 'EUReadySeller';
-const DISLAIMER = 'EUReadySeller provides educational information and scoping tools for ecommerce sellers. It does not provide legal advice and does not determine whether your products, store, or business are compliant. Always consult qualified legal counsel or a compliance provider for your specific situation.';
+const DISCLAIMER = 'EUReadySeller provides educational information and scoping tools for ecommerce sellers. It does not provide legal advice and does not determine whether your products, store, or business are compliant. Always consult qualified legal counsel or a compliance provider for your specific situation.';
 
 const pages = [
   {
@@ -29,6 +32,16 @@ const pages = [
     path: '/gpsr-compliance-for-shopify/',
     title: 'GPSR Compliance for Shopify Sellers',
     summary: 'GPSR guide for Shopify sellers. Covers General Product Safety Regulation obligations, EU Responsible Person requirements, product documentation and traceability under EU Regulation 2023/988.',
+  },
+  {
+    path: '/gpsr-compliance-for-amazon-sellers/',
+    title: 'GPSR Compliance for Amazon Sellers',
+    summary: 'GPSR guide for Amazon sellers. Covers EU Responsible Person requirements, product safety information topics, and Amazon listing fields to review before selling to EU consumers.',
+  },
+  {
+    path: '/do-i-need-an-eu-responsible-person/',
+    title: 'Do I Need an EU Responsible Person?',
+    summary: 'Decision guide to help ecommerce sellers understand when EU Responsible Person topics may apply. Covers factors affecting applicability, example scenarios, and decision factors for non-EU sellers preparing to sell to EU consumers.',
   },
   {
     path: '/eu-responsible-person-service/',
@@ -53,13 +66,11 @@ const pages = [
 ];
 
 function generateLlms() {
-  const pageLines = pages
-    .filter((p) => p.path === '/' || p.includeInLlms !== false)
-    .map(
-      (p) => `## ${p.title}
+  const pageLines = pages.map(
+    (p) => `## ${p.title}
 URL: ${SITE_URL}${p.path}
 ${p.summary}`
-    );
+  );
 
   const content = `# ${SITE_NAME}
 
@@ -84,12 +95,17 @@ ${SITE_URL}/tools/eu-seller-compliance-checker/ — Free EU Seller Compliance Ch
 ${pageLines.join('\n\n')}
 
 ## Compliance Disclaimer
-${DISLAIMER}
+${DISCLAIMER}
 `;
 
+  function writeLlms(dir) {
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(resolve(dir, 'llms.txt'), content, 'utf-8');
+  }
+
   try {
-    mkdirSync(publicDir, { recursive: true });
-    writeFileSync(resolve(publicDir, 'llms.txt'), content, 'utf-8');
+    writeLlms(distDir);
+    writeLlms(publicDir);
     console.log(`✓ llms.txt generated (${pages.length} pages)`);
   } catch (e) {
     console.error('Failed to write llms.txt:', e.message);

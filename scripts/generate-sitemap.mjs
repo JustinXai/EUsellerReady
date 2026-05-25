@@ -1,7 +1,8 @@
 /**
  * generate-sitemap.mjs
- * Generates public/sitemap.xml from src/data/routes.ts
- * Parses routes statically to avoid TypeScript import issues.
+ * Generates sitemap.xml to dist/ (Astro copies public/ → dist/, so we write to dist/ directly).
+ * Also writes to public/ for consistency.
+ * Reads from src/data/routes.ts via static parsing.
  */
 import { writeFileSync, mkdirSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
@@ -9,6 +10,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(__dirname, '..');
+const distDir = resolve(rootDir, 'dist');
 const publicDir = resolve(rootDir, 'public');
 const SITE_URL = 'https://eureadyseller.com';
 
@@ -17,8 +19,8 @@ function parseRoutesFromFile() {
 
   const pathMatches = [...content.matchAll(/path:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
   const lastmodMatches = [...content.matchAll(/lastmod:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
-  const priorityMatches = [...content.matchAll(/priority:\s*['"]([^言'"]+)['"]/g)].map(m => m[1]);
-  const changefreqMatches = [...content.matchAll(/changefreq:\s*['"]([^言'"]+)['"]/g)].map(m => m[1]);
+  const priorityMatches = [...content.matchAll(/priority:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  const changefreqMatches = [...content.matchAll(/changefreq:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
   const sitemapMatches = [...content.matchAll(/includeInSitemap:\s*(true|false)/g)].map(m => m[1] === 'true');
 
   return pathMatches.map((path, i) => ({
@@ -55,9 +57,14 @@ ${urlEntries.join('\n')}
 </urlset>
 `;
 
+  function writeSitemap(dir) {
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(resolve(dir, 'sitemap.xml'), xml, 'utf-8');
+  }
+
   try {
-    mkdirSync(publicDir, { recursive: true });
-    writeFileSync(resolve(publicDir, 'sitemap.xml'), xml, 'utf-8');
+    writeSitemap(distDir);
+    writeSitemap(publicDir);
     console.log(`✓ sitemap.xml generated with ${urlEntries.length} URLs`);
   } catch (e) {
     console.error('Failed to write sitemap.xml:', e.message);

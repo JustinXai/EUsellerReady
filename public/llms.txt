@@ -15,6 +15,8 @@ Shopify sellers, Amazon sellers, Etsy sellers, WooCommerce sellers, DTC ecommerc
 - https://eureadyseller.com/ — EUReadySeller - Know What Your Store Needs Before Selling to the EU
 - https://eureadyseller.com/eu-seller-compliance-checklist/ — EU Seller Compliance Checklist for Ecommerce Sellers
 - https://eureadyseller.com/gpsr-compliance-for-shopify/ — GPSR Compliance for Shopify Sellers
+- https://eureadyseller.com/gpsr-compliance-for-amazon-sellers/ — GPSR Compliance for Amazon Sellers
+- https://eureadyseller.com/do-i-need-an-eu-responsible-person/ — Do I Need an EU Responsible Person?
 - https://eureadyseller.com/eu-responsible-person-service/ — EU Responsible Person Service for Ecommerce Sellers
 - https://eureadyseller.com/epr-compliance-for-shopify/ — EPR Compliance for Shopify Sellers
 - https://eureadyseller.com/request-eu-compliance-quotes/ — Request EU Compliance Provider Quotes
@@ -35,6 +37,14 @@ Practical compliance checklist covering GPSR, EU Responsible Person and EPR pack
 ## GPSR Compliance for Shopify Sellers
 URL: https://eureadyseller.com/gpsr-compliance-for-shopify/
 GPSR guide for Shopify sellers. Covers General Product Safety Regulation obligations, EU Responsible Person requirements, product documentation and traceability under EU Regulation 2023/988.
+
+## GPSR Compliance for Amazon Sellers
+URL: https://eureadyseller.com/gpsr-compliance-for-amazon-sellers/
+GPSR guide for Amazon sellers. Covers EU Responsible Person requirements, product safety information topics, and Amazon listing fields to review before selling to EU consumers.
+
+## Do I Need an EU Responsible Person?
+URL: https://eureadyseller.com/do-i-need-an-eu-responsible-person/
+Decision guide to help ecommerce sellers understand when EU Responsible Person topics may apply. Covers factors affecting applicability, example scenarios, and decision factors for non-EU sellers preparing to sell to EU consumers.
 
 ## EU Responsible Person Service for Ecommerce Sellers
 URL: https://eureadyseller.com/eu-responsible-person-service/

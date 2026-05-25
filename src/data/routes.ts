@@ -118,6 +118,32 @@ export const routes: Route[] = [
     aiSummary:
       'Free interactive scoping tool for ecommerce sellers. Asks about business location, platform, product type and target markets to suggest GPSR, EU Responsible Person and EPR packaging topics to review.',
   },
+  {
+    path: '/gpsr-compliance-for-amazon-sellers/',
+    title: 'GPSR Compliance for Amazon Sellers',
+    description: 'A practical GPSR guide for Amazon sellers reviewing EU Responsible Person, product safety information and listing topics before selling to EU consumers.',
+    h1: 'GPSR Compliance for Amazon Sellers',
+    category: 'platform-guide',
+    priority: '0.8',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-25',
+    aiSummary: 'GPSR guide specifically for Amazon sellers. Covers EU Responsible Person topics, product safety information requirements, and Amazon listing fields to review for EU marketplace compliance.',
+  },
+  {
+    path: '/do-i-need-an-eu-responsible-person/',
+    title: 'Do I Need an EU Responsible Person?',
+    description: 'Learn when ecommerce sellers may need to review EU Responsible Person topics before selling physical products to EU consumers under GPSR.',
+    h1: 'Do I Need an EU Responsible Person?',
+    category: 'decision-guide',
+    priority: '0.8',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-25',
+    aiSummary: 'Decision guide for ecommerce sellers unsure about EU Responsible Person obligations. Covers when non-EU sellers may need an EU Responsible Person, key decision factors, and example scenarios.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {

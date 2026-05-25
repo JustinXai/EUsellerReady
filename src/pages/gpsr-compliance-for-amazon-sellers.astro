@@ -1,0 +1,356 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { amazonGpsrFAQs } from '../data/faq';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pagePath = '/gpsr-compliance-for-amazon-sellers/';
+const canonical = `${site.siteUrl}/gpsr-compliance-for-amazon-sellers/`;
+const route = routes.find((r) => r.path === pagePath)!;
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(amazonGpsrFAQs),
+];
+
+const sources = getSourcesForTopics(['gpsr', 'amazonGpsr']);
+
+const checklistItems = [
+  'Review whether your products and selling model fall under GPSR requirements',
+  'Determine whether you may need an EU Responsible Person based on your location and role',
+  'Appoint an EU Responsible Person if you are a non-EU seller selling to EU consumers',
+  'Prepare product safety documentation including technical files where applicable',
+  'Add EU Responsible Person contact details to relevant Amazon listing areas',
+  'Review Amazon\'s product detail page fields for EU compliance topics',
+  'Check backend product information fields for responsible party details',
+  'Ensure product packaging or labeling meets EU requirements where applicable',
+  'Keep product traceability records accessible for EU market surveillance authorities',
+];
+
+const commonMistakes = [
+  'Assuming GPSR only applies to certain product categories — it may apply to all physical products sold to EU consumers',
+  'Forgetting to add EU Responsible Person details to Amazon product listings or packaging',
+  'Not reviewing Amazon\'s product detail page fields for responsible party information',
+  'Assuming Amazon\'s platform terms mean you are exempt from compliance obligations',
+  'Not keeping product technical documentation or safety information accessible',
+  'Assuming backend fields do not need to be completed — they may be required for EU compliance',
+  'Not reviewing the current Amazon Seller Central resources as platform interfaces may change',
+];
+
+const platformListingAreas = [
+  'Product detail page fields (such as manufacturer details and responsible party)',
+  'Backend product information fields (such as importer details and responsible party)',
+  'Product packaging or labeling with required EU information',
+  'Safety warnings and instructions accessible to EU consumers',
+  'Language considerations for EU destination markets',
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading={route.h1}
+    subheading="A practical GPSR guide for Amazon sellers reviewing EU Responsible Person, product safety information and listing topics before selling to EU consumers."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        GPSR (General Product Safety Regulation) applies to sellers of physical products to EU consumers on Amazon. This may include FBA sellers, MFN (merchant fulfilled network) sellers, and sellers using any Amazon EU marketplace. Amazon sellers may need to review EU Responsible Person topics, add responsible party details to listings, and ensure product safety information is accessible. Platform interfaces may change, so review the current Amazon Seller Central help resources.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who does this apply to?</h2>
+      <p>
+        GPSR applies to sellers of physical products to EU consumers on Amazon. This may include FBA sellers, MFN (merchant fulfilled network) sellers, and sellers using any Amazon EU marketplace such as Amazon.de, Amazon.fr, Amazon.it, Amazon.es, Amazon.nl, Amazon.be, or Amazon.se. Platform interfaces may change, so review the current Amazon Seller Central help resources regularly.
+      </p>
+
+      <h2>Platform-specific context</h2>
+      <p>
+        Amazon sellers may need to add responsible person and product safety information in multiple areas of their seller account and product listings. Platform interfaces may change, so review the current Amazon Seller Central help center for the latest fields and requirements.
+      </p>
+
+      <h2>What Amazon sellers may need to prepare</h2>
+      <ul class="checklist">
+        {checklistItems.map((item) => (
+          <li class="checklist-item">
+            <span class="checklist-icon"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Product detail page and listing information topics to review</h2>
+      <p>
+        Amazon sellers may need to add responsible person and product safety information in multiple areas. Topics to review include:
+      </p>
+      <ul>
+        {platformListingAreas.map((area) => (
+          <li>{area}</li>
+        ))}
+      </ul>
+
+      <h2>EU Responsible Person topics</h2>
+      <p>
+        Non-EU Amazon sellers selling physical products to EU consumers may need an EU Responsible Person under GPSR. The Responsible Person must be based in the EU and act as the contact for EU market surveillance authorities. Where to add this information on Amazon listings may vary as platform interfaces change — review Amazon Seller Central for current requirements.
+      </p>
+
+      <h2>Product safety information checklist</h2>
+      <ul class="checklist">
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Product identifier (such as GTIN or batch number)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Manufacturer name and contact details</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>EU Responsible Person details where applicable</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Importer details where relevant</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Safety warnings and instructions for EU destination markets</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Language considerations for EU destination markets</span>
+        </li>
+      </ul>
+
+      <h2>Common mistakes</h2>
+      <div class="mistakes-list">
+        {commonMistakes.map((m) => (
+          <div class="mistake-item">
+            <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <p class="mistake-text">{m}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>When to use the EU Seller Compliance Checker</h2>
+      <p>
+        If you are an Amazon seller preparing to sell to EU consumers and want to identify relevant compliance topics, use the free EU Seller Compliance Checker. It asks about your business location, product type and target markets to suggest topics to review.
+      </p>
+    </div>
+
+    <OfficialSources sources={sources} />
+
+    <FAQBlock faqs={amazonGpsrFAQs} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Start your compliance review</h2>
+      <p>Use the free checker to identify what applies to your Amazon selling setup.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="ghost" />
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="secondary" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/gpsr-compliance-for-shopify/">GPSR Compliance for Shopify Sellers</a></li>
+        <li><a href="/eu-responsible-person-service/">EU Responsible Person Service</a></li>
+        <li><a href="/request-eu-compliance-quotes/">Request EU Compliance Quotes</a></li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    color: #1e293b;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .content-block ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content-block ul li {
+    margin-bottom: 0.5rem;
+    color: #475569;
+    line-height: 1.6;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-guides li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem 1rem;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

@@ -36,6 +36,13 @@ export const officialSources: Record<string, OfficialSource[]> = {
       description: "Germany's central packaging register (Zentrale Stelle Verpackungsregister) for EPR registration.",
     },
   ],
+  amazonGpsr: [
+    { title: 'Amazon EU - General Product Safety Regulation (GPSR)', url: 'https://sellercentral.amazon.co.uk/learn/courses?ref=SDC_DIL_courses_list&courseId=L3Byb2R1Y3Rz', description: "Amazon's official guidance for sellers on GPSR requirements for EU marketplaces." },
+    { title: 'Amazon Seller Central - Product Safety and Compliance (EU)', url: 'https://sellercentral.amazon.co.uk/help/hub/product-safety-compliance', description: "Amazon's product safety and compliance resources for EU sellers." },
+  ],
+  shopifyGpsr: [
+    { title: 'Shopify - EU General Product Safety Regulation (GPSR)', url: 'https://www.shopify.com/blog/gpsr', description: "Shopify's guidance for merchants on preparing for GPSR requirements in the EU." },
+  ],
   general: [
     {
       title: 'European Commission - Single Market',
@@ -47,4 +54,17 @@ export const officialSources: Record<string, OfficialSource[]> = {
 
 export function getSourcesForTopic(topic: string): OfficialSource[] {
   return officialSources[topic] ?? officialSources.general;
+}
+
+export function getSourcesForTopics(topics: string[]): OfficialSource[] {
+  const allSources: OfficialSource[] = [];
+  for (const topic of topics) {
+    const sources = officialSources[topic] ?? officialSources.general;
+    for (const source of sources) {
+      if (!allSources.find((s) => s.url === source.url)) {
+        allSources.push(source);
+      }
+    }
+  }
+  return allSources;
 }

@@ -2,15 +2,19 @@
  * validate-routes.mjs
  * Checks:
  * 1. All registered routes exist as actual pages
- * 2. All includeInSitemap routes are in sitemap.xml
- * 3. All includeInLlms routes are in llms.txt
+ * 2. All includeInSitemap routes are in dist/sitemap.xml
+ * 3. All includeInLlms routes are in dist/llms.txt
+ *
+ * NOTE: This script checks dist/ (built output), not public/ (source).
+ * Run "npm run build" first before running this validation.
  */
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(__dirname, '..');
+const distDir = resolve(rootDir, 'dist');
 
 const SITE_URL = 'https://eureadyseller.com';
 
@@ -20,6 +24,12 @@ function log(type, msg) {
   const prefix = type === 'ERROR' ? '✗' : type === 'WARN' ? '⚠' : '✓';
   console.log(`${prefix} ${msg}`);
   if (type === 'ERROR') exitCode = 1;
+}
+
+// --- Check dist exists ---
+if (!existsSync(distDir)) {
+  log('ERROR', 'dist/ directory not found. Run "npm run build" first.');
+  process.exit(1);
 }
 
 // --- Parse routes from routes.ts ---
@@ -68,32 +78,26 @@ const actualPages = findPages(resolve(rootDir, 'src/pages'));
 log('INFO', '--- Route existence check ---');
 for (const route of routes) {
   const normalized = route.path.replace(/\/$/, '');
-  const expectedPaths = [
-    route.path,
-    `${route.path}/`,
-    route.path === '/' ? '/index.html' : `${normalized}.html`,
-  ];
-
   const exists = actualPages.some((p) => {
     const pn = p.replace(/\/$/, '');
-    return pn === normalized || pn === route.path.replace(/\/$/, '') || p === route.path;
+    return pn === normalized || pn === route.path.replace(/\/$/, '');
   });
 
   if (!exists) {
-    log('ERROR', `Route "${route.path}" registered but no page found. Expected in: src/pages${route.path === '/' ? '/index.astro' : route.path.replace(/\/$/, '') + '.astro'}`);
+    log('ERROR', `Route "${route.path}" registered but no page found. Expected: src/pages${route.path === '/' ? '/index.astro' : route.path.replace(/\/$/, '') + '.astro'}`);
   } else {
     log('OK', `Route "${route.path}" — page exists`);
   }
 }
 
-// --- Check 2: Sitemap coverage ---
+// --- Check 2: Sitemap coverage (dist/) ---
 log('INFO', '--- Sitemap coverage check ---');
 let sitemapUrls = [];
 try {
-  const sitemap = readFileSync(resolve(rootDir, 'public/sitemap.xml'), 'utf-8');
+  const sitemap = readFileSync(resolve(distDir, 'sitemap.xml'), 'utf-8');
   sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE_URL, ''));
 } catch (e) {
-  log('WARN', 'sitemap.xml not found — run build first');
+  log('WARN', 'dist/sitemap.xml not found — run "npm run build" first');
 }
 
 for (const route of routes) {
@@ -104,20 +108,20 @@ for (const route of routes) {
     return uNorm === rNorm || u === route.path;
   });
   if (!inSitemap && sitemapUrls.length > 0) {
-    log('ERROR', `Route "${route.path}" has includeInSitemap=true but not found in sitemap.xml`);
+    log('ERROR', `Route "${route.path}" has includeInSitemap=true but not found in dist/sitemap.xml`);
   } else if (inSitemap) {
     log('OK', `Route "${route.path}" in sitemap.xml`);
   }
 }
 
-// --- Check 3: llms.txt coverage ---
+// --- Check 3: llms.txt coverage (dist/) ---
 log('INFO', '--- llms.txt coverage check ---');
 let llmsUrls = [];
 try {
-  const llms = readFileSync(resolve(rootDir, 'public/llms.txt'), 'utf-8');
+  const llms = readFileSync(resolve(distDir, 'llms.txt'), 'utf-8');
   llmsUrls = [...llms.matchAll(/https:\/\/eureadyseller\.com[^ \n]+/g)].map((m) => m[0].replace('https://eureadyseller.com', '').split(' ')[0]);
 } catch (e) {
-  log('WARN', 'llms.txt not found — run build first');
+  log('WARN', 'dist/llms.txt not found — run "npm run build" first');
 }
 
 for (const route of routes) {
@@ -126,7 +130,7 @@ for (const route of routes) {
   const inLlms = llmsUrls.some((u) => u.replace(/\/$/, '') === pathKey) ||
     (route.path === '/' && llmsUrls.length > 0);
   if (!inLlms && llmsUrls.length > 0) {
-    log('WARN', `Route "${route.path}" has includeInLlms=true but not found in llms.txt`);
+    log('ERROR', `Route "${route.path}" has includeInLlms=true but not found in dist/llms.txt`);
   }
 }
 
