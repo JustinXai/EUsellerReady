@@ -117,6 +117,62 @@ export const PAGE_TEMPLATES: Record<string, PageTemplate> = {
     priority: '0.7',
     changefreq: 'monthly',
   },
+
+  countryEprTemplate: {
+    templateId: 'countryEprTemplate',
+    categoryId: 'country_epr',
+    description: 'Country-specific EPR packaging registration guide with registration checklist and provider options.',
+    requiredBlocks: ['PageHeader', 'QuickAnswer', 'AISummary', 'WhoThisAppliesTo', 'CountrySpecificTopics', 'PackagingRegistrationChecklist', 'PlatformImplications', 'CommonMistakes', 'ProviderOptions', 'FAQ', 'OfficialSources', 'Disclaimer', 'CTA'],
+    optionalBlocks: ['RegulatorContact'],
+    ctaPlacement: 'bottom',
+    primaryCta: 'Leave a message about your EU compliance question',
+    secondaryCta: 'Start the free EU Seller Compliance Checker',
+    schemaTypes: ['WebPage', 'FAQPage'],
+    priority: '0.8',
+    changefreq: 'monthly',
+  },
+
+  explainerTemplate: {
+    templateId: 'explainerTemplate',
+    categoryId: 'regulation_explainer',
+    description: 'Explainer comparing or clarifying regulatory topics for ecommerce sellers.',
+    requiredBlocks: ['PageHeader', 'QuickAnswer', 'AISummary', 'TopicOverview', 'KeyDifferences', 'WhatThisMeans', 'CommonQuestions', 'Disclaimer', 'CTA'],
+    optionalBlocks: ['RelatedRegulations', 'FurtherResources'],
+    ctaPlacement: 'bottom',
+    primaryCta: 'Start the free EU Seller Compliance Checker',
+    secondaryCta: 'Leave a message about your EU compliance question',
+    schemaTypes: ['WebPage', 'FAQPage'],
+    priority: '0.7',
+    changefreq: 'monthly',
+  },
+
+  servicePageTemplate: {
+    templateId: 'servicePageTemplate',
+    categoryId: 'service_provider_matching',
+    description: 'Provider directory or service matching page.',
+    requiredBlocks: ['PageHeader', 'QuickAnswer', 'AISummary', 'ServiceOverview', 'HowItWorks', 'TopicsCovered', 'LeadForm', 'FAQ', 'Disclaimer'],
+    optionalBlocks: ['ProviderLogos', 'Testimonials'],
+    ctaPlacement: 'both',
+    primaryCta: 'Leave a message about your EU compliance question',
+    secondaryCta: 'Start the free EU Seller Compliance Checker',
+    schemaTypes: ['WebPage', 'FAQPage'],
+    priority: '0.8',
+    changefreq: 'monthly',
+  },
+
+  gpsrChecklistTemplate: {
+    templateId: 'gpsrChecklistTemplate',
+    categoryId: 'checklist_template',
+    description: 'GPSR product safety information checklist for ecommerce sellers.',
+    requiredBlocks: ['PageHeader', 'QuickAnswer', 'AISummary', 'WhoThisAppliesTo', 'Checklist', 'CommonMistakes', 'OfficialSources', 'FAQ', 'Disclaimer', 'CTA'],
+    optionalBlocks: ['ProductCategoryNotes'],
+    ctaPlacement: 'bottom',
+    primaryCta: 'Start the free EU Seller Compliance Checker',
+    secondaryCta: 'Leave a message about your EU compliance question',
+    schemaTypes: ['WebPage', 'FAQPage'],
+    priority: '0.8',
+    changefreq: 'monthly',
+  },
 };
 
 export function getTemplateById(templateId: string): PageTemplate | undefined {

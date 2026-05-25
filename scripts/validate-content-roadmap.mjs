@@ -83,14 +83,19 @@ function parseRoadmap() {
 // --- Parse pageTemplates.ts ---
 function parseTemplates() {
   const content = readFileSync(resolve(rootDir, 'src/data/pageTemplates.ts'), 'utf-8');
-  return [...content.matchAll(/templateId:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
+  // Extract PAGE_TEMPLATES block, then find templateId values
+  const blockMatch = content.match(/PAGE_TEMPLATES\s*:\s*Record<string,\s*PageTemplate>\s*=\s*\{[\s\S]*?\n\};/);
+  if (!blockMatch) return [];
+  return [...blockMatch[0].matchAll(/templateId:\s*['"]([^'"]+)['"]/g)].map(m => m[1]);
 }
 
 // --- Parse contentTaxonomy.ts ---
 function parseCategories() {
   const content = readFileSync(resolve(rootDir, 'src/data/contentTaxonomy.ts'), 'utf-8');
-  return [...content.matchAll(/HOME:\s*['"]([^'"]+)['"]|PLATFORM_GUIDE:\s*['"]([^'"]+)['"]|SERVICE:\s*['"]([^'"]+)['"]|DECISION_GUIDE:\s*['"]([^'"]+)['"]|CHECKLIST:\s*['"]([^'"]+)['"]|TOOL:\s*['"]([^'"]+)['"]|QUOTE_REQUEST:\s*['"]([^'"]+)['"]/g)]
-    .flatMap(m => m.slice(1).filter(Boolean));
+  // Extract CONTENT_CATEGORIES block: from 'CONTENT_CATEGORIES = {' to '} as const;' or '};'
+  const blockMatch = content.match(/CONTENT_CATEGORIES\s*=\s*\{[\s\S]*?\}\s*as const;/);
+  if (!blockMatch) return [];
+  return [...blockMatch[0].matchAll(/['"]([a-z0-9_-]+)['"]/g)].map(m => m[1]);
 }
 
 function validate() {

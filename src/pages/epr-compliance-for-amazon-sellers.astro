@@ -1,0 +1,433 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { amazonEprFAQs } from '../data/faq';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pagePath = '/epr-compliance-for-amazon-sellers/';
+const canonical = `${site.siteUrl}/epr-compliance-for-amazon-sellers/`;
+const route = routes.find((r) => r.path === pagePath)!;
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(amazonEprFAQs),
+];
+
+const sources = getSourcesForTopics(['epr', 'amazonEpr', 'germanyEpr']);
+
+const checklistItems = [
+  'Business legal name and address',
+  'Seller location (country of business)',
+  'Target EU countries (Germany, France, and others)',
+  'Product packaging type and materials used',
+  'Estimated packaging volumes by material type',
+  'Amazon seller account information and marketplace setup',
+  'Existing EPR registration numbers (if applicable)',
+  'Local representative or provider details where relevant',
+  'Product categories and sales channels',
+];
+
+const commonMistakes = [
+  'Assuming EPR only applies to large sellers — packaging obligations may apply regardless of sales volume',
+  'Forgetting that Germany and France have separate EPR schemes and registration requirements',
+  'Not registering before selling in target EU markets — retroactive registration may not be possible',
+  'Confusing EPR with GPSR — they are different regulations covering different topics',
+  'Assuming Amazon handles all EPR obligations on behalf of sellers',
+  'Using generic packaging information without reviewing country-specific requirements',
+  'Not keeping EPR registration details accessible for Amazon marketplace verification',
+];
+
+const countryTopics = [
+  'Germany: LUCID packaging register registration may be required for sellers placing packaged goods on the German market. Packaging volumes must be reported to an accredited system.',
+  'France: EPR packaging registration may be required through an accredited compliance scheme. Packaging obligations differ from Germany in scheme structure and reporting.',
+  'Other EU countries: Additional EPR schemes may apply depending on target markets. Germany and France are the most active starting points for review.',
+];
+
+const platformAreas = [
+  'Amazon seller account settings for EPR registration numbers or declarations',
+  'Product listings where packaging information may be relevant',
+  'Amazon reporting tools for packaging volumes where available',
+  'Seller Central resources for EPR requirements in each EU marketplace',
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading={route.h1}
+    subheading="A practical EPR guide for Amazon sellers reviewing packaging registration, Germany and France EPR topics before selling in European markets."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        This page helps Amazon sellers review EPR packaging topics before selling in European markets. EPR requirements may depend on the countries where products are sold, the packaging used, and the seller&apos;s platform setup. Germany and France are common starting points to review as they have the most established EPR packaging schemes. This guide is educational and does not determine compliance.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this applies to</h2>
+      <p>
+        This page applies to Amazon sellers — including FBA (Fulfillment by Amazon) sellers, MFN (Merchant Fulfilled Network) sellers, and sellers using any Amazon EU marketplace — who sell physical products with packaging to consumers in European countries. If you are selling packaged goods to EU consumers on Amazon, EPR packaging topics may be relevant to review. Platform requirements may change, so check the current Amazon Seller Central guidance.
+      </p>
+
+      <h2>Amazon-specific EPR context</h2>
+      <p>
+        Amazon sellers may need to address EPR packaging topics across multiple EU marketplaces. Amazon may request EPR registration information or numbers in some contexts, and sellers may be responsible for ensuring their packaging compliance in each target country. Platform requirements may change, so review the current Amazon Seller Central resources for the latest guidance on EPR topics for sellers.
+      </p>
+
+      <h2>What Amazon sellers may need to prepare</h2>
+      <p>
+        Amazon sellers preparing to sell in EU markets may need to review several EPR areas. The specific requirements depend on the countries targeted, packaging materials, and sales volumes. Topics to review include:
+      </p>
+      <ul>
+        <li>Whether EPR packaging registration applies based on your target EU countries</li>
+        <li>Germany and France EPR requirements as the most active starting points</li>
+        <li>Packaging registration with national authorities or accredited compliance schemes</li>
+        <li>Periodic packaging volume reporting to EPR schemes</li>
+        <li>Amazon-specific requirements for declaring EPR registration information</li>
+        <li>Provider help for multi-country EPR management</li>
+      </ul>
+
+      <h2>Germany and France EPR topics to review</h2>
+      <p>
+        Germany and France are the two most common EU markets for Amazon sellers to review first. Each country has its own EPR packaging scheme:
+      </p>
+      <ul>
+        {countryTopics.map((topic) => (
+          <li>{topic}</li>
+        ))}
+      </ul>
+      <p>
+        Sellers should review the latest national authority guidance and Amazon Seller Central resources for current requirements. Platform guidance may change.
+      </p>
+
+      <h2>Packaging registration information checklist</h2>
+      <p>
+        Amazon sellers may need the following information when preparing for EPR registration or marketplace verification:
+      </p>
+      <ul class="checklist">
+        {checklistItems.map((item) => (
+          <li class="checklist-item">
+            <span class="checklist-icon"></span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>EPR vs GPSR for Amazon sellers</h2>
+      <p>
+        EPR (Extended Producer Responsibility) and GPSR (General Product Safety Regulation) are different regulations that may both be relevant for Amazon sellers:
+      </p>
+      <div class="comparison-grid">
+        <div class="comparison-card comparison-epr">
+          <h3>EPR (Extended Producer Responsibility)</h3>
+          <p>Covers packaging waste and environmental recovery obligations. Requires country-level registration with national packaging registers. Involves periodic packaging volume reporting and recycling contributions.</p>
+          <p><strong>Key topics:</strong> Packaging registration, LUCID (Germany), France EPR schemes, recycling fees.</p>
+          <p><a href="/gpsr-compliance-for-amazon-sellers/">See GPSR guide for Amazon sellers</a></p>
+        </div>
+        <div class="comparison-card comparison-gpsr">
+          <h3>GPSR (General Product Safety Regulation)</h3>
+          <p>Covers product safety, traceability, and manufacturer information. May require an EU Responsible Person for non-EU sellers. Involves product safety documentation and incident reporting.</p>
+          <p><strong>Key topics:</strong> EU Responsible Person, product safety documentation, warning labels, traceability records.</p>
+          <p><a href="/gpsr-compliance-for-amazon-sellers/">See GPSR guide for Amazon sellers</a></p>
+        </div>
+      </div>
+      <p>
+        Both may be relevant for Amazon sellers selling physical products to EU consumers, but they address different compliance topics. Review both to ensure comprehensive coverage.
+      </p>
+
+      <h2>Common mistakes</h2>
+      <div class="mistakes-list">
+        {commonMistakes.map((m) => (
+          <div class="mistake-item">
+            <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+            <p class="mistake-text">{m}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>When to use the EU Seller Compliance Checker</h2>
+      <p>
+        If you are an Amazon seller preparing to sell to EU consumers and want to identify relevant compliance topics — including both EPR and GPSR — use the free EU Seller Compliance Checker. It asks about your business location, product type and target markets to suggest topics to review.
+      </p>
+    </div>
+
+    <OfficialSources sources={sources} />
+
+    <FAQBlock faqs={amazonEprFAQs} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Need help with EPR registration?</h2>
+      <p>Leave a message and a compliance service provider will follow up with you.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="secondary" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+        <li><a href="/epr-compliance-for-shopify/">EPR Compliance for Shopify Sellers</a></li>
+        <li><a href="/request-eu-compliance-quotes/">Request EU Compliance Quotes</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.7;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    color: #1e293b;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .content-block ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content-block ul li {
+    margin-bottom: 0.5rem;
+    color: #475569;
+    line-height: 1.6;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .comparison-card {
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .comparison-epr {
+    background: #f0fdf4;
+    border-color: #86efac;
+  }
+
+  .comparison-gpsr {
+    background: #eff6ff;
+    border-color: #93c5fd;
+  }
+
+  .comparison-card h3 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+    color: #1e293b;
+  }
+
+  .comparison-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .comparison-card a {
+    font-size: 0.9rem;
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .comparison-card a:hover {
+    text-decoration: underline;
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+    color: #1e293b;
+  }
+
+  .cta-section p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-guides li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem 1rem;
+    }
+
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

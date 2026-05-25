@@ -157,6 +157,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-25',
     aiSummary: 'GPSR guide for Etsy sellers. Covers product safety information topics, EU Responsible Person requirements, manufacturer details and Etsy listing or shop information areas to review before selling to EU consumers. Educational guidance only, not legal advice.',
   },
+  {
+    path: '/epr-compliance-for-amazon-sellers/',
+    title: 'EPR Compliance for Amazon Sellers',
+    description: 'A practical EPR guide for Amazon sellers reviewing packaging registration, Germany and France EPR topics before selling in European markets.',
+    h1: 'EPR Compliance for Amazon Sellers',
+    category: 'platform',
+    priority: '0.8',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-25',
+    aiSummary: 'EPR guide for Amazon sellers. Covers packaging registration topics, Germany and France EPR requirements, Amazon seller information and provider help. Explains how EPR differs from GPSR. Educational guidance only, not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {

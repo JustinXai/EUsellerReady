@@ -47,6 +47,17 @@ export const officialSources: Record<string, OfficialSource[]> = {
     { title: 'Etsy - EU GPSR for Sellers', url: 'https://www.etsy.com/uk/seller-handbook/article/understanding-the-gpsr/660584834745', description: "Etsy's official EU GPSR guidance for sellers on the Etsy platform." },
     { title: 'Etsy Help - Product Safety and Compliance', url: 'https://help.etsy.com/hc/en-gb/sections/360000352367-Product-Safety-and-Compliance', description: "Etsy's help centre section on product safety and compliance topics." },
   ],
+  amazonEpr: [
+    { title: 'Amazon Europe EPR Requirements', url: 'https://sellercentral.amazon.co.uk/learn/courses?ref=SDC_DIL_courses_list&courseId=L3Byb2R1Y3Rz', description: "Amazon's official guidance on Extended Producer Responsibility for sellers in EU markets." },
+    { title: 'Amazon Seller Central - EPR Help', url: 'https://sellercentral.amazon.co.uk/help/hub/enhanced-seller-verification', description: "Amazon Seller Central help resources on EPR registration and seller verification." },
+  ],
+  germanyEpr: [
+    { title: 'Germany LUCID Packaging Register', url: 'https://lucid.verpackungsregister.de/', description: "Germany's central packaging register (Zentrale Stelle Verpackungsregister) for EPR packaging registration." },
+    { title: 'Germany Ministry for Environment - Packaging Act', url: 'https://www.bmuv.de/en/law/packaging-act', description: "Official information on the German Packaging Act (VerpackG) from the Federal Ministry for Environment." },
+  ],
+  franceEpr: [
+    { title: 'France - ADEME Producer Responsibility', url: 'https://www.ademe.fr/en/expertise/waste-management/producer-responsibility', description: "ADEME official resources on Extended Producer Responsibility in France." },
+  ],
   general: [
     {
       title: 'European Commission - Single Market',
