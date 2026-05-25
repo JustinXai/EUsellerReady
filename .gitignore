@@ -7,3 +7,4 @@ dist
 .cache
 .astro
 deploy.env
+package-lock.json
