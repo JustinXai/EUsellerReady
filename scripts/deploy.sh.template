@@ -145,7 +145,7 @@ echo "✅ Release created: $RELEASE_ID"
 # =============================================================================
 echo ""
 echo "==> Step 9: Switch current symlink"
-ln -sfn "$RELEASE_DIR" "$CURRENT_LINK"
+sudo ln -sfn "$RELEASE_DIR" "$CURRENT_LINK"
 echo "✅ Symlink switched to $RELEASE_DIR"
 
 # =============================================================================
@@ -213,7 +213,7 @@ if ! npm run external:smoke; then
 
   # Rollback
   if [ -n "$PREVIOUS_RELEASE" ] && [ -d "$PREVIOUS_RELEASE" ]; then
-    ln -sfn "$PREVIOUS_RELEASE" "$CURRENT_LINK"
+    sudo ln -sfn "$PREVIOUS_RELEASE" "$CURRENT_LINK"
     sudo systemctl reload caddy
     echo "✅ Rolled back to: $PREVIOUS_RELEASE"
   else
