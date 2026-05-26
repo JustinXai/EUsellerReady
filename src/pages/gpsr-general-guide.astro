@@ -1,0 +1,613 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pageFAQs = [
+  { question: 'What is GPSR?', answer: 'GPSR stands for the General Product Safety Regulation (EU) 2023/988. It is an EU regulatory framework that sets requirements for the safety of consumer products placed on the market in or affecting the EU. GPSR may apply to physical products sold to EU consumers, including products sold through ecommerce channels, marketplaces and independent online stores. It is not limited to any one platform or seller type.' },
+  { question: 'Does GPSR apply to ecommerce sellers?', answer: 'GPSR may apply to ecommerce sellers who sell physical consumer products to buyers in the EU, regardless of whether the seller is based inside or outside the EU. The regulation is product-focused rather than platform-focused. Sellers on Shopify, Amazon, Etsy, WooCommerce or any other channel may need to review GPSR topics depending on the products they sell and the markets they target. Product category, supply chain structure and target markets all affect which topics may apply.' },
+  { question: 'Do non-EU sellers need to review GPSR?', answer: 'Yes. Non-EU sellers who sell physical consumer products to EU consumers may need to review GPSR topics. The regulation applies to products sold in the EU regardless of where the seller is based. Non-EU sellers may need to ensure an EU Responsible Person is available to receive communications from EU market surveillance authorities, and that required product safety information is accessible to EU consumers. Review your product categories and target markets to identify applicable topics.' },
+  { question: 'What is an EU Responsible Person under GPSR?', answer: 'Under GPSR, non-EU sellers of consumer products may need an EU Responsible Person — a natural or legal person established in the EU who acts as the point of contact for market surveillance authorities and consumers on product safety matters. The EU Responsible Person does not guarantee compliance but may hold documentation and receive communications on behalf of the seller. Not every seller needs one — the requirement depends on product category, supply chain and target market. See the Do I need an EU Responsible Person? guide for more context.' },
+  { question: 'What product safety information may sellers need?', answer: 'Sellers may need to prepare and make accessible various types of product safety information, including: product identity details (name, model, category), manufacturer name and contact information, EU Responsible Person contact details where relevant, safety warnings and use instructions appropriate to the product, language considerations for each target EU market, and consistency between product labels, packaging and online listing information. The specific information needed may vary by product category and target country. See the GPSR Product Safety Information Checklist for a more detailed list.' },
+  { question: 'Is GPSR the same as EPR?', answer: 'No. GPSR (General Product Safety Regulation) covers product safety — including manufacturer details, EU Responsible Person representation, safety warnings, and traceability. EPR (Extended Producer Responsibility) covers environmental obligations — including packaging registration, WEEE (Waste Electrical and Electronic Equipment), and battery compliance. These are different regulatory topics with different obligations. Some providers may offer services in both areas, but GPSR and EPR are not interchangeable. For a comparison, see the EPR Packaging vs WEEE vs Batteries guide.' },
+  { question: 'Do Shopify, Amazon, Etsy and WooCommerce sellers follow the same GPSR process?', answer: 'No. While the underlying GPSR topics are similar across platforms, each platform has its own compliance interfaces, listing fields and evidence request processes. Shopify sellers manage their own product pages and store settings. Amazon sellers use Seller Central compliance forms and product detail page fields. Etsy sellers use Etsys compliance guidance and listing information fields. WooCommerce sellers control their own store and product pages independently. Platform interfaces and requirements may change over time.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance about GPSR topics for ecommerce sellers. It does not constitute legal advice or determine which specific obligations apply to your business, products or target markets. Consult qualified legal counsel or a compliance provider for your specific situation.' },
+];
+
+const pagePath = '/gpsr-general-guide/';
+const canonical = `${site.siteUrl}/gpsr-general-guide`;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/gpsr-general-guide/');
+
+const sources = getSourcesForTopics(['gpsr', 'euResponsiblePerson']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+
+    <PageHeader
+      heading={route.h1}
+      subheading="A practical GPSR guide for ecommerce sellers reviewing EU Responsible Person, product safety information, platform requirements and provider help before selling to EU consumers."
+    />
+
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        GPSR, the General Product Safety Regulation, is an EU product safety framework that ecommerce sellers may need to review before selling physical consumer products to EU consumers. Sellers may need to prepare product safety information, manufacturer details, EU Responsible Person topics, safety warnings and platform listing information. This guide covers GPSR topics for sellers on Shopify, Amazon, Etsy, WooCommerce and independent stores. Platform rules may change over time. This is educational guidance and does not determine whether your products or store are compliant.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this applies to</h2>
+      <p>
+        This guide is for ecommerce sellers — on Shopify, Amazon, Etsy, WooCommerce and independent online stores — who sell or plan to sell physical products to consumers in the EU or wider EEA. It is relevant for sellers based inside and outside the EU.
+      </p>
+      <p>
+        It is particularly useful for:
+      </p>
+      <ul>
+        <li>Sellers new to EU markets who want to understand the GPSR landscape before launching</li>
+        <li>Non-EU sellers who want to understand whether an EU Responsible Person may be relevant</li>
+        <li>Multi-platform sellers who want a central overview before reviewing platform-specific guides</li>
+        <li>DTC brands and independent retailers preparing their product information for EU compliance review</li>
+      </ul>
+      <p>
+        <strong>Important:</strong> This is an educational overview. It does not determine compliance. Product categories, supply chains and target markets vary — consult official sources and qualified providers for your specific situation.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>What GPSR is</h2>
+      <p>
+        GPSR stands for the General Product Safety Regulation (EU) 2023/988, which replaced the previous GPS Directive on 13 December 2024. It sets requirements for the safety of consumer products placed on the market in or affecting the EU.
+      </p>
+      <p>
+        Key points to understand:
+      </p>
+      <ul>
+        <li><strong>Product safety focused</strong> — GPSR covers the safety of physical consumer products sold to EU consumers</li>
+        <li><strong>Not platform-specific</strong> — GPSR is not limited to marketplace sellers. It applies to any physical product sold to EU consumers, including through independent online stores</li>
+        <li><strong>Not the same as EPR</strong> — GPSR addresses product safety, not environmental obligations. EPR (Extended Producer Responsibility) covers packaging, WEEE and batteries. These are different topics</li>
+        <li><strong>May apply to non-EU sellers</strong> — Sellers based outside the EU who sell to EU consumers may need to ensure EU Responsible Person representation and required product information are in place</li>
+        <li><strong>Product category matters</strong> — Some products have additional specific regulations beyond GPSR. The applicable requirements may vary by product type</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Why GPSR matters for ecommerce sellers</h2>
+      <p>
+        GPSR topics may be relevant for ecommerce sellers because:
+      </p>
+      <ul>
+        <li>EU market surveillance authorities may request product safety documentation at any time</li>
+        <li>Marketplaces like Amazon and Etsy have introduced GPSR compliance requirements for sellers listing products in EU markets</li>
+        <li>Non-EU sellers need a contact point within the EU for product safety matters</li>
+        <li>Product safety information must be accessible to EU consumers in the appropriate language</li>
+        <li>Sellers may need to demonstrate traceability from manufacturer to consumer</li>
+        <li>Platform requirements and enforcement may evolve over time</li>
+      </ul>
+      <p>
+        Reviewing GPSR topics early — before launching in EU markets — may help sellers avoid listing removals, platform warnings or compliance requests.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Core GPSR topics sellers may need to review</h2>
+      <p>
+        The following topic areas may be relevant depending on your product categories, supply chain and target markets. Not every item applies to every seller:
+      </p>
+      <ul class="checklist">
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Product identity information — name, model, type, batch/serial number where relevant</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Manufacturer name and address</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Importer and distributor information where relevant</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>EU Responsible Person contact details where applicable</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Safety warnings appropriate to the product</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Instructions for safe use, storage and disposal where relevant</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Language considerations for each target EU market</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Consistency between product label, packaging and online listing</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Traceability documentation that providers or authorities may request</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Documentation available from manufacturer or supplier</span></li>
+      </ul>
+      <p>
+        For a detailed checklist covering these areas, see the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>EU Responsible Person overview</h2>
+      <p>
+        Non-EU sellers of consumer products may need an EU Responsible Person to act as the point of contact for EU market surveillance authorities and consumers on product safety matters. The EU Responsible Person may:
+      </p>
+      <ul>
+        <li>Hold product safety documentation on behalf of the seller</li>
+        <li>Receive communications from market surveillance authorities</li>
+        <li>Cooperate with authorities on safety matters</li>
+      </ul>
+      <p>
+        The EU Responsible Person is not a substitute for compliance — it is a representative role. Whether you need one depends on your product category, supply chain and target markets.
+      </p>
+      <p>
+        See the <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a> guide and <a href="/eu-responsible-person-service/">EU Responsible Person service</a> page for more context on whether this may apply to your situation.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Product safety information overview</h2>
+      <p>
+        Sellers may need to prepare and make accessible various types of product safety information. This information should be accurate, specific to the product, and available in the language of the target EU market.
+      </p>
+      <p>
+        Key areas to review:
+      </p>
+      <ul>
+        <li><strong>Product identity</strong> — Ensure the product name, model and identifiers are accurate and consistent across all channels</li>
+        <li><strong>Manufacturer details</strong> — Have the manufacturers name, address and contact information ready. Request documentation from your supplier if needed</li>
+        <li><strong>Warnings and instructions</strong> — Prepare warnings specific to your product, not generic ones copied from other sources</li>
+        <li><strong>Language</strong> — Safety information may need to be in the official language of each target EU country</li>
+        <li><strong>Consistency</strong> — Ensure labels, packaging, documentation and online listings contain matching information</li>
+      </ul>
+      <p>
+        See the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a> for a comprehensive list of areas to prepare.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>GPSR vs EPR — different topics</h2>
+      <p>
+        GPSR and EPR (Extended Producer Responsibility) are different regulatory topics that may both be relevant for ecommerce sellers. It is important not to confuse them:
+      </p>
+      <div class="comparison-table">
+        <div class="comparison-col">
+          <h3>GPSR — Product Safety</h3>
+          <ul>
+            <li>EU Responsible Person representation</li>
+            <li>Manufacturer and contact details</li>
+            <li>Safety warnings and instructions</li>
+            <li>Product safety documentation</li>
+            <li>Traceability information</li>
+            <li>Product label and listing consistency</li>
+          </ul>
+        </div>
+        <div class="comparison-col">
+          <h3>EPR — Environmental</h3>
+          <ul>
+            <li>Packaging registration (Germany, France, etc.)</li>
+            <li>WEEE registration</li>
+            <li>Battery compliance</li>
+            <li>Periodic reporting to EPR schemes</li>
+            <li>Producer responsibility fees</li>
+            <li>Country-specific scheme membership</li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        Some providers may offer both GPSR and EPR services, but they are separate obligations. For a comparison of EPR packaging, WEEE and battery topics, see the <a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries guide</a>.
+      </p>
+      <p>
+        EPR coverage by platform: <a href="/epr-compliance-for-amazon-sellers/">EPR compliance for Amazon sellers</a>, <a href="/epr-compliance-for-shopify/">EPR compliance for Shopify sellers</a>, <a href="/germany-epr-packaging-registration/">Germany EPR packaging</a>, <a href="/france-epr-packaging-registration/">France EPR packaging</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Platform-specific GPSR paths</h2>
+      <p>
+        Each selling platform has its own GPSR compliance process and interface. While the underlying GPSR topics are similar, the way you address them differs by platform. Review the guide for your specific selling channel:
+      </p>
+      <div class="platform-paths">
+        <div class="platform-path">
+          <h3>Shopify sellers</h3>
+          <p>
+            Shopify sellers manage their own product pages and store settings. There is no platform-wide GPSR compliance form, so sellers must independently prepare product safety information and display it on their store. Review the <a href="/gpsr-compliance-for-shopify/">GPSR compliance for Shopify sellers</a> guide.
+          </p>
+        </div>
+        <div class="platform-path">
+          <h3>Amazon sellers</h3>
+          <p>
+            Amazon sellers may need to complete GPSR compliance information through Seller Central, including manufacturer details and EU Responsible Person contact information. Review the <a href="/gpsr-compliance-for-amazon-sellers/">GPSR compliance for Amazon sellers</a> guide. Amazon Seller Central workflows may change over time.
+          </p>
+        </div>
+        <div class="platform-path">
+          <h3>Etsy sellers</h3>
+          <p>
+            Etsy sellers may receive GPSR-related guidance from Etsy and may need to include relevant information in product listings. The platform may include compliance information fields for certain product categories. Review the <a href="/gpsr-compliance-for-etsy-sellers/">GPSR compliance for Etsy sellers</a> guide.
+          </p>
+        </div>
+        <div class="platform-path">
+          <h3>WooCommerce sellers</h3>
+          <p>
+            WooCommerce sellers control their own storefront and product pages. There is no platform compliance form — sellers independently prepare and display product safety information on their WordPress-based store. Review the <a href="/gpsr-compliance-for-woocommerce-sellers/">GPSR compliance for WooCommerce sellers</a> guide.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>What sellers may need to prepare</h2>
+      <p>
+        Before launching in EU markets or contacting a compliance provider, having the following information ready may help:
+      </p>
+      <ul class="checklist">
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Business legal name and location</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Target EU countries for selling</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Selling platform or store type</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Product categories and approximate volumes</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Manufacturer name, address and contact details</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Product identifiers (model, batch, serial numbers)</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Safety warnings and use instructions available</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Whether you already have an EU Responsible Person arrangement</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Existing platform warnings or compliance requests</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Documentation available from manufacturer or supplier</span></li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Common mistakes to avoid</h2>
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Treating GPSR as only a marketplace compliance form to fill in, rather than a product safety framework that requires preparing actual product information.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Confusing GPSR product safety obligations with EPR packaging registration — these are different topics with different requirements.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming small sellers, handmade products or low-volume listings are automatically outside GPSR scope without reviewing the applicable product and market requirements.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Forgetting to gather or verify manufacturer information before listing products on EU marketplaces.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Copying generic safety warnings from unrelated products or online sources without ensuring they match your specific product.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming English-language information is sufficient for all EU markets without reviewing language requirements for each target country.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Keeping inconsistent information between the physical product label, packaging and online product detail page.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Waiting until a marketplace flags or removes a listing before reviewing GPSR obligations.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>When to use the EU Seller Compliance Checker</h2>
+      <p>
+        If you are not sure which GPSR and EU compliance topics apply to your business, use the <a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> to get a personalised list of topics to review based on your business location, selling platforms and product categories.
+      </p>
+      <p>
+        The checker may help you identify whether GPSR, EU Responsible Person, EPR packaging, WEEE, battery compliance or other topics may be relevant before you start preparing product information or contacting providers.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>When to contact a compliance provider</h2>
+      <p>
+        Consider reaching out to a compliance provider if:
+      </p>
+      <ul>
+        <li>You are unsure about your GPSR obligations or how to prepare product safety information</li>
+        <li>You need an EU Responsible Person arrangement and want help setting one up</li>
+        <li>You have received platform compliance requests or warnings related to product safety</li>
+        <li>You sell complex or high-risk product categories and want professional guidance</li>
+        <li>You want help preparing documentation for market surveillance authority requests</li>
+      </ul>
+      <p>
+        Before contacting a provider, review the <a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a> to understand the main provider categories and questions to ask before engaging a service.
+      </p>
+    </div>
+
+    <FAQBlock faqs={pageFAQs} />
+
+    <OfficialSources sources={sources} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Ready to review your GPSR topics?</h2>
+      <p>Use the free compliance checker to identify which topics apply to your business, or leave a message describing your situation.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="primary" />
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/gpsr-compliance-for-shopify/">GPSR Compliance for Shopify Sellers</a></li>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+        <li><a href="/gpsr-compliance-for-etsy-sellers/">GPSR Compliance for Etsy Sellers</a></li>
+        <li><a href="/gpsr-compliance-for-woocommerce-sellers/">GPSR Compliance for WooCommerce Sellers</a></li>
+        <li><a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a></li>
+        <li><a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a></li>
+        <li><a href="/eu-responsible-person-service/">EU Responsible Person Service</a></li>
+        <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a></li>
+        <li><a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+        <li><a href="/request-eu-compliance-quotes/">Request Compliance Quotes</a></li>
+      </ul>
+    </div>
+</Layout>
+
+<style>
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.7;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+  }
+
+  .content-block h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: #1e293b;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .content-block ul {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+    padding-left: 1.5rem;
+  }
+
+  .content-block li {
+    margin-bottom: 0.5rem;
+  }
+
+  .comparison-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .comparison-col {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 1.25rem;
+    border-left: 3px solid #0284c7;
+  }
+
+  .comparison-col h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #1e293b;
+  }
+
+  .comparison-col ul {
+    margin-bottom: 0;
+    padding-left: 1.25rem;
+  }
+
+  .comparison-col li {
+    margin-bottom: 0.375rem;
+    font-size: 0.9375rem;
+  }
+
+  .platform-paths {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .platform-path {
+    padding: 1rem 1.25rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid #0284c7;
+  }
+
+  .platform-path p {
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+    color: #1e293b;
+  }
+
+  .cta-section p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .related-guides li {
+    margin-bottom: 0;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .comparison-table {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

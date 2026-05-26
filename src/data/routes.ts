@@ -248,6 +248,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-26',
     aiSummary: 'GPSR compliance guide for WooCommerce sellers. Explains how WooCommerce differs from marketplaces, what product safety information to prepare, where to add GPSR information in your store, EU Responsible Person topics, and a product safety checklist. Links to Shopify, Amazon and Etsy GPSR guides, compliance checker and provider directory. Educational guidance only. Not legal advice.',
   },
+  {
+    path: '/gpsr-general-guide/',
+    title: 'GPSR Guide for Ecommerce Sellers',
+    description: 'A practical GPSR guide for ecommerce sellers reviewing EU Responsible Person, product safety information, platform requirements and provider help before selling to EU consumers.',
+    h1: 'GPSR Guide for Ecommerce Sellers',
+    category: 'platform-guide',
+    priority: '0.85',
+    changefreq: 'weekly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-26',
+    aiSummary: 'GPSR guide for ecommerce sellers. Explains what GPSR is, why it matters for online sellers, core GPSR topics sellers may need to review, EU Responsible Person overview, product safety information areas, GPSR vs EPR comparison, and platform-specific GPSR paths for Shopify, Amazon, Etsy and WooCommerce. Links to platform guides, product safety checklist, compliance checker and provider directory. Educational guidance only. Not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {
