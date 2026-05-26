@@ -222,6 +222,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-26',
     aiSummary: 'EU compliance provider directory guide for ecommerce sellers. Explains main provider categories: EU Responsible Person, GPSR support, EPR packaging, WEEE and battery compliance. Helps sellers compare providers and prepare questions before contacting qualified providers. Links to compliance checker and message form. Does not certify or guarantee providers. Not legal advice.',
   },
+  {
+    path: '/gpsr-product-safety-information-checklist/',
+    title: 'GPSR Product Safety Information Checklist for Ecommerce Sellers',
+    description: 'A practical GPSR checklist for ecommerce sellers preparing product safety information, manufacturer details, EU Responsible Person topics and warnings.',
+    h1: 'GPSR Product Safety Information Checklist for Ecommerce Sellers',
+    category: 'checklist_template',
+    priority: '0.8',
+    changefreq: 'weekly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-26',
+    aiSummary: 'GPSR product safety information checklist for ecommerce sellers. Covers product identity details, manufacturer information, EU Responsible Person topics, safety warnings, instructions, language considerations and platform listing areas. Links to Shopify, Amazon and Etsy GPSR guides, compliance checker, provider directory and message form. Educational guidance only. Not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {
