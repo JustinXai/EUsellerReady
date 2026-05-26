@@ -1,0 +1,514 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { getSourcesForTopics } from '../data/officialSources';
+
+const pageFAQs = [
+  { question: 'What is France EPR packaging registration?', answer: 'France EPR (Extended Producer Responsibility) is an environmental regulation requiring producers and sellers to contribute to the recovery and recycling of products and packaging placed on the French market. France EPR can cover multiple product categories, of which packaging is one of the most common topics for ecommerce sellers. Registration and reporting obligations depend on the product categories involved and the seller\'s setup.' },
+  { question: 'What is a France EPR UIN?', answer: 'UIN stands for Numéro d\'Identification Unique (Unique Identification Number) in the France EPR context. Sellers in certain product categories may need to obtain a UIN from the French authorities or through an accredited compliance scheme. Whether a UIN is relevant depends on the product category, sales channel, and seller setup. Not every seller will need a UIN, and requirements may vary by category.' },
+  { question: 'Do ecommerce sellers need France EPR registration?', answer: 'Ecommerce sellers who sell packaged goods or products in specific EPR categories to consumers in France may need to review France EPR obligations. The specific requirements depend on the product categories involved, the volumes placed on the French market, and the seller\'s role in the supply chain. Platforms such as Amazon may also request EPR registration information in certain contexts. Sellers should review current official and platform guidance to determine which categories may apply.' },
+  { question: 'Does France EPR apply to Amazon or Shopify sellers?', answer: 'Amazon, Shopify, Etsy, WooCommerce and other ecommerce sellers who sell products in France may need to review France EPR topics depending on their product categories and platform setup. Amazon France sellers may be asked to provide EPR registration or UIN information in certain product categories. Shopify and other direct-to-consumer sellers should independently verify their France EPR obligations. Platform requirements and workflows may change, so reviewing current seller guidance is recommended.' },
+  { question: 'Is France EPR the same as Germany EPR?', answer: 'No. France EPR and Germany EPR are separate country-specific regulations. Germany EPR focuses on the LUCID packaging register and dual system participation under the German Packaging Act. France EPR can cover multiple product categories (packaging, batteries, electrical equipment, etc.) and may involve UIN registration in certain categories. Sellers selling in both countries may need to address both sets of obligations separately. The registration systems, reporting requirements and competent authorities differ between the two countries.' },
+  { question: 'Is France EPR the same as GPSR?', answer: 'No. France EPR (Extended Producer Responsibility) and GPSR (General Product Safety Regulation) are different regulations addressing separate compliance areas. France EPR covers producer responsibility for packaging and product waste recovery at the environmental level. GPSR covers product safety, traceability, manufacturer information and EU Responsible Person obligations. Both may apply to sellers depending on the products and markets involved, but they are distinct requirements.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance and identifies topics to review before selling packaged goods or products in France. It does not constitute legal advice or determine whether France EPR registration applies to your specific business. Consult qualified legal counsel or a compliance provider for your specific situation.' },
+];
+
+const pagePath = '/france-epr-packaging-registration/';
+const canonical = `${site.siteUrl}/france-epr-packaging-registration`;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/france-epr-packaging-registration/');
+
+const sources = getSourcesForTopics(['epr', 'franceEpr']);
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+>
+
+    <PageHeader
+      heading={route.h1}
+      subheading="France EPR packaging topics for ecommerce sellers reviewing EU compliance before selling packaged goods or other EPR-category products in France."
+    />
+
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        This page helps ecommerce sellers review France EPR topics before selling packaged goods or other EPR-category products in France. France EPR topics may depend on product category, packaging, sales channel and whether a marketplace asks for registration information or a UIN. This guide is educational and does not determine compliance.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this applies to</h2>
+      <p>
+        This guide is for ecommerce sellers — including Shopify, Amazon, Etsy, WooCommerce and DTC brands — who sell or plan to sell physical products to consumers in France. It is relevant for sellers based inside or outside the EU who place packaged goods or products in other EPR categories on the French market.
+      </p>
+      <p>
+        France EPR obligations are country-specific and attach to the act of selling products to French consumers, regardless of where your business is based. The specific topics to review depend on your product categories, packaging, volumes and sales channel setup.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>France-specific EPR context</h2>
+      <p>
+        France EPR is governed by the French Ministry for Ecological Transition and implemented through accredited compliance schemes (éco-organismes) for each product category. Key aspects to understand include:
+      </p>
+      <ul>
+        <li><strong>Country-specific regulation</strong> — France EPR operates under French environmental law, separate from Germany EPR, and covers multiple product categories beyond packaging</li>
+        <li><strong>Multiple EPR categories</strong> — France EPR can cover packaging, batteries, electrical equipment, textiles, furniture and other product types. Packaging is one of the most common categories for ecommerce sellers</li>
+        <li><strong>UIN (Numéro d'Identification Unique)</strong> — Sellers in certain categories may need a Unique Identification Number from French authorities or through a compliance scheme. Whether a UIN is required depends on the product category and seller setup</li>
+        <li><strong>Compliance schemes (éco-organismes)</strong> — Accredited organisations manage collection and recycling for each product category. Sellers typically register through one or more schemes depending on their product range</li>
+        <li><strong>Platform verification</strong> — Marketplaces such as Amazon France may request EPR registration information or UIN for certain product categories as part of their seller compliance programs</li>
+      </ul>
+      <p>
+        Platform workflows and official category guidance may change over time. Sellers should review current official sources and platform requirements to understand which categories and registration steps may apply to their situation.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Packaging and product responsibility topics to review</h2>
+      <p>
+        Before selling in France, sellers may need to review several EPR-related topics:
+      </p>
+      <ul>
+        <li><strong>Packaging EPR</strong> — If you ship products in packaging to French consumers, packaging EPR registration or scheme participation may be relevant</li>
+        <li><strong>Product category identification</strong> — Identify whether your products fall into EPR categories beyond packaging (e.g., batteries, electrical equipment, textiles, furniture)</li>
+        <li><strong>UIN review</strong> — Determine whether a UIN or other registration number is required for your product categories and sales channels</li>
+        <li><strong>Scheme registration</strong> — Register with relevant accredited compliance schemes for each applicable category</li>
+        <li><strong>Reporting obligations</strong> — Some categories require periodic reporting of quantities placed on the French market</li>
+        <li><strong>Fee contributions</strong> — Contributions to recovery and recycling costs are typically based on packaging or product volumes</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>France EPR categories and UIN topics</h2>
+      <p>
+        France EPR covers multiple product categories. The most common ones for ecommerce sellers include:
+      </p>
+      <ul>
+        <li><strong>Packaging</strong> — Packaging materials used for shipping and product containers</li>
+        <li><strong>Batteries</strong> — Portable batteries included with or sold alongside products</li>
+        <li><strong>Electrical and Electronic Equipment (EEE)</strong> — Electronic devices and components</li>
+        <li><strong>Textiles</strong> — Clothing and household textile products</li>
+      </ul>
+      <p>
+        <strong>About the UIN:</strong> UIN (Numéro d'Identification Unique) is a unique identification number assigned to sellers in certain France EPR categories. Whether you need a UIN depends on your product categories, volumes, and seller role. EUReadySeller cannot determine whether a UIN is required for your specific situation.
+      </p>
+      <p>
+        Sellers should review official French EPR guidance and check with accredited compliance schemes to understand which categories and registration steps apply.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>What ecommerce sellers may need to prepare</h2>
+      <p>
+        Preparing the following information can help with France EPR registration or when requesting provider assistance:
+      </p>
+      <ul class="checklist">
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Business legal name, address and contact details</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Seller location and role (manufacturer, seller, importer)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Target market: France (or France + other EU countries)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Product categories relevant to France EPR</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Packaging types and materials used</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Estimated annual volumes or units where relevant</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Sales channels (Amazon, Shopify, Etsy, WooCommerce, DTC)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Marketplace seller account information</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Existing EPR or UIN registration information where applicable</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Compliance scheme or provider details where applicable</span>
+        </li>
+      </ul>
+      <p>
+        Having this information ready can help streamline registration or provide accurate context for provider quotes. <a href="/request-eu-compliance-quotes/">Request compliance quotes</a> to get help with France EPR setup.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Platform implications</h2>
+      <p>
+        Different ecommerce platforms may have varying approaches to France EPR verification. Here is what sellers on major platforms may need to consider:
+      </p>
+      <h3>Amazon sellers</h3>
+      <p>
+        Amazon France sellers may be asked to provide EPR registration information or UIN for certain product categories as part of Amazon's seller compliance verification. Amazon has its own EPR compliance program where sellers can submit their registration numbers or use an Amazon-partnered solution. Platform requirements may vary by product category. Review the current Amazon Seller Central help pages and France-specific guidance for the latest information on which categories and steps may apply.
+      </p>
+      <p>
+        Selling on Amazon France does not automatically remove the seller's responsibility to review France EPR obligations independently.
+      </p>
+      <h3>Shopify sellers</h3>
+      <p>
+        Shopify sellers selling to French consumers should independently verify their France EPR obligations. Shopify does not currently manage EPR compliance on behalf of merchants. Sellers may need to register directly with relevant compliance schemes or use a compliance provider. Review <a href="/epr-compliance-for-shopify/">EPR compliance for Shopify sellers</a> for broader EPR context across EU markets.
+      </p>
+      <h3>Etsy sellers</h3>
+      <p>
+        Etsy sellers shipping packaged goods or other EPR-category products to French consumers may need to review France EPR obligations. Platform requirements and workflows may change over time. Review Etsy's current seller policies and French market guidance to understand which topics may apply to your products and selling setup.
+      </p>
+      <h3>WooCommerce / DTC sellers</h3>
+      <p>
+        WooCommerce sellers and other direct-to-consumer operators shipping to French consumers should independently assess their France EPR obligations. Direct sellers may have different requirements depending on product categories, packaging volumes and business setup. Consider using the <a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> to identify France-related topics to review.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>France EPR vs Germany EPR</h2>
+      <p>
+        France EPR and Germany EPR are separate country-specific regulations. Here is a brief comparison:
+      </p>
+      <ul>
+        <li><strong>Germany EPR</strong> — Governed by the German Packaging Act (VerpackG), focusing primarily on the LUCID packaging register and dual system participation. Packaging is the main category for most ecommerce sellers.</li>
+        <li><strong>France EPR</strong> — Covers multiple product categories (packaging, batteries, EEE, textiles, etc.) and may involve UIN registration in certain categories. More diverse category coverage than Germany.</li>
+        <li><strong>Selling in both countries</strong> — Sellers targeting both Germany and France may need to address both sets of obligations separately, through different registration systems and compliance schemes.</li>
+        <li><strong>Germany vs France approach</strong> — Germany emphasises the LUCID central register. France uses accredited compliance schemes (éco-organismes) and may require UIN in certain categories.</li>
+      </ul>
+      <p>
+        See the <a href="/germany-epr-packaging-registration/">Germany EPR packaging registration guide</a> for more detail on Germany-specific topics. For broader EPR context across platforms, see <a href="/epr-compliance-for-amazon-sellers/">EPR compliance for Amazon sellers</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>France EPR vs GPSR</h2>
+      <p>
+        France EPR and GPSR (General Product Safety Regulation) address different compliance areas:
+      </p>
+      <ul>
+        <li><strong>France EPR</strong> — Covers producer responsibility for packaging and product waste recovery. Involves registration with compliance schemes, periodic reporting and fee contributions based on volumes placed on the French market. May involve UIN for certain categories.</li>
+        <li><strong>GPSR</strong> — Covers product safety, traceability, manufacturer information, EU Responsible Person obligations and product safety documentation. Applies to all physical products sold to EU consumers.</li>
+        <li><strong>Both may apply</strong> — Sellers targeting the French market may need to address both France EPR (environmental/waste) and GPSR (product safety) obligations, depending on their products and markets.</li>
+        <li><strong>Different authorities</strong> — France EPR is overseen by French environmental authorities and accredited schemes. GPSR is overseen by EU market surveillance authorities.</li>
+      </ul>
+      <p>
+        For GPSR guidance specific to Amazon sellers, see <a href="/gpsr-compliance-for-amazon-sellers/">GPSR compliance for Amazon sellers</a>. For the EU Responsible Person topic, see <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a>
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Common mistakes</h2>
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Treating France EPR as identical to Germany EPR. France EPR can cover multiple product categories beyond packaging and uses a different registration approach with UIN requirements in certain categories.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming packaging is the only possible France EPR topic. France EPR also covers batteries, electrical equipment, textiles and other categories. Sellers with diverse product ranges may have obligations across multiple categories.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming marketplace selling removes all seller responsibility for France EPR. Marketplaces may request EPR registration information or UIN, but the underlying regulatory obligation typically remains with the seller.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Waiting until a marketplace asks for EPR information to start reviewing obligations. Proactive review of France EPR topics before selling in France can help avoid compliance gaps and listing issues.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Mixing up France EPR UIN topics with GPSR EU Responsible Person obligations. These are different regulations, different registration systems, and different compliance areas. Both may apply but they are not interchangeable.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Using generic provider advice without checking current official French EPR guidance. Official sources and platform requirements may change. Verifying information against official and platform sources is recommended.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Forgetting to review product category differences. If you sell across multiple product categories, each relevant EPR category may need separate review, scheme registration and reporting.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>Provider help</h2>
+      <p>
+        France EPR registration can involve multiple product categories, scheme registrations, UIN applications and periodic reporting. Many sellers use a compliance service provider to manage registration and ongoing compliance across different EPR categories and EU markets.
+      </p>
+      <p>
+        Providers can typically help with:
+      </p>
+      <ul>
+        <li>Identifying relevant EPR categories for your products</li>
+        <li>Packaging and multi-category EPR registration in France</li>
+        <li>UIN application guidance for applicable categories</li>
+        <li>Scheme registration and reporting obligations</li>
+        <li>Multi-country EPR management (France, Germany and other EU markets)</li>
+      </ul>
+      <p>
+        <a href="/request-eu-compliance-quotes/">Request compliance provider quotes</a> to get help with France EPR setup or multi-country EPR management.
+      </p>
+    </div>
+
+    <FAQBlock faqs={pageFAQs} />
+
+    <OfficialSources sources={sources} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Need help?</h2>
+      <p>Leave a message and a compliance service provider will follow up with you.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="secondary" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/germany-epr-packaging-registration/">Germany EPR Packaging Registration</a></li>
+        <li><a href="/epr-compliance-for-amazon-sellers/">EPR Compliance for Amazon Sellers</a></li>
+        <li><a href="/epr-compliance-for-shopify/">EPR Compliance for Shopify Sellers</a></li>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+      </ul>
+    </div>
+</Layout>
+
+<style>
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.7;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    color: #1e293b;
+  }
+
+  .content-block h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem;
+    color: #334155;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .content-block ul {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+    padding-left: 1.5rem;
+  }
+
+  .content-block li {
+    margin-bottom: 0.5rem;
+  }
+
+  .content-block a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .content-block a:hover {
+    text-decoration: underline;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+    color: #1e293b;
+  }
+
+  .cta-section p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-guides li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem 1rem;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

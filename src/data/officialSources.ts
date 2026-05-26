@@ -56,7 +56,8 @@ export const officialSources: Record<string, OfficialSource[]> = {
     { title: 'Germany Ministry for Environment - Packaging Act', url: 'https://www.bmuv.de/en/law/packaging-act', description: "Official information on the German Packaging Act (VerpackG) from the Federal Ministry for Environment." },
   ],
   franceEpr: [
-    { title: 'France - ADEME Producer Responsibility', url: 'https://www.ademe.fr/en/expertise/waste-management/producer-responsibility', description: "ADEME official resources on Extended Producer Responsibility in France." },
+    { title: 'France - ADEME Producer Responsibility', url: 'https://www.ademe.fr/en/expertise/waste-management/producer-responsibility', description: "ADEME official resources on Extended Producer Responsibility in France, covering packaging, batteries, electrical equipment and other product categories." },
+    { title: 'France Ministry for Ecological Transition - EPR Information', url: 'https://www.ecologie.gouv.fr/registre-des-metiers-et-de-lartisanat', description: "Official French government information on Extended Producer Responsibility obligations and producer obligations." },
   ],
   general: [
     {

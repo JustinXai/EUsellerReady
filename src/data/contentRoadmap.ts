@@ -813,7 +813,7 @@ export const contentRoadmap: ContentRoadmapItem[] = [
   },
   {
     path: '/france-epr-packaging-registration/',
-    status: 'planned',
+    status: 'live',
     categoryId: 'country_epr',
     templateId: 'countryEprTemplate',
     priority: 'P1',
