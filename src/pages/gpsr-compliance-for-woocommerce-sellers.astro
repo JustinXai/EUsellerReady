@@ -1,0 +1,422 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pageFAQs = [
+  { question: 'Does GPSR apply to WooCommerce sellers?', answer: 'Yes, if WooCommerce sellers sell physical products to consumers in the EU or wider European Economic Area, the General Product Safety Regulation (GPSR) may apply. GPSR covers the safety of consumer products sold in these markets, regardless of the selling platform. The regulation applies to sellers based inside or outside the EU who target EU consumers.' },
+  { question: 'Do WooCommerce sellers outside the EU need an EU Responsible Person?', answer: 'WooCommerce sellers based outside the EU who sell physical consumer products to EU consumers may need an EU Responsible Person under GPSR contexts. An EU Responsible Person acts as the point of contact for product safety authorities and consumers within the EU. Whether you need one depends on your product category, the countries you sell to, and your supply chain. See the Do I need an EU Responsible Person? guide for more context.' },
+  { question: 'What product safety information should WooCommerce sellers review?', answer: 'WooCommerce sellers may need to review product identity information (name, model, category), manufacturer details (name, address, contact), EU Responsible Person contact details where relevant, safety warnings and use instructions, language considerations for target EU markets, and consistency between product labels, packaging and the online product page. The specific information needed may vary by product category.' },
+  { question: 'Where can WooCommerce sellers place GPSR-related information?', answer: 'Unlike marketplace sellers who fill in platform-specific compliance forms, WooCommerce sellers control their own product pages and store settings. You can add GPSR-related information to your product descriptions, product images (including label photos), a separate safety information page linked from your product, checkout or store policy pages, or your store footer. Your WordPress theme and any plugins you use may affect how and where you can display this information. Review your current theme and plugin capabilities to identify the best placement.' },
+  { question: 'Is WooCommerce GPSR the same as Shopify, Amazon or Etsy?', answer: 'The underlying GPSR topics are the same across all platforms, but the process differs. WooCommerce gives sellers direct control over product pages and store settings, while Shopify, Amazon and Etsy each have their own compliance interfaces, listing fields and evidence request processes. WooCommerce sellers do not fill in platform compliance forms — they prepare product information independently and display it on their own storefront. Platform interfaces and requirements may change over time.' },
+  { question: 'Should WooCommerce sellers use a compliance provider?', answer: 'WooCommerce sellers who are unsure about their GPSR obligations, need EU Responsible Person representation, or want help preparing product safety documentation may consider using a compliance provider. The EU Compliance Provider Directory may help you understand provider categories and prepare questions before engaging a service. Sellers should independently verify any provider\'s credentials and service scope.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance about GPSR topics for WooCommerce sellers. It does not constitute legal advice or determine which compliance obligations apply to your specific business, products or target markets. Consult qualified legal counsel or a compliance provider for your situation.' },
+];
+
+const pagePath = '/gpsr-compliance-for-woocommerce-sellers/';
+const canonical = `${site.siteUrl}/gpsr-compliance-for-woocommerce-sellers`;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/gpsr-compliance-for-woocommerce-sellers/');
+
+const sources = getSourcesForTopics(['gpsr', 'euResponsiblePerson']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+
+    <PageHeader
+      heading={route.h1}
+      subheading="A practical GPSR guide for WooCommerce sellers reviewing EU Responsible Person, product safety information and store product page topics before selling to EU consumers."
+    />
+
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        WooCommerce sellers who sell physical products to EU consumers may need to review General Product Safety Regulation (GPSR) topics. Unlike marketplace sellers, WooCommerce merchants control their own product pages and store settings, meaning you are responsible for displaying required product safety information independently. Topics to review include manufacturer details, EU Responsible Person contact details where relevant, safety warnings, use instructions and language considerations. This guide is educational and not legal advice. Platform and plugin interfaces may change.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this applies to</h2>
+      <p>
+        This guide is for WooCommerce sellers — including DTC brands, independent retailers and merchants running WordPress-based stores — who sell or plan to sell physical products to consumers in the European Union or wider EEA.
+      </p>
+      <p>
+        It is particularly relevant for sellers based outside the EU (for example, in the US, UK, China or other countries) who want to understand GPSR obligations before launching in EU markets, and for EU-based WooCommerce sellers who want to prepare product safety information for their online store.
+      </p>
+      <p>
+        <strong>Important:</strong> This page is educational guidance. It does not determine compliance. Product categories, target markets and applicable obligations may vary. Consult official sources and qualified providers for your specific situation.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>How WooCommerce differs from marketplaces</h2>
+      <p>
+        WooCommerce is not a marketplace like Amazon or Etsy. Instead, you run your own independent online store using the WooCommerce plugin on WordPress. This means:
+      </p>
+      <ul>
+        <li><strong>You control your product pages</strong> — there are no platform compliance forms to fill in. You decide how and where to display product safety information.</li>
+        <li><strong>Theme and plugin dependent</strong> — your WordPress theme and active plugins may affect how you can display product information, add custom fields, or create separate information pages.</li>
+        <li><strong>Independent responsibility</strong> — unlike Etsy or Amazon sellers who receive platform-specific guidance, WooCommerce sellers must independently identify and prepare the required product information.</li>
+        <li><strong>No built-in compliance interface</strong> — WooCommerce does not provide a GPSR compliance checklist or evidence submission system. Sellers must prepare their own documentation and disclosures.</li>
+      </ul>
+      <p>
+        This also means WooCommerce sellers have more flexibility in how they present product safety information, but also carry more direct responsibility for ensuring it is accurate and accessible.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>What WooCommerce sellers may need to prepare</h2>
+      <p>
+        WooCommerce sellers may need to prepare and display the following information on their store. The specific requirements depend on your product categories and target EU markets:
+      </p>
+      <ul>
+        <li><strong>Product identity details</strong> — product name, model or type identifier, product category, and product images showing relevant details</li>
+        <li><strong>Manufacturer information</strong> — manufacturer name, address and contact details, or documentation from your supplier if you are not the manufacturer</li>
+        <li><strong>EU Responsible Person contact</strong> — where required, the name and address of the EU Responsible Person must be accessible to consumers and market surveillance authorities</li>
+        <li><strong>Safety warnings and instructions</strong> — warnings, use instructions and any relevant safety information in the language of the target EU market</li>
+        <li><strong>Traceability information</strong> — batch number, serial number or other identifier where relevant to product safety</li>
+        <li><strong>Consistency across channels</strong> — ensure product labels, packaging and your online product listing contain consistent information</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Where to add GPSR information in WooCommerce</h2>
+      <p>
+        WooCommerce gives you several options for displaying product safety information. The best approach depends on your theme, plugins and product types. Here are areas to consider:
+      </p>
+      <ul>
+        <li><strong>Product description</strong> — add key safety information, manufacturer details and EU Responsible Person contact to the product description or short description field</li>
+        <li><strong>Product images</strong> — upload photos of product labels, warning labels and safety symbols as part of your product image gallery</li>
+        <li><strong>Separate safety information page</strong> — create a dedicated page (for example, /product-safety/[product-name]/) and link to it from the product page</li>
+        <li><strong>Checkout and policy pages</strong> — add product safety disclaimers or manufacturer information to your checkout flow, terms of service or privacy policy</li>
+        <li><strong>Store footer or contact page</strong> — if using a shared EU Responsible Person across all products, the contact information can appear on your store footer or dedicated contact page</li>
+        <li><strong>Email communications</strong> — product safety information may also be relevant in order confirmation emails or dispatch notifications</li>
+      </ul>
+      <p>
+        <strong>Note:</strong> Your WordPress theme and plugins may limit or extend these options. Review your current theme documentation and plugin settings. Platform interfaces may change over time.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>EU Responsible Person topics for WooCommerce sellers</h2>
+      <p>
+        Non-EU WooCommerce sellers of consumer products may need an EU Responsible Person to act as the point of contact for product safety matters under GPSR contexts. Unlike marketplace sellers who may be directed to a platform-appointed representative, WooCommerce sellers must independently arrange this service.
+      </p>
+      <p>
+        See the <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a> guide and <a href="/eu-responsible-person-service/">EU Responsible Person service</a> page for more context on whether this may apply to your situation.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>GPSR product safety checklist for WooCommerce sellers</h2>
+      <p>
+        Use this checklist to identify areas you may need to prepare for each product you sell to EU consumers. Not every item applies to every product:
+      </p>
+      <ul class="checklist">
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Identify whether you need an EU Responsible Person for your product categories and target markets</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Gather manufacturer name, address and contact details for each product</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Prepare or request safety warnings and use instructions relevant to the product</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Review product images and consider adding label photos showing required warnings</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Identify the EU languages required for each target market</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Ensure consistency between product label, packaging and online product page information</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Review your WooCommerce theme for custom field or page capabilities</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Create a product safety information page or section if your theme supports it</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Consider adding EU Responsible Person contact details to your store footer or contact page</span></li>
+        <li class="checklist-item"><span class="checklist-icon"></span><span>Review your checkout and order confirmation emails for relevant disclosures</span></li>
+      </ul>
+      <p>
+        For a comprehensive list of product safety information areas to prepare, see the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Common mistakes to avoid</h2>
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Waiting for platform guidance. WooCommerce does not send GPSR compliance instructions or checklists. Sellers must independently identify and prepare required information.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming English-language information is sufficient for all EU markets without reviewing language requirements for each target country.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Copying generic warnings from other products without ensuring they match your specific product and its foreseeable uses.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Forgetting that WooCommerce themes and plugins may render or truncate long product descriptions, potentially hiding required information.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Confusing EU Responsible Person obligations with EPR packaging registration — these are different regulatory topics.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Keeping inconsistent information between the physical product label, packaging and online product listing.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming WooCommerce will notify you of GPSR requirements. No such notification system exists — sellers must independently review obligations.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h2>When to use the EU Seller Compliance Checker</h2>
+      <p>
+        If you are not sure which compliance topics apply to your WooCommerce store, use the <a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> to identify the areas you may need to review before selling to EU consumers.
+      </p>
+      <p>
+        Once you have identified the relevant topics, use this guide and the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a> to prepare your product information.
+      </p>
+    </div>
+
+    <FAQBlock faqs={pageFAQs} />
+
+    <OfficialSources sources={sources} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Need help preparing for GPSR?</h2>
+      <p>Use the free compliance checker to identify which topics apply to your WooCommerce store, or leave a message describing your situation.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="primary" />
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a></li>
+        <li><a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a></li>
+        <li><a href="/eu-responsible-person-service/">EU Responsible Person Service</a></li>
+        <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a></li>
+        <li><a href="/gpsr-compliance-for-shopify/">GPSR Compliance for Shopify Sellers</a></li>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+        <li><a href="/gpsr-compliance-for-etsy-sellers/">GPSR Compliance for Etsy Sellers</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+        <li><a href="/request-eu-compliance-quotes/">Request Compliance Quotes</a></li>
+      </ul>
+    </div>
+</Layout>
+
+<style>
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.7;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .content-block ul {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+    padding-left: 1.5rem;
+  }
+
+  .content-block li {
+    margin-bottom: 0.5rem;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+    color: #1e293b;
+  }
+
+  .cta-section p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .related-guides li {
+    margin-bottom: 0;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem 1rem;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
