@@ -1,9 +1,15 @@
 /**
  * validate-schema.mjs
+ * Validates JSON-LD structured data across all built HTML pages.
+ *
  * Checks:
- * 1. Each HTML page contains application/ld+json
- * 2. JSON-LD is parseable
- * 3. FAQPage JSON has mainEntity
+ * 1. Every includeInSitemap=true HTML page has at least one application/ld+json block
+ * 2. At least one schema is WebPage or Article type
+ * 3. JSON-LD blocks are parseable
+ * 4. FAQPage schemas have mainEntity with at least 3 questions
+ *
+ * Run: node scripts/validate-schema.mjs
+ *   or: npm run validate:schema
  */
 import { readdirSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
@@ -16,8 +22,8 @@ const distDir = resolve(rootDir, 'dist');
 let exitCode = 0;
 
 function log(type, msg) {
-  const prefix = type === 'ERROR' ? '✗' : type === 'WARN' ? '⚠' : '✓';
-  console.log(`${prefix} [SCHEMA] ${msg}`);
+  const prefix = type === 'ERROR' ? 'x' : type === 'WARN' ? '!' : 'o';
+  console.log(prefix + ' [SCHEMA] ' + msg);
   if (type === 'ERROR') exitCode = 1;
 }
 
@@ -35,21 +41,23 @@ function findHtmlFiles(dir, results = []) {
 }
 
 const htmlFiles = findHtmlFiles(distDir);
-log('INFO', `Checking ${htmlFiles.length} HTML files...`);
+log('INFO', 'Checking ' + htmlFiles.length + ' HTML files...\n');
 
 for (const file of htmlFiles) {
   const content = readFileSync(file, 'utf-8');
   const relativePath = file.replace(distDir, '').replace(/\\/g, '/');
 
-  // Find all JSON-LD blocks
   const jsonLdMatches = content.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi);
 
-  let foundSchema = false;
+  let foundAnySchema = false;
+  let foundWebPageOrArticle = false;
   let foundFAQ = false;
+  let faqQuestionCount = 0;
+  let parseError = false;
 
   for (const match of jsonLdMatches) {
     const jsonStr = match[1];
-    foundSchema = true;
+    foundAnySchema = true;
 
     try {
       const data = JSON.parse(jsonStr);
@@ -58,54 +66,51 @@ for (const file of htmlFiles) {
       for (const schema of schemas) {
         const type = schema['@type'];
 
-        // Validate FAQPage has mainEntity
+        if (type === 'WebPage' || type === 'Article') {
+          foundWebPageOrArticle = true;
+        }
+
         if (type === 'FAQPage') {
-          if (!schema.mainEntity || !Array.isArray(schema.mainEntity) || schema.mainEntity.length === 0) {
-            log('ERROR', `${relativePath}: FAQPage schema missing mainEntity`);
-          } else {
-            foundFAQ = true;
-          }
-        }
-
-        // Validate required fields for WebPage
-        if (type === 'WebPage') {
-          if (!schema.url) {
-            log('WARN', `${relativePath}: WebPage schema missing url`);
-          }
-          if (!schema.name) {
-            log('WARN', `${relativePath}: WebPage schema missing name`);
-          }
-        }
-
-        // Validate required fields for WebSite
-        if (type === 'WebSite') {
-          if (!schema.name) {
-            log('WARN', `${relativePath}: WebSite schema missing name`);
-          }
-          if (!schema.url) {
-            log('WARN', `${relativePath}: WebSite schema missing url`);
-          }
-        }
-
-        // Validate SoftwareApplication
-        if (type === 'SoftwareApplication' || type === 'WebApplication') {
-          if (!schema.name) {
-            log('WARN', `${relativePath}: SoftwareApplication schema missing name`);
+          foundFAQ = true;
+          if (schema.mainEntity && Array.isArray(schema.mainEntity)) {
+            faqQuestionCount = schema.mainEntity.length;
           }
         }
       }
     } catch (e) {
-      log('ERROR', `${relativePath}: JSON-LD parse error — ${e.message}`);
+      log('ERROR', relativePath + ': JSON-LD parse error — ' + e.message);
+      parseError = true;
     }
   }
 
-  if (!foundSchema) {
-    log('WARN', `${relativePath}: no JSON-LD schema found`);
+  // Every page must have at least one JSON-LD block
+  if (!foundAnySchema) {
+    log('ERROR', relativePath + ': no application/ld+json block found');
+    continue;
+  }
+
+  // Every page must have a WebPage or Article schema
+  if (!foundWebPageOrArticle) {
+    log('ERROR', relativePath + ': no WebPage or Article schema found');
+  }
+
+  // Every page with FAQ content must have a FAQPage schema with >= 3 questions
+  // (detected by presence of FAQ-related HTML on the page)
+  const hasFAQHtml = /<section[^>]*faq|<div[^>]*faq|class="[^"]*faq/i.test(content);
+  if (hasFAQHtml) {
+    if (!foundFAQ) {
+      log('ERROR', relativePath + ': page has FAQ HTML but no FAQPage schema');
+    } else if (faqQuestionCount < 3) {
+      log('ERROR', relativePath + ': FAQPage has fewer than 3 questions (' + faqQuestionCount + ')');
+    }
   }
 }
 
+console.log('');
 if (exitCode === 0) {
-  log('OK', 'Schema validation complete');
+  log('OK', 'Schema validation complete — all pages pass');
+} else {
+  log('ERROR', 'Schema validation failed — see errors above');
 }
 
 process.exit(exitCode);

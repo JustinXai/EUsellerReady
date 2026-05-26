@@ -9,6 +9,7 @@ import CTABox from '../components/CTABox.astro';
 import { site } from '../data/site';
 import { routes } from '../data/routes';
 import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
 
 const pageFAQs = [
   { question: 'What is Germany EPR packaging registration?', answer: 'Germany EPR packaging registration (VerpackG) is a national regulation requiring sellers to register with the LUCID packaging register and contribute to packaging recovery if they sell packaged goods to German consumers. It is part of Extended Producer Responsibility obligations at the country level, separate from product safety regulations like GPSR.' },
@@ -25,12 +26,18 @@ const canonical = `${site.siteUrl}/germany-epr-packaging-registration`;
 const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/germany-epr-packaging-registration/');
 
 const sources = getSourcesForTopics(['epr', 'germanyEpr']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
 ---
 
 <Layout
   title={route.title}
   description={route.description}
   canonical={canonical}
+  jsonLd={jsonLd}
 >
 
     <PageHeader

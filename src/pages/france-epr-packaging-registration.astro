@@ -9,6 +9,7 @@ import CTABox from '../components/CTABox.astro';
 import { site } from '../data/site';
 import { routes } from '../data/routes';
 import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
 
 const pageFAQs = [
   { question: 'What is France EPR packaging registration?', answer: 'France EPR (Extended Producer Responsibility) is an environmental regulation requiring producers and sellers to contribute to the recovery and recycling of products and packaging placed on the French market. France EPR can cover multiple product categories, of which packaging is one of the most common topics for ecommerce sellers. Registration and reporting obligations depend on the product categories involved and the seller\'s setup.' },
@@ -25,12 +26,18 @@ const canonical = `${site.siteUrl}/france-epr-packaging-registration`;
 const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/france-epr-packaging-registration/');
 
 const sources = getSourcesForTopics(['epr', 'franceEpr']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
 ---
 
 <Layout
   title={route.title}
   description={route.description}
   canonical={canonical}
+  jsonLd={jsonLd}
 >
 
     <PageHeader
