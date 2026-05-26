@@ -196,6 +196,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-26',
     aiSummary: 'France EPR packaging registration guide for ecommerce sellers. Covers France EPR topics including packaging, UIN-related categories, platform implications and provider help. Explains how France EPR differs from Germany EPR and GPSR.',
   },
+  {
+    path: '/epr-packaging-vs-weee-vs-batteries/',
+    title: 'EPR Packaging vs WEEE vs Batteries for Ecommerce Sellers',
+    description: 'Understand the differences between EPR packaging, WEEE and battery compliance topics ecommerce sellers may need to review before selling in Europe.',
+    h1: 'EPR Packaging vs WEEE vs Batteries for Ecommerce Sellers',
+    category: 'regulation_explainer',
+    priority: '0.75',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-26',
+    aiSummary: 'EPR packaging vs WEEE vs batteries comparison guide for ecommerce sellers. Explains how packaging EPR, WEEE, and battery regulations differ and why sellers may need to review each separately. Uses Germany and France examples. Links to Germany EPR packaging, France EPR packaging, Amazon EPR, and Shopify EPR guides. Provider help and compliance checker CTAs included. Not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {

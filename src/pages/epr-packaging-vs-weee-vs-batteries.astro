@@ -1,0 +1,463 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pageFAQs = [
+  { question: 'Is EPR packaging the same as WEEE?', answer: 'No. EPR packaging and WEEE are different EU regulations. EPR packaging covers packaging waste and environmental recovery obligations for packaging materials. WEEE (Waste Electrical and Electronic Equipment) covers electrical and electronic products, devices, and components at the end of their life cycle. Sellers of electronics, appliances, or powered products may need to review WEEE obligations in addition to packaging EPR, depending on the products and markets involved.' },
+  { question: 'Is WEEE the same as battery compliance?', answer: 'No, but they are related. WEEE covers electrical and electronic equipment and its waste management. Battery compliance covers batteries and accumulators, including those sold separately or included in products. Batteries that are part of electrical equipment may fall under both sets of rules, depending on the product category, the type of battery, and the country. Sellers of battery-powered electronics should review both topics separately.' },
+  { question: 'Can one registration cover packaging, WEEE and batteries?', answer: 'It depends on the country and the compliance provider. In some EU countries, a single provider may offer combined EPR services covering multiple categories including packaging, WEEE, and batteries. In other countries, separate registrations or scheme memberships may be required for each category. Germany and France, for example, handle packaging, WEEE and batteries through different registration systems and authorities. Sellers targeting multiple EU markets may need separate registrations in each country.' },
+  { question: 'Do Amazon or Shopify sellers need to review these topics?', answer: 'Amazon, Shopify, Etsy, WooCommerce and other ecommerce sellers who sell physical products in EU markets may need to review packaging EPR, WEEE, and battery topics depending on the products they sell. Amazon has its own EPR compliance program and may verify seller registration numbers for packaging, WEEE, and battery categories. Shopify sellers should independently verify their obligations. Platform requirements and the specific registration topics to address depend on the product categories and target markets.' },
+  { question: 'Why do Germany and France handle EPR differently?', answer: 'Germany and France both have EPR regulations, but they operate through different national systems. Germany EPR (under the Packaging Act) uses the LUCID central register for packaging and separate systems for WEEE and batteries. France EPR uses accredited compliance schemes (éco-organismes) for each category, with the ADEME overseeing producer responsibility topics. Both countries require separate registration for packaging, WEEE, and batteries, and registration in Germany does not cover France obligations and vice versa. Sellers targeting both markets need to address each set of obligations separately.' },
+  { question: 'What information may sellers need to prepare?', answer: 'Sellers may need to prepare different information for each EPR category. For packaging EPR, this typically includes business details, packaging types and materials, volumes, and system participation confirmation. For WEEE, it may include product categories, equipment types, and registration with the relevant WEEE scheme. For batteries, it may include battery types, chemistries, and annual quantities placed on the market. Having a clear product inventory and understanding which EPR categories apply to each product can help when registering or requesting provider assistance.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance comparing EPR packaging, WEEE and battery topics for ecommerce sellers. It does not constitute legal advice or determine which regulations apply to your specific products, business or markets. The information on this page is based on publicly available EU and national regulatory guidance. Consult qualified legal counsel or a compliance provider for your specific situation.' },
+];
+
+const pagePath = '/epr-packaging-vs-weee-vs-batteries/';
+const canonical = `${site.siteUrl}/epr-packaging-vs-weee-vs-batteries`;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/epr-packaging-vs-weee-vs-batteries/');
+
+const sources = getSourcesForTopics(['epr', 'germanyEpr', 'franceEpr', 'weee', 'batteries']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+
+    <PageHeader
+      heading={route.h1}
+      subheading="Understand the differences between EPR packaging, WEEE and battery compliance topics ecommerce sellers may need to review before selling in Europe."
+    />
+
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        This page helps ecommerce sellers understand the difference between EPR packaging, WEEE and battery compliance topics before selling physical products in Europe. Packaging EPR usually relates to packaging waste and country-specific producer responsibility for packaging materials. WEEE relates to electrical and electronic equipment, while battery rules relate to batteries sold separately or included in products. Each topic may involve separate registration and reporting obligations depending on the products you sell and the EU markets you target. This guide is educational and does not determine compliance.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this applies to</h2>
+      <p>
+        This guide is for ecommerce sellers — including Shopify, Amazon, Etsy, WooCommerce and DTC brands — who sell or plan to sell physical products to consumers in the European Union. It is relevant for sellers based inside or outside the EU who place products on the EU market.
+      </p>
+      <p>
+        Understanding the difference between EPR packaging, WEEE and battery regulations is important because these topics are often confused but address different environmental obligations. Each topic may involve separate registration, reporting, and fee contributions depending on the product categories and countries involved.
+      </p>
+      <p>
+        If you sell any physical products in packaging to EU consumers, you may need to review packaging EPR. If you sell electrical or electronic products, you may also need to review WEEE. If you sell batteries — either separately or included in products — you may also need to review battery regulations. All three topics may apply simultaneously for sellers with diverse product ranges.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Topic Overview</h2>
+      <p>
+        Extended Producer Responsibility (EPR) is an EU environmental policy principle that makes producers responsible for the end-of-life impact of their products. Three EPR-related topics commonly affect ecommerce sellers:
+      </p>
+      <ul>
+        <li><strong>Packaging EPR</strong> — covers packaging materials used to ship and protect products</li>
+        <li><strong>WEEE</strong> — covers electrical and electronic equipment at the end of its life</li>
+        <li><strong>Battery EPR</strong> — covers batteries and accumulators placed on the market</li>
+      </ul>
+      <p>
+        While all three are EPR-related, they are regulated separately under different EU and national frameworks. Each has its own registration systems, reporting obligations, and compliance schemes. Sellers cannot assume that addressing one topic covers the others.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Packaging EPR explained</h2>
+      <p>
+        Packaging EPR (Extended Producer Responsibility for packaging) requires sellers who place packaged goods on the EU market to contribute to the recovery and recycling of packaging waste. Key aspects include:
+      </p>
+      <ul>
+        <li><strong>Scope</strong> — packaging materials including boxes, wrappers, filling materials, and labels used for shipping products to consumers</li>
+        <li><strong>Country-specific</strong> — each EU country has its own packaging EPR system, registration portal, and accredited compliance schemes</li>
+        <li><strong>Germany example</strong> — sellers must register with the LUCID packaging register and participate in a dual system for packaging recovery</li>
+        <li><strong>France example</strong> — sellers register through accredited compliance schemes (éco-organismes) for packaging</li>
+        <li><strong>Registration</strong> — required before first selling in each target market</li>
+        <li><strong>Reporting</strong> — periodic declaration of packaging quantities placed on the market</li>
+      </ul>
+      <p>
+        For more detail, see the <a href="/germany-epr-packaging-registration/">Germany EPR packaging guide</a> and <a href="/france-epr-packaging-registration/">France EPR packaging guide</a>. For platform-specific guidance, see <a href="/epr-compliance-for-amazon-sellers/">EPR compliance for Amazon sellers</a> and <a href="/epr-compliance-for-shopify/">EPR compliance for Shopify sellers</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>WEEE explained</h2>
+      <p>
+        WEEE (Waste Electrical and Electronic Equipment) is the EU directive governing the collection, treatment, and recycling of electrical and electronic products at the end of their life. Key aspects include:
+      </p>
+      <ul>
+        <li><strong>Scope</strong> — electrical and electronic equipment including devices, appliances, IT equipment, consumer electronics, tools, toys, and medical devices</li>
+        <li><strong>Producer responsibility</strong> — sellers of EEE products are responsible for financing the end-of-life collection and recycling of their products</li>
+        <li><strong>Registration</strong> — sellers may need to register with national WEEE registers in each country where they sell EEE products</li>
+        <li><strong>Producer Identification Number</strong> — some countries require a separate WEEE producer registration number</li>
+        <li><strong>Marking</strong> — EEE products may need to be marked with the crossed-out wheeled bin symbol</li>
+        <li><strong>Reporting</strong> — periodic reporting of quantities of EEE placed on the market</li>
+      </ul>
+      <p>
+        WEEE applies specifically to electrical and electronic products. Packaging EPR applies to packaging materials. A seller who only sells non-electrical products does not need WEEE registration, but may still need packaging EPR registration.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Battery EPR explained</h2>
+      <p>
+        Battery EPR covers batteries and accumulators placed on the EU market under the EU Battery Regulation. Key aspects include:
+      </p>
+      <ul>
+        <li><strong>Scope</strong> — portable batteries, automotive batteries, and industrial batteries sold separately or included in products</li>
+        <li><strong>Producer responsibility</strong> — sellers of batteries are responsible for collection and recycling obligations</li>
+        <li><strong>Labelling</strong> — batteries must be marked with the collection symbol and capacity information</li>
+        <li><strong>Separate from WEEE</strong> — batteries that are part of EEE products may be covered by both battery and WEEE regulations, depending on the category and country</li>
+        <li><strong>Country-specific</strong> — battery registration requirements vary by EU country</li>
+        <li><strong>Reporting</strong> — periodic reporting of battery quantities and collections</li>
+      </ul>
+      <p>
+        If you sell battery-powered products, you may need to address both battery EPR and WEEE obligations, in addition to packaging EPR for the shipping materials.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Key Differences</h2>
+      <p>
+        Here is a plain-English comparison of the three topics:
+      </p>
+      <ul>
+        <li><strong>Packaging EPR</strong> — applies to the materials used to ship and protect products. Every ecommerce seller who ships products in packaging may have packaging EPR obligations, regardless of what the products are.</li>
+        <li><strong>WEEE</strong> — applies to electrical and electronic products themselves. Sellers who only sell non-electrical products (clothing, books, food, furniture without electronics) typically do not need WEEE registration.</li>
+        <li><strong>Battery EPR</strong> — applies to batteries and battery-powered products. Sellers who sell only non-electrical products without batteries do not need battery EPR. Sellers of battery-powered electronics may need both WEEE and battery EPR.</li>
+      </ul>
+      <p>
+        All three topics can apply simultaneously for sellers with diverse product ranges, including those selling electronics with packaging and batteries.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Platform implications</h2>
+      <p>
+        Different ecommerce platforms may have varying approaches to verifying EPR compliance across these three categories:
+      </p>
+      <h3>Amazon sellers</h3>
+      <p>
+        Amazon has separate EPR compliance programs for packaging, WEEE, and batteries. Sellers may need to provide different registration numbers or declarations for each category in each country where they sell. Amazon may request proof of registration or use an Amazon-partnered solution for one or more categories. Review Amazon Seller Central guidance for the latest requirements on each EPR category.
+      </p>
+      <h3>Shopify sellers</h3>
+      <p>
+        Shopify sellers selling electrical products, batteries, or packaged goods to EU consumers should independently verify their EPR obligations across all relevant categories. Shopify does not currently manage EPR compliance on behalf of merchants. Sellers may need to register separately for packaging, WEEE, and battery EPR in each target EU market.
+      </p>
+      <h3>Etsy sellers</h3>
+      <p>
+        Etsy sellers shipping electronics, batteries, or packaged goods to EU consumers should review current platform policies and national EPR requirements to understand which categories may apply to their products and selling setup.
+      </p>
+      <h3>WooCommerce / DTC sellers</h3>
+      <p>
+        Direct-to-consumer sellers operating their own stores should independently assess packaging EPR, WEEE, and battery EPR obligations based on their product catalogue and target markets. Consider using the <a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> to identify which categories may apply to your products.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>What sellers may need to prepare</h2>
+      <p>
+        Preparing the following can help address all three EPR categories:
+      </p>
+      <ul class="checklist">
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Product inventory — identify which products fall into electrical/electronic, battery, and non-electronic categories</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Packaging inventory — identify packaging types and materials used for shipping</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Battery inventory — identify battery types and whether batteries are sold separately or included in products</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Target EU markets — list countries where you sell, as EPR obligations are country-specific</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Annual volumes — estimated quantities of packaging, EEE products, and batteries placed on each market</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Business registration details — legal name, address, contact information for each market</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Existing EPR registration numbers — if you already have registrations in any category or country</span>
+        </li>
+      </ul>
+      <p>
+        Having this information ready can help when registering with national systems or requesting compliance provider assistance. <a href="/request-eu-compliance-quotes/">Request compliance quotes</a> to get help with packaging, WEEE, and battery EPR across multiple EU markets.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Common mistakes</h2>
+      <div class="mistakes-list">
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Treating packaging EPR, WEEE and batteries as the same requirement. These are three separate sets of regulations that may apply simultaneously depending on your products. Each has its own registration system, reporting obligations, and compliance scheme.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming one EPR registration covers every category. In most EU countries, packaging, WEEE and batteries require separate registrations or scheme memberships. A packaging registration in Germany does not cover WEEE or battery obligations, and vice versa.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Forgetting packaging obligations when focusing only on product category rules. Every ecommerce seller who ships products in packaging to EU consumers may have packaging EPR obligations, even if their products themselves are exempt from WEEE or battery rules.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Ignoring batteries included inside products. Products that contain batteries (such as electronics, toys, or tools) may trigger battery EPR obligations in addition to WEEE. Battery requirements can apply even when batteries are not sold separately.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Assuming marketplace selling removes all seller responsibility. Marketplaces may request EPR registration information for packaging, WEEE, and battery categories, but the underlying regulatory obligations typically remain with the seller.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Using Germany guidance for France without checking differences. Germany and France handle packaging, WEEE and battery EPR through different registration systems, authorities, and compliance schemes. What works in Germany may not apply in France and vice versa.</p>
+        </div>
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">Waiting until a marketplace asks for registration information. Proactive review of all relevant EPR categories before selling in EU markets can help avoid compliance gaps and listing issues.</p>
+        </div>
+      </div>
+    </div>
+
+    <FAQBlock faqs={pageFAQs} />
+
+    <OfficialSources sources={sources} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Need help?</h2>
+      <p>Leave a message and a compliance service provider will follow up with you.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="secondary" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/germany-epr-packaging-registration/">Germany EPR Packaging Registration</a></li>
+        <li><a href="/france-epr-packaging-registration/">France EPR Packaging Registration</a></li>
+        <li><a href="/epr-compliance-for-amazon-sellers/">EPR Compliance for Amazon Sellers</a></li>
+        <li><a href="/epr-compliance-for-shopify/">EPR Compliance for Shopify Sellers</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+      </ul>
+    </div>
+</Layout>
+
+<style>
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.7;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem;
+    color: #1e293b;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+    color: #1e293b;
+  }
+
+  .cta-section p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-guides li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem 1rem;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

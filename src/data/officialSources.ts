@@ -59,6 +59,14 @@ export const officialSources: Record<string, OfficialSource[]> = {
     { title: 'France - ADEME Producer Responsibility', url: 'https://www.ademe.fr/en/expertise/waste-management/producer-responsibility', description: "ADEME official resources on Extended Producer Responsibility in France, covering packaging, batteries, electrical equipment and other product categories." },
     { title: 'France Ministry for Ecological Transition - EPR Information', url: 'https://www.ecologie.gouv.fr/registre-des-metiers-et-de-lartisanat', description: "Official French government information on Extended Producer Responsibility obligations and producer obligations." },
   ],
+  weee: [
+    { title: 'European Commission - WEEE Directive', url: 'https://environment.ec.europa.eu/topics/waste-electrical-electronic-equipment-weee_en', description: 'Official European Commission page on the Waste Electrical and Electronic Equipment (WEEE) Directive, covering scope, producer obligations, and national implementation.' },
+    { title: 'EU WEEE Directive 2012/19/EU', url: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32012L0019', description: 'Full text of EU Directive 2012/19/EU on waste electrical and electronic equipment (WEEE).' },
+  ],
+  batteries: [
+    { title: 'European Commission - Battery Regulation', url: 'https://environment.ec.europa.eu/topics/batteries_en', description: 'Official European Commission page on the EU Battery Regulation, covering portable, automotive, and industrial batteries.' },
+    { title: 'EU Battery Regulation 2023/1542', url: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542', description: 'Full text of EU Regulation 2023/1542 on batteries and waste batteries.' },
+  ],
   general: [
     {
       title: 'European Commission - Single Market',
