@@ -13,6 +13,7 @@ Shopify sellers, Amazon sellers, Etsy sellers, WooCommerce sellers, DTC ecommerc
 
 ## Core Pages
 - https://eureadyseller.com/ — EUReadySeller - Know What Your Store Needs Before Selling to the EU
+- https://eureadyseller.com/germany-epr-packaging-registration/ — Germany EPR Packaging Registration for Ecommerce Sellers
 - https://eureadyseller.com/do-i-need-an-eu-responsible-person/ — Do I Need an EU Responsible Person?
 - https://eureadyseller.com/epr-compliance-for-amazon-sellers/ — EPR Compliance for Amazon Sellers
 - https://eureadyseller.com/gpsr-compliance-for-amazon-sellers/ — GPSR Compliance for Amazon Sellers
@@ -30,6 +31,10 @@ https://eureadyseller.com/tools/eu-seller-compliance-checker/ — Free EU Seller
 ## EUReadySeller - Know What Your Store Needs Before Selling to the EU
 URL: https://eureadyseller.com/
 EUReadySeller helps ecommerce sellers understand GPSR, EU Responsible Person and EPR packaging topics before selling physical products to EU consumers.
+
+## Germany EPR Packaging Registration for Ecommerce Sellers
+URL: https://eureadyseller.com/germany-epr-packaging-registration/
+A practical guide for ecommerce sellers reviewing Germany EPR packaging registration, LUCID topics and provider help before selling packaged goods in Germany.
 
 ## Do I Need an EU Responsible Person?
 URL: https://eureadyseller.com/do-i-need-an-eu-responsible-person/

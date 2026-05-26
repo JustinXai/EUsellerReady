@@ -765,7 +765,7 @@ export const contentRoadmap: ContentRoadmapItem[] = [
   },
   {
     path: '/germany-epr-packaging-registration/',
-    status: 'planned',
+    status: 'live',
     categoryId: 'country_epr',
     templateId: 'countryEprTemplate',
     priority: 'P0',

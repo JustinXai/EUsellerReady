@@ -170,6 +170,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-25',
     aiSummary: 'EPR guide for Amazon sellers. Covers packaging registration topics, Germany and France EPR requirements, Amazon seller information and provider help. Explains how EPR differs from GPSR. Educational guidance only, not legal advice.',
   },
+  {
+    path: '/germany-epr-packaging-registration/',
+    title: 'Germany EPR Packaging Registration for Ecommerce Sellers',
+    description: 'A practical guide for ecommerce sellers reviewing Germany EPR packaging registration, LUCID topics and provider help before selling packaged goods in Germany.',
+    h1: 'Germany EPR Packaging Registration for Ecommerce Sellers',
+    category: 'country_epr',
+    priority: '0.7',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-26',
+    aiSummary: 'Germany EPR packaging registration guide for ecommerce sellers. Covers LUCID packaging register, German Packaging Act obligations, and registration topics for sellers targeting the German market. Explains how EPR differs from GPSR.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {
