@@ -85,6 +85,9 @@ for (const file of allFiles) {
           window.includes('providing legal advice') ||
           window.includes('offering legal advice') ||
           window.includes('is this legal advice') ||
+          window.includes('is legal advice included') ||
+          window.includes('is legal advice excluded') ||
+          window.includes('is legal advice covered') ||
           window.includes('what is legal advice') ||
           window.includes('does eu ready seller provide legal advice') ||
           window.includes('does this provide legal advice') ||

@@ -209,6 +209,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-26',
     aiSummary: 'EPR packaging vs WEEE vs batteries comparison guide for ecommerce sellers. Explains how packaging EPR, WEEE, and battery regulations differ and why sellers may need to review each separately. Uses Germany and France examples. Links to Germany EPR packaging, France EPR packaging, Amazon EPR, and Shopify EPR guides. Provider help and compliance checker CTAs included. Not legal advice.',
   },
+  {
+    path: '/eu-compliance-provider-directory/',
+    title: 'EU Compliance Provider Directory for Ecommerce Sellers',
+    description: 'A practical directory guide for ecommerce sellers reviewing EU Responsible Person, GPSR, EPR, WEEE and battery compliance provider options.',
+    h1: 'EU Compliance Provider Directory for Ecommerce Sellers',
+    category: 'service_provider_matching',
+    priority: '0.8',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-26',
+    aiSummary: 'EU compliance provider directory guide for ecommerce sellers. Explains main provider categories: EU Responsible Person, GPSR support, EPR packaging, WEEE and battery compliance. Helps sellers compare providers and prepare questions before contacting qualified providers. Links to compliance checker and message form. Does not certify or guarantee providers. Not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {
