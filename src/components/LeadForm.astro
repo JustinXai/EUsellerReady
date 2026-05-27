@@ -431,6 +431,17 @@ const { topic = 'gpsr' } = Astro.props;
       if (response.ok && result.ok) {
         showStatus('Thank you! Your request has been submitted.', 'success');
         form.reset();
+
+        // Track GA4 conversion event (only if gtag is available)
+        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+          window.gtag('event', 'provider_intake_submit_success', {
+            platform: (data.platform as string) || 'not_set',
+            situation: (data.situation as string) || 'not_set',
+            countries_count: Array.isArray(data.countries) ? (data.countries as string[]).length : 0,
+            topics_count: Array.isArray(data.topics) ? (data.topics as string[]).length : 0,
+            product_category_present: Boolean(data.productCategory)
+          });
+        }
       } else {
         const errorMsg = result.error || 'Submission failed. Please try again.';
         showStatus(errorMsg, 'error');
