@@ -48,3 +48,13 @@ const resolvedOgUrl = ogUrl ?? canonical;
 <meta name="twitter:description" content={resolvedOgDescription} />
 
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LZTJZSQSPR"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-LZTJZSQSPR');
+</script>
