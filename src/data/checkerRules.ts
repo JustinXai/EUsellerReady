@@ -53,7 +53,7 @@ export const topicCatalog: ComplianceTopic[] = [
     id: 'gpsr',
     name: 'GPSR - General Product Safety Regulation',
     whyRelevant:
-      'GPSR (EU Regulation 2023/988) applies to all physical products sold to EU consumers. Sellers on Shopify, Amazon, Etsy, WooCommerce or any other platform may need to comply.',
+      'GPSR (EU Regulation 2023/988) may be relevant for many physical consumer products sold to EU consumers depending on product category, seller role and market setup.',
     whatToPrepare: [
       'Product safety documentation',
       'Traceability information (manufacturing date, batch number)',

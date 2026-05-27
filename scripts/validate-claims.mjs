@@ -1,13 +1,14 @@
 /**
  * validate-claims.mjs
- * Scans dist/ for dangerous compliance claim phrases.
+ * Scans dist/ and src/ for dangerous compliance claim phrases.
  *
  * HARD FAIL — banned phrases that must NEVER appear:
  *   guaranteed compliance, certified compliance, fully compliant,
  *   become compliant instantly, we are lawyers, official EU certified,
  *   EU-approved service, compliant by using this tool,
  *   this tool determines compliance, we guarantee your products are compliant,
- *   avoid all fines, legally required in every case
+ *   avoid all fines, legally required in every case,
+ *   legal advice (unless preceded by "not" / "n't" / "doesn't" / "does not provide")
  *
  * WARN — soft risk phrases that should be reviewed:
  *   "applies to all physical products"
@@ -17,6 +18,15 @@
  *   "ensure compliance" (in positive claim form)
  *   "listing removals" (as consequences)
  *   "before first selling" (as absolute requirement)
+ *   "required before selling"
+ *   "penalties for non-registration"
+ *   "GPSR obligations"
+ *   "EPR obligations"
+ *
+ * Output format:
+ *   FAIL count — build must fail if > 0
+ *   WARN count — informational, build continues
+ *   PASS count — total files scanned
  *
  * Allowed: "not legal advice" (safe phrase)
  */
@@ -46,15 +56,23 @@ const BANNED = [
 
 // Phrases that cause WARN — these are softer risks to review
 const SOFT_RISK = [
-  { phrase: 'applies to all physical products', context: 'Too absolute — may need softening to "may be relevant for many physical consumer products"' },
-  { phrase: 'applies to any physical product', context: 'Too absolute — may need softening to "may be relevant for many physical consumer products"' },
+  { phrase: 'applies to all physical products', context: 'Too absolute — use "may be relevant for many physical consumer products"' },
+  { phrase: 'applies to any physical product', context: 'Too absolute — use "may be relevant for many physical consumer products"' },
   { phrase: 'must independently', context: 'Too absolute when used as a conclusion — prefer "may need to independently"' },
   { phrase: 'must be accessible', context: 'Too absolute when used as a conclusion — prefer "may need to be accessible"' },
   { phrase: 'listing removals', context: 'Consequence phrasing too strong — prefer "listing restrictions, platform requests or compliance gaps"' },
   { phrase: 'before first selling', context: 'Absolute requirement language — prefer "before launching or expanding into a target market"' },
+  { phrase: 'required before selling', context: 'Absolute requirement language — prefer "may be needed before launching in a target market"' },
+  { phrase: 'penalties for non-registration', context: 'Too enforcement-focused — prefer "may request registration or reporting depending on country and category"' },
   { phrase: 'ensure compliance', context: 'Too strong a guarantee — prefer "support compliance review" or "help prepare information"' },
   { phrase: 'you are responsible for', context: 'Too absolute — prefer "you may need to take responsibility for"' },
-  { phrase: 'sellers are responsible for', context: 'Too absolute — prefer "sellers may be responsible for"' },
+  { phrase: 'sellers are responsible for', context: 'Too absolute — prefer "sellers may need to take responsibility for"' },
+  { phrase: 'GPSR obligations', context: 'Conclusionary phrasing — prefer "GPSR topics" or "GPSR requirements that may be relevant"' },
+  { phrase: 'EPR obligations', context: 'Conclusionary phrasing — prefer "EPR topics" or "EPR requirements that may be relevant"' },
+  { phrase: 'we guarantee', context: 'Too strong a guarantee — prefer "may help" or "aims to support"' },
+  { phrase: 'we certify', context: 'Too strong a claim — prefer "provides" or "offers"' },
+  { phrase: 'EU-approved', context: 'Potentially misleading — prefer "meets requirements" or "aligns with"' },
+  { phrase: 'avoid all fines', context: 'Unrealistic guarantee — prefer "help prepare" or "may reduce risk"' },
 ];
 
 let exitCode = 0;
@@ -173,12 +191,22 @@ for (const file of allFiles) {
 
 // === Summary ===
 console.log('');
-if (failCount === 0 && warnCount === 0) {
-  log('PASS', `No dangerous compliance claims found (scanned ${allFiles.length} files)`);
-} else if (failCount > 0) {
-  log('FAIL', `Found ${failCount} hard failure(s), ${warnCount} warning(s) across ${allFiles.length} files`);
+console.log('═══════════════════════════════════════');
+console.log(`  CLAIMS VALIDATION SUMMARY`);
+console.log('═══════════════════════════════════════');
+console.log(`  FAIL: ${failCount}  (hard banned phrases — build BLOCKS)`);
+console.log(`  WARN: ${warnCount}  (soft risk phrases — review needed)`);
+console.log(`  PASS: ${allFiles.length}  (files scanned)`);
+console.log('═══════════════════════════════════════');
+console.log('');
+
+if (failCount > 0) {
+  console.log(`✗ VALIDATION FAILED — ${failCount} hard failure(s) found. Fix before deploying.`);
+  exitCode = 1;
+} else if (warnCount > 0) {
+  console.log(`⚠ VALIDATION PASSED with ${warnCount} warning(s). Review warnings above.`);
 } else {
-  log('PASS', `Found ${warnCount} warning(s) but no hard failures (scanned ${allFiles.length} files)`);
+  console.log(`✓ VALIDATION PASSED — No dangerous claims found across ${allFiles.length} files.`);
 }
 
 process.exit(exitCode);

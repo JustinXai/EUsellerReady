@@ -45,12 +45,12 @@ export const checklistFAQs: FAQItem[] = [
   {
     question: 'What is GPSR?',
     answer:
-      'GPSR stands for General Product Safety Regulation (EU) 2023/988. It applies to all physical products sold to EU consumers, requiring product safety documentation, traceability, and in some cases an EU Responsible Person.',
+      'GPSR stands for General Product Safety Regulation (EU) 2023/988. It may be relevant for many physical consumer products sold to EU consumers depending on product category, seller role and market setup.',
   },
   {
     question: 'What is an EU Responsible Person?',
     answer:
-      'An EU Responsible Person is a natural or legal entity based in the EU designated by a non-EU manufacturer to ensure compliance with GPSR obligations. Non-EU sellers typically need one.',
+      'An EU Responsible Person is a natural or legal entity based in the EU designated by a non-EU manufacturer to support GPSR-related product safety topics. Non-EU sellers may need to review whether one applies to their situation.',
   },
   {
     question: 'What is EPR packaging registration?',
@@ -63,7 +63,7 @@ export const gpsrFAQs: FAQItem[] = [
   {
     question: 'What is GPSR?',
     answer:
-      'GPSR (General Product Safety Regulation) is EU Regulation 2023/988 that applies to all physical products sold to EU consumers. It requires product safety documentation, traceability, and in some cases an EU Responsible Person.',
+      'GPSR (General Product Safety Regulation) is EU Regulation 2023/988 that may be relevant for many physical consumer products sold to EU consumers depending on product category, seller role and market setup.',
   },
   {
     question: 'Who does GPSR apply to?',
@@ -231,9 +231,9 @@ export const etsyGpsrFAQs: FAQItem[] = [
 export const amazonEprFAQs: FAQItem[] = [
   { question: 'Does EPR apply to Amazon sellers?', answer: 'EPR (Extended Producer Responsibility) may apply to Amazon sellers who sell physical products with packaging in EU countries. The specific requirements depend on which EU countries you sell to, the type of packaging used, and your seller setup. Germany and France are common starting points to review. Amazon platform requirements may also affect which EPR topics sellers may need to address.' },
   { question: 'What is EPR packaging registration?', answer: 'EPR packaging registration is a country-level environmental regulation requiring producers and sellers to register with national packaging registers and contribute to packaging recovery costs. Germany and France have active EPR packaging schemes. Sellers may need to register with national authorities or use a compliance provider to meet obligations in each target country.' },
-  { question: 'Why do Germany and France matter for EPR?', answer: 'Germany and France are the two most active EU markets for EPR packaging regulation. Germany requires registration through the LUCID packaging register. France has its own EPR system with accredited compliance schemes. Many Amazon sellers start with these two markets when reviewing EPR obligations. Platform requirements may also reference EPR registration in these countries.' },
+  { question: 'Why do Germany and France matter for EPR?', answer: 'Germany and France are the two most active EU markets for EPR packaging regulation. Germany requires registration through the LUCID packaging register. France has its own EPR system with accredited compliance schemes. Many Amazon sellers start with these two markets when reviewing EPR topics. Platform requirements may also reference EPR registration in these countries.' },
   { question: 'What EPR information may Amazon sellers need?', answer: 'Amazon sellers may need to prepare: business legal name and address, seller location, target EU countries, product packaging type and materials, estimated packaging volumes, Amazon seller account information, existing EPR registration numbers (if applicable), and local representative details where relevant. Review current Amazon Seller Central and national authority guidance for the latest requirements.' },
   { question: 'Is EPR the same as GPSR?', answer: 'No. EPR (Extended Producer Responsibility) and GPSR (General Product Safety Regulation) are different regulations. EPR covers packaging waste and environmental recovery obligations at the country level. GPSR covers product safety, traceability, manufacturer information and EU Responsible Person obligations. Both may be relevant for Amazon sellers, but they address different compliance topics.' },
-  { question: 'Should I use an EPR provider?', answer: 'EPR registration can involve country-specific processes, reporting obligations and periodic fees. Many sellers use a compliance service provider to handle registration and reporting in multiple countries. If you sell in multiple EU markets, a provider may help manage EPR obligations across different schemes.' },
+  { question: 'Should I use an EPR provider?', answer: 'EPR registration can involve country-specific processes, reporting obligations and periodic fees. Many sellers use a compliance service provider to handle registration and reporting in multiple countries. If you sell in multiple EU markets, a provider may help manage EPR topics across different schemes.' },
   { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance and identifies topics to review. It does not constitute legal advice or a compliance determination. Consult qualified legal counsel or a compliance provider for your specific situation.' },
 ];

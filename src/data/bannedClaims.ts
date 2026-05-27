@@ -25,8 +25,18 @@ export const softRiskPhrases: string[] = [
   'ensure compliance',
   'listing removals',
   'before first selling',
+  'required before selling',
   'you are responsible for',
   'sellers are responsible for',
+  'penalties for non-registration',
+  'GPSR obligations',
+  'EPR obligations',
+  'guaranteed compliance',
+  'certified compliance',
+  'we guarantee',
+  'we certify',
+  'EU-approved',
+  'avoid all fines',
 ];
 
 // Safe phrases that are explicitly allowed (whitelist)
