@@ -37,6 +37,12 @@ export const softRiskPhrases: string[] = [
   'we certify',
   'EU-approved',
   'avoid all fines',
+  'sellers independently prepare',
+  'product safety obligations',
+  'regulatory obligations typically remain',
+  'Sellers must register',
+  'WEEE obligations',
+  'Reporting obligations',
 ];
 
 // Safe phrases that are explicitly allowed (whitelist)

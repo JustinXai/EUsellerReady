@@ -15,7 +15,7 @@ const pageFAQs = [
   { question: 'What is EPR?', answer: 'EPR stands for Extended Producer Responsibility. It is an environmental policy principle under which producers are made responsible for the end-of-life impact of their products and packaging. In the EU context, EPR typically relates to packaging waste, electrical and electronic equipment (WEEE), and batteries. EPR topics are often country-specific and may involve registration, reporting, and fee contributions depending on the products you sell and the markets you target.' },
   { question: 'Does EPR apply to ecommerce sellers?', answer: 'EPR may apply to ecommerce sellers who sell physical products to consumers in the EU. If you sell products in packaging, you may need to review packaging EPR topics. If you sell electrical or electronic products, you may need to review WEEE. If you sell batteries or products containing batteries, you may need to review battery regulations. The specific obligations depend on your product categories, target countries, and sales channels. Platform requirements may also vary.' },
   { question: 'Is EPR the same in every EU country?', answer: 'No. EPR is an EU-level policy principle, but each EU country implements EPR through its own national regulations, registration systems, and accredited compliance schemes. Germany and France, for example, have different systems for packaging EPR, WEEE, and batteries. A registration in Germany does not automatically cover France, and vice versa. Country rules may vary regarding registration thresholds, reporting requirements, and scheme participation. Always check the requirements for each target market.' },
-  { question: 'What is packaging EPR?', answer: 'Packaging EPR is Extended Producer Responsibility for packaging materials. It requires sellers who place packaged goods on the EU market to contribute to the recovery and recycling of packaging waste. This includes shipping boxes, wrapping materials, filling materials, and labels. Packaging EPR topics are country-specific — Germany uses the LUCID register and dual system, while France uses accredited compliance schemes (eco-organismes). Sellers may need separate registrations for each target country.' },
+  { question: 'What is packaging EPR?', answer: 'Packaging EPR is Extended Producer Responsibility for packaging materials. Sellers who place packaged goods on an EU market may need to review producer responsibility, recovery and recycling contribution topics. This includes shipping boxes, wrapping materials, filling materials, and labels. Packaging EPR topics are country-specific — Germany uses the LUCID register and dual system, while France uses accredited compliance schemes (eco-organismes). Sellers may need separate registrations for each target country.' },
   { question: 'Is EPR the same as GPSR?', answer: 'No. EPR (Extended Producer Responsibility) and GPSR (General Product Safety Regulation) are different regulatory topics. EPR covers environmental obligations — packaging registration, WEEE, and battery compliance. GPSR covers product safety — including manufacturer details, EU Responsible Person representation, safety warnings, and traceability documentation. Both may be relevant for ecommerce sellers, but they address different obligations. For a comparison, see the GPSR General Guide.' },
   { question: 'What is the difference between EPR packaging, WEEE and batteries?', answer: 'Packaging EPR covers packaging materials used to ship and protect products. WEEE (Waste Electrical and Electronic Equipment) covers electrical and electronic products at the end of their life. Battery regulations cover batteries sold separately or included in products. These are three separate sets of obligations that may apply simultaneously depending on your product range. For a detailed comparison, see the EPR Packaging vs WEEE vs Batteries guide.' },
   { question: 'Do Amazon or Shopify sellers need to review EPR?', answer: 'Amazon, Shopify, Etsy, WooCommerce and other ecommerce sellers who sell physical products in EU markets may need to review EPR topics depending on the products they sell. Amazon has its own EPR compliance program and may request registration numbers for packaging, WEEE, and battery categories. Shopify sellers should independently review their EPR topics. Platform requirements may change over time. Product categories and target markets affect which EPR topics may apply.' },
@@ -140,12 +140,12 @@ const jsonLd = [
     <div class="content-block">
       <h2>Packaging EPR overview</h2>
       <p>
-        Packaging EPR is Extended Producer Responsibility for packaging materials. It requires sellers who place packaged goods on the EU market to contribute to the recovery and recycling of packaging waste. Key aspects include:
+        Packaging EPR is Extended Producer Responsibility for packaging materials. Sellers who place packaged goods on an EU market may need to review producer responsibility, recovery and recycling contribution topics. Key aspects include:
       </p>
       <ul>
         <li><strong>Scope</strong> — shipping boxes, wrapping materials, filling materials, tape, labels and other packaging used to deliver products to consumers</li>
         <li><strong>Country-specific</strong> — each EU country has its own packaging EPR system, registration portal and accredited compliance schemes</li>
-        <li><strong>Germany</strong> — sellers must register with the LUCID packaging register and participate in a dual system for packaging recovery</li>
+        <li><strong>Germany</strong> — sellers may need to review LUCID packaging registration and dual system participation topics depending on their packaging role and German market setup</li>
         <li><strong>France</strong> — sellers register through accredited compliance schemes (eco-organismes) for packaging</li>
         <li><strong>Registration</strong> — may be needed before launching in each target market</li>
         <li><strong>Reporting</strong> — periodic declaration of packaging quantities placed on the market</li>
@@ -198,7 +198,7 @@ const jsonLd = [
       </p>
       <h3>WEEE (Waste Electrical and Electronic Equipment)</h3>
       <p>
-        WEEE covers electrical and electronic equipment at the end of its life. If you sell electronics, appliances, powered tools, IT equipment or similar products, you may need to review WEEE obligations. Key aspects include:
+        WEEE covers electrical and electronic equipment at the end of its life. If you sell electronics, appliances, powered tools, IT equipment or similar products, you may need to review WEEE topics. Key aspects include:
       </p>
       <ul>
         <li>Registration with national WEEE registers in each target country</li>
@@ -214,7 +214,7 @@ const jsonLd = [
         <li>Battery type and chemistry identification</li>
         <li>Labelling requirements for batteries</li>
         <li>Registration requirements in target countries</li>
-        <li>Reporting obligations for battery quantities</li>
+        <li>Reporting topics for battery quantities</li>
       </ul>
       <p>
         For a detailed comparison of packaging EPR, WEEE and battery topics, see the <a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries guide</a>.
@@ -316,13 +316,13 @@ const jsonLd = [
           <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
           </svg>
-          <p class="mistake-text">Treating EPR as the same thing as GPSR. These are different regulatory topics — EPR covers environmental obligations (packaging, WEEE, batteries), while GPSR covers product safety.</p>
+          <p class="mistake-text">Treating EPR as the same thing as GPSR. These are different regulatory topics — EPR covers environmental responsibility topics (packaging, WEEE, batteries), while GPSR covers product safety.</p>
         </div>
         <div class="mistake-item">
           <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
           </svg>
-          <p class="mistake-text">Assuming one EPR registration covers every country and category. In most EU countries, packaging, WEEE and batteries require separate registrations. Germany registration does not cover France, and packaging registration does not cover WEEE.</p>
+          <p class="mistake-text">Assuming one EPR registration covers every country and category. Packaging, WEEE and batteries are often handled through separate schemes, registrations or reporting topics, so sellers should review each category separately. Germany registration does not cover France, and packaging topics do not cover WEEE.</p>
         </div>
         <div class="mistake-item">
           <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -358,7 +358,7 @@ const jsonLd = [
           <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
           </svg>
-          <p class="mistake-text">Assuming marketplace selling removes all seller responsibility. Marketplaces may request EPR registration information, but the underlying regulatory obligations typically remain with the seller.</p>
+          <p class="mistake-text">Assuming marketplace selling removes all seller responsibility. Marketplaces may request EPR registration information, but the underlying EPR topics may still need to be reviewed by the seller, depending on country, category and setup.</p>
         </div>
       </div>
     </div>
