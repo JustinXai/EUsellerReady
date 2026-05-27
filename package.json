@@ -27,7 +27,8 @@
     "external:smoke": "node scripts/external-smoke.mjs",
     "ci:wait": "node scripts/wait-github-ci.mjs",
     "ci:external": "node scripts/trigger-github-external-smoke.mjs",
-    "live:grep": "node scripts/live-grep-check.mjs"
+    "live:grep": "node scripts/live-grep-check.mjs",
+    "messages:tail": "node scripts/show-messages.mjs --last 20"
   },
   "dependencies": {
     "astro": "^4.16.0"
