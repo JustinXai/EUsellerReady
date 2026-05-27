@@ -65,6 +65,7 @@ const platformListingAreas = [
     subheading="A practical GPSR guide for Amazon sellers reviewing EU Responsible Person, product safety information and listing topics before selling to EU consumers."
   />
 
+  <div class="prose-shell">
   <div class="content-wrapper">
     <div class="quick-answer">
       <p class="quick-answer-label">Quick Answer</p>
@@ -158,10 +159,12 @@ const platformListingAreas = [
 
       <h2>What about EPR packaging topics?</h2>
       <p>
-        In addition to GPSR, Amazon sellers selling in EU markets may also need to review EPR (Extended Producer Responsibility) packaging topics. GPSR and EPR are different regulations covering different compliance areas. The GPSR guide above covers product safety and EU Responsible Person topics. See the separate EPR guide for Amazon sellers for packaging registration topics in Germany, France and other EU markets.
+        In addition to GPSR, Amazon sellers selling in EU markets may also need to review EPR (Extended Producer Responsibility) packaging topics. GPSR and EPR are different regulations covering different compliance areas. The GPSR guide above covers product safety and EU Responsible Person topics.       See the separate EPR guide for Amazon sellers for packaging registration topics in Germany, France and other EU markets.
       </p>
     </div>
+  </div>
 
+  <div class="wide-shell">
     <OfficialSources sources={sources} />
 
     <FAQBlock faqs={amazonGpsrFAQs} />
@@ -192,175 +195,3 @@ const platformListingAreas = [
     </div>
   </div>
 </Layout>
-
-<style>
-  .content-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-  }
-
-  .quick-answer {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    border-left: 4px solid #0284c7;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border-radius: 0 8px 8px 0;
-  }
-
-  .quick-answer-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #0284c7;
-    margin-bottom: 0.5rem;
-  }
-
-  .content-block h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 2rem 0 1rem;
-    color: #1e293b;
-  }
-
-  .content-block p {
-    line-height: 1.7;
-    margin-bottom: 1rem;
-    color: #475569;
-  }
-
-  .content-block ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .content-block ul li {
-    margin-bottom: 0.5rem;
-    color: #475569;
-    line-height: 1.6;
-  }
-
-  .checklist {
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 1.5rem 0;
-  }
-
-  .checklist-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .checklist-icon {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    background: #22c55e;
-    border-radius: 50%;
-    position: relative;
-    margin-top: 2px;
-  }
-
-  .checklist-icon::after {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 7px;
-    width: 5px;
-    height: 9px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
-
-  .mistakes-list {
-    margin: 1.5rem 0;
-  }
-
-  .mistake-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1rem;
-    background: #fef2f2;
-    border-radius: 8px;
-    margin-bottom: 0.75rem;
-  }
-
-  .mistake-icon {
-    color: #ef4444;
-    min-width: 18px;
-    margin-top: 2px;
-  }
-
-  .mistake-text {
-    margin: 0;
-    color: #991b1b;
-    line-height: 1.5;
-  }
-
-  .cta-section {
-    background: #f8fafc;
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    margin: 2rem 0;
-  }
-
-  .cta-section h2 {
-    margin-top: 0;
-  }
-
-  .cta-section-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .related-guides {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e2e8f0;
-  }
-
-  .related-guides h2 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-
-  .related-guides ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .related-guides li {
-    margin-bottom: 0.5rem;
-  }
-
-  .related-guides a {
-    color: #0284c7;
-    text-decoration: none;
-  }
-
-  .related-guides a:hover {
-    text-decoration: underline;
-  }
-
-  @media (max-width: 640px) {
-    .content-wrapper {
-      padding: 1.5rem 1rem;
-    }
-
-    .cta-section-buttons {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-</style>
