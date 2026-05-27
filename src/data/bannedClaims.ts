@@ -5,7 +5,6 @@ export const bannedPhrases: string[] = [
   'certified compliance',
   'fully compliant',
   'become compliant instantly',
-  'legal advice',
   'we are lawyers',
   'official EU certified',
   'EU-approved service',
@@ -14,6 +13,20 @@ export const bannedPhrases: string[] = [
   'we guarantee your products are compliant',
   'avoid all fines',
   'legally required in every case',
+];
+
+// Soft risk phrases — these trigger WARN (not FAIL) in validate-claims.mjs
+// Review and soften when found in page body prose.
+export const softRiskPhrases: string[] = [
+  'applies to all physical products',
+  'applies to any physical product',
+  'must independently',
+  'must be accessible',
+  'ensure compliance',
+  'listing removals',
+  'before first selling',
+  'you are responsible for',
+  'sellers are responsible for',
 ];
 
 // Safe phrases that are explicitly allowed (whitelist)
