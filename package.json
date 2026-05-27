@@ -26,7 +26,8 @@
     "verify": "npm run build && npm run validate:routes && npm run validate:seo && npm run validate:claims && npm run validate:links && npm run validate:schema && npm run validate:robots && npm run validate:content-roadmap && npm run validate:page-template && npm run validate:official-sources && npm run validate:no-hardcoded-pages && npm run validate:artifacts && npm run report",
     "external:smoke": "node scripts/external-smoke.mjs",
     "ci:wait": "node scripts/wait-github-ci.mjs",
-    "external:github": "node scripts/trigger-github-external-smoke.mjs"
+    "ci:external": "node scripts/trigger-github-external-smoke.mjs",
+    "live:grep": "node scripts/live-grep-check.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0"

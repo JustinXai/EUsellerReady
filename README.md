@@ -612,6 +612,67 @@ The `.cursor/rules/` directory contains AI agent rules that prevent common mista
 
 ---
 
-## 26. Next Recommended Prompt
+## 27. Historical QA Prevention
+
+This project maintains a Historical QA Prevention Checklist to prevent recurring failures from "local passes but live site broken" patterns.
+
+### Key Principles
+
+| Principle | Explanation |
+|-----------|-------------|
+| `npm run verify` is not enough | Local build passes but live site may differ due to cache or deployment issues |
+| Changed pages need live grep | After any content change, verify the live site with `npm run live:grep` |
+| Artifacts need live curl | sitemap.xml, llms.txt, robots.txt should be verified live, not just in dist/ |
+| GSC small data should not trigger strategy pivots | Fewer than 10 impressions is noise, not signal |
+
+### Live Grep Commands
+
+```bash
+# Verify phrase is present (must)
+npm run live:grep -- /gpsr-general-guide/ "GPSR Guide for Ecommerce Sellers" --must
+
+# Verify phrase is absent (must-not)
+npm run live:grep -- /gpsr-general-guide/ "old bad phrase" --must-not
+```
+
+### Manual Curl Commands
+
+```bash
+# Check robots.txt for AI crawler blocks
+curl -s https://eureadyseller.com/robots.txt | grep -i "GPTBot\|ChatGPT-User\|CCBot\|Disallow: /" && echo "BAD" || echo "OK"
+
+# Check sitemap includes route
+curl -s https://eureadyseller.com/sitemap.xml | grep "route-slug"
+
+# Check llms.txt includes route
+curl -s https://eureadyseller.com/llms.txt | grep "route-slug"
+
+# Check page does NOT have old phrase
+curl -s https://eureadyseller.com/changed-url/ | grep -i "old bad phrase" && echo "BAD" || echo "OK"
+```
+
+### When to Use Each Check
+
+| Change Type | Required Checks |
+|------------|----------------|
+| New page | verify + live curl H1 + sitemap + llms + GSC submit |
+| Content change | verify + live grep old phrase + live grep new phrase |
+| Claim wording | verify + live grep + validate:claims review |
+| CSS/UI | verify + external:smoke + manual browser check |
+| Route rename | verify + live curl old URL + live curl new URL + sitemap + llms |
+
+### Full Checklist
+
+See `docs/11-historical-qa-prevention.md` for the complete Historical QA Prevention Checklist including:
+
+- Common historical failure modes
+- Required checks by task type (A-E)
+- Required live grep examples
+- GSC data interpretation rules
+- Pre-deploy checklist
+
+---
+
+## 28. Next Recommended Prompt
 
 > "Add Google Analytics 4 integration, create a Google Search Console verification meta tag, and set up an uptime monitoring cron job on the server."
