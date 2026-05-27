@@ -12,7 +12,7 @@ import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
 
 const pagePath = '/request-eu-compliance-quotes/';
 const canonical = `${site.siteUrl}/request-eu-compliance-quotes/`;
-const route = routes.find((r) => r.path === pagePath)!;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/request-eu-compliance-quotes/');
 
 const jsonLd = [
   buildWebPageSchema(pagePath, route.title, route.description, route.h1),
@@ -26,53 +26,84 @@ const jsonLd = [
   canonical={canonical}
   jsonLd={jsonLd}
 >
+
   <PageHeader
     heading={route.h1}
-    subheading="Request quotes from EU compliance providers for GPSR, EU Responsible Person and EPR packaging topics."
+    subheading="Describe your EU compliance situation to help providers understand your needs."
   />
 
   <div class="content-wrapper">
     <div class="quick-answer">
       <p class="quick-answer-label">Quick Answer</p>
       <p>
-        Use this form to request quotes from EU compliance service providers. Fill in your business details, store platform, product category, target EU markets and the compliance topics you need help with. Providers will contact you directly. EUReadySeller does not charge for this service and does not determine compliance.
+        This form helps sellers describe their EU compliance situation so providers can understand your needs. Submit your platform, target markets, and compliance topics. This is educational intake only — it does not guarantee a reply, quote, or provider match.
       </p>
     </div>
 
     <AISummary summary={route.aiSummary} />
 
     <div class="content-block">
-      <h2>How provider matching works</h2>
-      <p>
-        Submitting this form sends your compliance needs to service providers who offer GPSR, EU Responsible Person and EPR packaging services. Providers review your details and contact you with relevant quotes. This service is free for sellers.
-      </p>
+      <h2>What happens next</h2>
+      <ul>
+        <li>We review submitted information to understand common seller needs.</li>
+        <li>Provider availability may vary.</li>
+        <li>This form does not guarantee a reply, quote or provider match.</li>
+        <li>EUReadySeller does not certify, approve or guarantee providers.</li>
+      </ul>
+    </div>
 
+    <div class="content-block">
       <h2>What to include in your request</h2>
       <ul>
-        <li>Your business location (US, UK, China, Canada, EU, etc.)</li>
-        <li>Store platform (Shopify, Amazon, Etsy, WooCommerce, custom, etc.)</li>
-        <li>Product categories you sell</li>
-        <li>Target EU countries (Germany, France, multiple, etc.)</li>
-        <li>Specific compliance topics you need help with</li>
-        <li>Any existing compliance preparations already in place</li>
+        <li>Your selling platform (Shopify, Amazon, Etsy, WooCommerce, etc.)</li>
+        <li>Target EU countries (Germany, France, other markets)</li>
+        <li>Product category you sell</li>
+        <li>Current situation (planning launch, already selling, received warning)</li>
+        <li>Compliance topics you need help with (GPSR, EU RP, EPR, WEEE, batteries)</li>
+        <li>Any marketplace requests or warnings you have received</li>
       </ul>
+    </div>
 
-      <h2>Topics you can request quotes for</h2>
+    <div class="content-block">
+      <h2>What not to submit</h2>
+      <p>To protect your security, do not include:</p>
       <ul>
-        <li>GPSR General Product Safety Regulation compliance</li>
-        <li>EU Responsible Person service</li>
-        <li>EPR packaging registration (Germany, France, other EU countries)</li>
-        <li>General EU market compliance scoping</li>
+        <li>Passwords or API keys</li>
+        <li>Full supplier contracts or legal agreements</li>
+        <li>Highly confidential legal documents</li>
+        <li>Sensitive personal identification documents</li>
       </ul>
-      <p>
-        Before requesting quotes, you may find it helpful to review the <a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a> to understand the main provider categories and questions to ask before contacting providers.
+      <p class="form-note">
+        For basic scoping help, a description of your situation is sufficient. You can discuss detailed documentation directly with providers.
       </p>
     </div>
 
-    <LeadForm topic="gpsr" />
+    <LeadForm topic="provider-intake" />
+
+    <div class="content-block">
+      <h2>Before submitting</h2>
+      <p>
+        You may find it helpful to review these guides first:
+      </p>
+      <ul>
+        <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a> — Understand the main provider categories</li>
+        <li><a href="/gpsr-general-guide/">GPSR General Guide</a> — Understand GPSR product safety topics</li>
+        <li><a href="/epr-general-guide/">EPR General Guide</a> — Understand EPR packaging and environmental topics</li>
+        <li><a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a> — What product information may be needed</li>
+        <li><a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries</a> — Understand the differences</li>
+      </ul>
+    </div>
 
     <FAQBlock faqs={quotesFAQs} />
 
     <DisclaimerBlock />
   </div>
 </Layout>
+
+<style>
+  .form-note {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.75rem;
+  }
+</style>

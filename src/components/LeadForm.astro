@@ -7,99 +7,118 @@ const { topic = 'gpsr' } = Astro.props;
 ---
 
 <div class="lead-form-container">
-  <div class="form-notice">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="12" y1="8" x2="12" y2="12"/>
-      <line x1="12" y1="16" x2="12.01" y2="16"/>
-    </svg>
-    <p>
-      Form backend coming soon. For now, reach us at
-      <a href="mailto:hello@eureadyseller.com">hello@eureadyseller.com</a>
-    </p>
-  </div>
-
   <form
     id="lead-form"
     class="lead-form"
     novalidate
-    action="mailto:hello@eureadyseller.com"
-    method="GET"
-    enctype="text/plain"
   >
-    <div class="form-row">
-      <div class="form-group">
-        <label for="lf-name" class="form-label">Name <span class="required" aria-hidden="true">*</span></label>
-        <input type="text" id="lf-name" name="name" class="form-input" required autocomplete="name" placeholder="Your full name" />
-      </div>
-      <div class="form-group">
-        <label for="lf-email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
-        <input type="email" id="lf-email" name="email" class="form-input" required autocomplete="email" placeholder="you@business.com" />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="lf-location" class="form-label">Business location <span class="required" aria-hidden="true">*</span></label>
-        <select id="lf-location" name="location" class="form-select" required>
-          <option value="">Select country group</option>
-          <option value="us">United States</option>
-          <option value="uk">United Kingdom</option>
-          <option value="china">China</option>
-          <option value="canada">Canada</option>
-          <option value="other-non-eu">Other non-EU country</option>
-          <option value="eu">EU country</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="lf-platform" class="form-label">Store platform <span class="required" aria-hidden="true">*</span></label>
-        <select id="lf-platform" name="platform" class="form-select" required>
-          <option value="">Select platform</option>
-          <option value="shopify">Shopify</option>
-          <option value="amazon">Amazon</option>
-          <option value="etsy">Etsy</option>
-          <option value="woocommerce">WooCommerce</option>
-          <option value="custom-store">Custom store</option>
-          <option value="multiple-platforms">Multiple platforms</option>
-        </select>
+    <div class="form-section">
+      <h3 class="form-section-title">Contact</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="lf-name" class="form-label">Name</label>
+          <input type="text" id="lf-name" name="name" class="form-input" autocomplete="name" placeholder="Your full name or business name" />
+        </div>
+        <div class="form-group">
+          <label for="lf-email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
+          <input type="email" id="lf-email" name="email" class="form-input" required autocomplete="email" placeholder="you@business.com" />
+        </div>
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="lf-products" class="form-label">Product category</label>
-        <select id="lf-products" name="products" class="form-select">
-          <option value="">Select category</option>
-          <option value="general-goods">General goods</option>
-          <option value="apparel">Apparel</option>
-          <option value="electronics">Electronics</option>
-          <option value="toys">Toys</option>
-          <option value="cosmetics">Cosmetics</option>
-          <option value="batteries">Batteries</option>
-          <option value="home-goods">Home goods</option>
-          <option value="other">Other</option>
-        </select>
+    <div class="form-section">
+      <h3 class="form-section-title">Your business</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="lf-location" class="form-label">Business location</label>
+          <select id="lf-location" name="location" class="form-select">
+            <option value="">Select location</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="china">China</option>
+            <option value="canada">Canada</option>
+            <option value="other-non-eu">Other non-EU country</option>
+            <option value="eu">EU country</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lf-platform" class="form-label">Selling platform <span class="required" aria-hidden="true">*</span></label>
+          <select id="lf-platform" name="platform" class="form-select" required>
+            <option value="">Select platform</option>
+            <option value="shopify">Shopify</option>
+            <option value="amazon">Amazon</option>
+            <option value="etsy">Etsy</option>
+            <option value="woocommerce">WooCommerce</option>
+            <option value="custom-store">Custom / DTC store</option>
+            <option value="multiple-platforms">Multiple platforms</option>
+            <option value="not-sure">Not sure</option>
+          </select>
+        </div>
       </div>
+
       <div class="form-group">
-        <label for="lf-countries" class="form-label">Target EU countries</label>
-        <select id="lf-countries" name="countries" class="form-select">
-          <option value="">Select countries</option>
-          <option value="germany">Germany</option>
-          <option value="france">France</option>
-          <option value="germany-france">Germany and France</option>
-          <option value="multiple">Multiple EU countries</option>
-          <option value="not-sure">Not sure yet</option>
-        </select>
+        <label for="lf-product-category" class="form-label">Product category</label>
+        <input type="text" id="lf-product-category" name="productCategory" class="form-input" placeholder="e.g. toys, electronics, apparel, home goods" />
       </div>
     </div>
 
-    <div class="form-group">
-      <fieldset class="form-fieldset">
-        <legend class="form-label">Topics needed <span class="required" aria-hidden="true">*</span></legend>
-        <div class="checkbox-group">
+    <div class="form-section">
+      <h3 class="form-section-title">Target markets and situation</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Target EU countries</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-label">
+              <input type="checkbox" name="countries" value="germany" />
+              <span>Germany</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="countries" value="france" />
+              <span>France</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="countries" value="spain" />
+              <span>Spain</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="countries" value="italy" />
+              <span>Italy</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="countries" value="netherlands" />
+              <span>Netherlands</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="countries" value="other" />
+              <span>Other / not sure</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="lf-situation" class="form-label">Current situation</label>
+          <select id="lf-situation" name="situation" class="form-select">
+            <option value="">Select situation</option>
+            <option value="planning-eu-launch">Planning EU launch</option>
+            <option value="already-selling-eu">Already selling to EU</option>
+            <option value="marketplace-warning">Received marketplace request or warning</option>
+            <option value="need-provider-quotes">Need provider quotes</option>
+            <option value="not-sure">Not sure</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3 class="form-section-title">Compliance topics</h3>
+      <div class="form-group">
+        <label class="form-label">Main compliance topics <span class="required" aria-hidden="true">*</span></label>
+        <div class="checkbox-grid">
           <label class="checkbox-label">
             <input type="checkbox" name="topics" value="gpsr" />
-            <span>GPSR</span>
+            <span>GPSR product safety</span>
           </label>
           <label class="checkbox-label">
             <input type="checkbox" name="topics" value="eu-responsible-person" />
@@ -110,30 +129,52 @@ const { topic = 'gpsr' } = Astro.props;
             <span>EPR packaging</span>
           </label>
           <label class="checkbox-label">
+            <input type="checkbox" name="topics" value="weee" />
+            <span>WEEE / electronics</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="topics" value="batteries" />
+            <span>Batteries</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="topics" value="marketplace-warning" />
+            <span>Marketplace warning</span>
+          </label>
+          <label class="checkbox-label">
             <input type="checkbox" name="topics" value="not-sure" />
-            <span>Not sure — need guidance</span>
+            <span>Not sure</span>
           </label>
         </div>
-      </fieldset>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="lf-message" class="form-label">Message</label>
-      <textarea
-        id="lf-message"
-        name="message"
-        class="form-textarea"
-        rows="4"
-        placeholder="Describe your products, target markets, and what compliance help you need..."
-      ></textarea>
+    <div class="form-section">
+      <div class="form-group">
+        <label for="lf-message" class="form-label">Message <span class="required" aria-hidden="true">*</span></label>
+        <textarea
+          id="lf-message"
+          name="message"
+          class="form-textarea"
+          rows="4"
+          required
+          placeholder="Briefly describe what you sell, where you sell, and what compliance help you need..."
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Honeypot field - hidden from users -->
+    <div class="form-honeypot" aria-hidden="true">
+      <label for="lf-website">Website (leave blank)</label>
+      <input type="text" id="lf-website" name="website" tabindex="-1" autocomplete="off" />
     </div>
 
     <div class="form-submit">
       <button type="submit" class="form-button" id="submit-btn">
-        Submit Quote Request
+        Submit Request
       </button>
+      <div class="form-status" id="form-status" role="alert" aria-live="polite"></div>
       <p class="form-disclaimer">
-        EUReadySeller does not provide legal advice. This form is for educational scoping and provider matching only.
+        EUReadySeller does not provide legal advice. Provider availability may vary. This form does not guarantee a reply, quote or provider match.
       </p>
     </div>
   </form>
@@ -141,36 +182,37 @@ const { topic = 'gpsr' } = Astro.props;
 
 <style>
   .lead-form-container {
-    max-width: 680px;
+    max-width: 720px;
   }
-
-  .form-notice {
-    background: #fffbeb;
-    border: 1px solid #fde68a;
-    border-radius: 0.5rem;
-    padding: 0.875rem 1rem;
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    font-size: 0.875rem;
-    color: #92400e;
-  }
-
-  .form-notice svg { flex-shrink: 0; margin-top: 0.1rem; }
-  .form-notice p { margin: 0; }
-  .form-notice a { color: #2563eb; }
 
   .lead-form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .form-section {
+    background: #f9fafb;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-section-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
   }
 
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   @media (max-width: 600px) {
@@ -214,16 +256,12 @@ const { topic = 'gpsr' } = Astro.props;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   }
 
-  .form-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
+  .form-textarea { resize: vertical; min-height: 100px; }
 
-  .checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.5rem;
     margin-top: 0.375rem;
   }
 
@@ -235,6 +273,14 @@ const { topic = 'gpsr' } = Astro.props;
     font-weight: 400;
     color: #374151;
     cursor: pointer;
+    padding: 0.375rem 0.5rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+  }
+
+  .checkbox-label:hover {
+    background: #f3f4f6;
   }
 
   .checkbox-label input[type="checkbox"] {
@@ -243,7 +289,12 @@ const { topic = 'gpsr' } = Astro.props;
     accent-color: #2563eb;
   }
 
-  .form-textarea { resize: vertical; min-height: 100px; }
+  .form-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
 
   .form-submit {
     display: flex;
@@ -270,6 +321,29 @@ const { topic = 'gpsr' } = Astro.props;
     transform: translateY(-1px);
   }
 
+  .form-button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .form-status {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    min-height: 1.5rem;
+  }
+
+  .form-status.success {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  .form-status.error {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
   .form-disclaimer {
     font-size: 0.75rem;
     color: #6b7280;
@@ -280,11 +354,92 @@ const { topic = 'gpsr' } = Astro.props;
 
 <script>
   const form = document.getElementById('lead-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
-    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
-    if (submitBtn) {
-      submitBtn.textContent = 'Opening email client...';
-      submitBtn.disabled = true;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const statusEl = document.getElementById('form-status') as HTMLDivElement | null;
+
+  function showStatus(message, type: 'success' | 'error') {
+    if (statusEl) {
+      statusEl.textContent = message;
+      statusEl.className = 'form-status ' + type;
     }
+  }
+
+  function getFormData() {
+    if (!form) return {};
+    
+    const formData = new FormData(form);
+    const data: Record<string, unknown> = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      location: formData.get('location'),
+      platform: formData.get('platform'),
+      productCategory: formData.get('productCategory'),
+      situation: formData.get('situation'),
+      message: formData.get('message'),
+      website: formData.get('website'),
+      page: window.location.pathname,
+    };
+
+    // Handle checkboxes - countries
+    const countries = form.querySelectorAll<HTMLInputElement>('input[name="countries"]:checked');
+    data.countries = Array.from(countries).map(c => c.value);
+
+    // Handle checkboxes - topics
+    const topics = form.querySelectorAll<HTMLInputElement>('input[name="topics"]:checked');
+    data.topics = Array.from(topics).map(t => t.value);
+
+    return data;
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!submitBtn || !statusEl) return;
+    
+    // Disable button
+    submitBtn.textContent = 'Submitting...';
+    submitBtn.disabled = true;
+    statusEl.textContent = '';
+    statusEl.className = 'form-status';
+
+    const data = getFormData();
+
+    // Client-side validation
+    if (!data.email || (data.email as string).indexOf('@') === -1) {
+      showStatus('Please enter a valid email address.', 'error');
+      submitBtn.textContent = 'Submit Request';
+      submitBtn.disabled = false;
+      return;
+    }
+
+    if (!data.message || (data.message as string).trim().length < 10) {
+      showStatus('Please enter a message (at least 10 characters).', 'error');
+      submitBtn.textContent = 'Submit Request';
+      submitBtn.disabled = false;
+      return;
+    }
+
+    try {
+      const response = await fetch('https://eureadyseller.com/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.ok) {
+        showStatus('Thank you! Your request has been submitted.', 'success');
+        form.reset();
+      } else {
+        const errorMsg = result.error || 'Submission failed. Please try again.';
+        showStatus(errorMsg, 'error');
+      }
+    } catch (err) {
+      showStatus('Network error. Please check your connection and try again.', 'error');
+    }
+
+    submitBtn.textContent = 'Submit Request';
+    submitBtn.disabled = false;
   });
 </script>

@@ -145,29 +145,34 @@ export const eprFAQs: FAQItem[] = [
 
 export const quotesFAQs: FAQItem[] = [
   {
-    question: 'What compliance services can I request quotes for?',
+    question: 'What is this form for?',
     answer:
-      'You can request quotes for GPSR compliance services, EU Responsible Person services, EPR packaging registration, and general EU market compliance support.',
+      'This form helps sellers describe their EU compliance situation. Submit your platform, target markets, product category and compliance topics so providers can understand your needs. This is educational intake only.',
   },
   {
-    question: 'Is the quote request form free?',
+    question: 'Does submitting guarantee a reply or quote?',
     answer:
-      'Yes. Submitting the quote request form is free. You will receive quotes from compliance service providers. EUReadySeller does not charge for matching sellers with providers.',
+      'No. Submitting this form does not guarantee a reply, quote or provider match. Provider availability varies. EUReadySeller does not certify, approve or guarantee providers.',
   },
   {
-    question: 'How do compliance providers receive my request?',
+    question: 'Is the form free to use?',
     answer:
-      'Your quote request is submitted to compliance service providers who offer GPSR, EU Responsible Person and EPR packaging services. Providers will contact you directly.',
+      'Yes. Submitting this form is free. You may receive follow-up from providers. EUReadySeller does not charge for this service.',
   },
   {
-    question: 'Does using a provider guarantee compliance?',
+    question: 'What information should I include?',
     answer:
-      'No. Using a compliance service provider does not guarantee compliance. Compliance depends on your specific products, markets and business activities. Always verify with qualified legal counsel.',
+      'Include your selling platform, target EU countries, product category, current situation (planning, already selling, received warning) and the compliance topics you need help with.',
   },
   {
-    question: 'What information should I include in my quote request?',
+    question: 'Is this legal advice?',
     answer:
-      'Include your business location, store platform, product categories, target EU countries, and the specific compliance topics you need help with.',
+      'No. This form is for educational intake only. It does not constitute legal advice. Consult qualified legal counsel or a compliance provider for your specific situation.',
+  },
+  {
+    question: 'What should I not include?',
+    answer:
+      'Do not include passwords, API keys, full contracts, highly confidential legal documents, or sensitive personal identification. A description of your situation is sufficient.',
   },
 ];
 
