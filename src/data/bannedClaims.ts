@@ -43,6 +43,14 @@ export const softRiskPhrases: string[] = [
   'Sellers must register',
   'WEEE obligations',
   'Reporting obligations',
+  'GPSR product safety obligations',
+  'sellers independently prepare and display',
+  'sellers may need to independently prepare',
+  'must register with the LUCID',
+  'must participate in a dual system',
+  'reporting obligations',
+  'environmental obligations',
+  'require separate registrations',
 ];
 
 // Safe phrases that are explicitly allowed (whitelist)
