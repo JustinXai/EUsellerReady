@@ -13,6 +13,7 @@ Shopify sellers, Amazon sellers, Etsy sellers, WooCommerce sellers, DTC ecommerc
 
 ## Core Pages
 - https://eureadyseller.com/ — EUReadySeller - Know What Your Store Needs Before Selling to the EU
+- https://eureadyseller.com/gpsr-compliance-for-dtc-brands/ — GPSR Compliance for DTC Brands
 - https://eureadyseller.com/epr-general-guide/ — EPR Guide for Ecommerce Sellers
 - https://eureadyseller.com/epr-packaging-vs-weee-vs-batteries/ — EPR Packaging vs WEEE vs Batteries for Ecommerce Sellers
 - https://eureadyseller.com/eu-compliance-provider-directory/ — EU Compliance Provider Directory for Ecommerce Sellers
@@ -38,6 +39,10 @@ https://eureadyseller.com/tools/eu-seller-compliance-checker/ — Free EU Seller
 ## EUReadySeller - Know What Your Store Needs Before Selling to the EU
 URL: https://eureadyseller.com/
 EUReadySeller helps ecommerce sellers understand GPSR, EU Responsible Person and EPR packaging topics before selling physical products to EU consumers.
+
+## GPSR Compliance for DTC Brands
+URL: https://eureadyseller.com/gpsr-compliance-for-dtc-brands/
+A practical GPSR guide for DTC brands reviewing EU Responsible Person, product safety information, labels, packaging and store product pages before selling to EU consumers.
 
 ## EPR Guide for Ecommerce Sellers
 URL: https://eureadyseller.com/epr-general-guide/

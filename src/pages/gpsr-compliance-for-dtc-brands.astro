@@ -1,0 +1,610 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pageFAQs = [
+  { question: 'Does GPSR apply to DTC brands?', answer: 'GPSR (General Product Safety Regulation) may apply to DTC brands who sell physical consumer products to EU consumers. The regulation applies based on the products sold and the markets targeted, not the business model or platform alone. DTC brands — including Shopify stores, WooCommerce sites, custom-built storefronts and other direct-to-consumer setups — should review whether their specific products and EU target markets trigger GPSR product safety topics. Product category, target countries and sales channels may all be relevant factors to consider.' },
+  { question: 'Do non-EU DTC brands need to review EU Responsible Person topics?', answer: 'DTC brands based outside the EU who sell physical products to EU consumers may need an EU Responsible Person under GPSR. The requirement depends on where the manufacturer is based, your role in the supply chain, and the products you sell. Non-EU DTC brands controlling their own product labels and packaging typically have more direct obligations than marketplace sellers. See the Do I need an EU Responsible Person? guide for more context on factors to consider.' },
+  { question: 'What product safety information may DTC brands need?', answer: 'DTC brands may need to prepare: product name, identifier and type; manufacturer name, address and contact details; EU Responsible Person contact details where applicable; importer details where relevant; batch or type numbers; safety warnings; instructions for safe use; and language considerations for target EU markets. The specific information needed may vary by product category and target country. See the GPSR Product Safety Information Checklist for a comprehensive list of areas to review.' },
+  { question: 'Should product labels, packaging and online product pages be consistent?', answer: 'DTC brands who control their own labels, packaging, manuals and online product pages may need to review whether product safety information, warnings and instructions are consistent across these channels. Inconsistency between physical packaging and online product pages may create gaps in the information available to consumers and market surveillance authorities. Sellers should review each channel independently while ensuring overall consistency in the key safety information provided.' },
+  { question: 'Does GPSR apply to DTC brands using Shopify, WooCommerce or custom storefronts?', answer: 'GPSR topics may apply to DTC brands using Shopify, WooCommerce or custom-built storefronts when selling physical products to EU consumers. Unlike marketplace sellers who fill in platform compliance forms, DTC brands with their own stores are typically responsible for independently identifying and displaying required product safety information. Store setup, theme capabilities and how product information is presented may affect how GPSR topics are addressed. Platform and store interfaces may change over time.' },
+  { question: 'Is GPSR the same as EPR for DTC brands?', answer: 'No. GPSR (General Product Safety Regulation) and EPR (Extended Producer Responsibility) are different regulations. GPSR covers product safety, traceability, manufacturer details, EU Responsible Person obligations and consumer-facing product information. EPR covers environmental responsibility for packaging, WEEE and batteries, including country-level registration and reporting obligations. DTC brands selling physical products to EU consumers may need to review both GPSR and EPR topics, depending on their product types and target markets. See the GPSR vs EPR section below for more detail.' },
+  { question: 'Should DTC brands use a compliance provider?', answer: 'DTC brands who are uncertain about their GPSR obligations, need EU Responsible Person representation, or want help preparing product safety documentation may consider using a compliance provider. The EU Compliance Provider Directory may help you understand provider categories and prepare questions before engaging a service. DTC brands should independently verify any provider credentials and service scope. See the When to contact a provider section for more context.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance and identifies GPSR topics for DTC brands to review. It does not constitute legal advice, determine compliance obligations, or certify that any specific DTC brand is compliant. Product categories, target markets and applicable obligations may vary. Consult qualified legal counsel or a compliance provider for your specific situation.' },
+];
+
+const pagePath = '/gpsr-compliance-for-dtc-brands/';
+const canonical = `${site.siteUrl}/gpsr-compliance-for-dtc-brands/`;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/gpsr-compliance-for-dtc-brands/');
+
+const sources = getSourcesForTopics(['gpsr', 'euResponsiblePerson']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
+
+const setupTopics = [
+  'Business legal name and location',
+  'Brand owner or manufacturer role',
+  'Target EU countries and launch markets',
+  'Product categories and types',
+  'Product identifiers (model, batch, type)',
+  'Product labels and label content',
+  'Packaging materials and inserts',
+  'Safety warnings and instructions',
+  'Instructions for safe use',
+  'Language requirements for target EU markets',
+  'Online product page content',
+  'EU Responsible Person information where applicable',
+  'Fulfilment setup (in-house, 3PL, fulfillment service)',
+  'Existing compliance documentation',
+  'Provider or legal review path',
+];
+
+const prepareChecklist = [
+  'Business legal name and registered address',
+  'Brand owner or manufacturer details',
+  'Target EU countries',
+  'Product categories and types sold',
+  'Product identifiers (model, batch, type number)',
+  'Product label design and content',
+  'Packaging materials and insert content',
+  'Safety warnings and use instructions',
+  'Online product page content',
+  'Storefront platform and setup',
+  'Fulfilment method and EU-based storage',
+  'EU Responsible Person information where applicable',
+  'Existing compliance or provider documents',
+];
+
+const mistakes = [
+  'Treating GPSR as only a marketplace issue. DTC brands running their own stores are typically responsible for independently identifying GPSR topics — there are no platform compliance forms to fill in.',
+  'Forgetting that DTC brands control their own product pages, labels and packaging. Unlike marketplace sellers who receive platform guidance, DTC brands must independently prepare and display product safety information.',
+  'Keeping product labels, packaging, manuals and online product pages inconsistent. Inconsistency between physical and digital channels may create gaps in the safety information available to consumers and authorities.',
+  'Copying generic safety warnings from unrelated products without ensuring they match your specific product, its foreseeable uses and the EU markets you target.',
+  'Ignoring EU Responsible Person topics for non-EU DTC brands. Non-EU DTC brands selling physical products to EU consumers may need EU Responsible Person representation, even without a marketplace intermediary.',
+  'Launching EU sales before reviewing product safety information. Product pages, packaging and instructions can be harder to update after products are in market or preorders have shipped.',
+  'Confusing GPSR with EPR packaging registration. GPSR covers product safety and EU Responsible Person topics. EPR covers environmental obligations for packaging, WEEE and batteries. Both may be relevant but are separate topics.',
+  'Assuming one checklist covers every product category. Different product categories may require different safety information, warnings and language considerations. Review each product line independently.',
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+
+  <PageHeader
+    heading={route.h1}
+    subheading="A practical GPSR guide for DTC brands reviewing EU Responsible Person, product safety information, labels, packaging and store product pages before selling to EU consumers."
+  />
+
+  <div class="quick-answer">
+    <p class="quick-answer-label">Quick Answer</p>
+    <p>
+      DTC brands preparing to sell physical consumer products to EU consumers may need to review GPSR topics such as product safety information, manufacturer details, EU Responsible Person topics, warnings, labels, packaging and online product pages. DTC brands often control more of the customer experience than marketplace sellers, so consistency across product pages, packaging and documentation may matter. This guide is educational and does not determine compliance. Product categories, target markets and applicable obligations may vary.
+    </p>
+  </div>
+
+  <AISummary summary={route.aiSummary} />
+
+  <div class="content-block">
+    <h2>Who this applies to</h2>
+    <p>
+      This guide is for DTC (direct-to-consumer) brands preparing to sell physical products to consumers in the European Union or wider EEA. It applies whether you are based inside or outside the EU.
+    </p>
+    <p>
+      This includes:
+    </p>
+    <ul>
+      <li>Shopify or WooCommerce independent store brands</li>
+      <li>Custom-built storefront brands</li>
+      <li>Brands running preorder or crowdfunding campaigns</li>
+      <li>Independent brands selling on their own domain</li>
+      <li>Non-EU brands preparing to enter EU markets</li>
+      <li>Brands with existing EU sales who want to review GPSR topics</li>
+    </ul>
+    <p>
+      <strong>Important:</strong> This page is educational guidance. It identifies GPSR topics for DTC brands to review. It does not determine whether GPSR applies to your specific products, store or business. Consult official sources and qualified providers for your situation.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Why GPSR matters for DTC brands</h2>
+    <p>
+      DTC brands often have more direct control over the customer experience than sellers on third-party marketplaces. You control the product label, packaging, inserts, manuals, online product page and post-purchase communications. This means you also carry more direct responsibility for the product safety information available to consumers.
+    </p>
+    <p>
+      GPSR (General Product Safety Regulation — EU Regulation 2023/988) applies to all physical products sold to EU consumers. It requires sellers to provide product safety documentation, traceability information, and in some cases EU Responsible Person contact details. DTC brands should review these topics before launching in EU markets.
+    </p>
+    <p>
+      Unlike marketplace sellers who may receive platform-specific guidance and compliance checklists, DTC brands running their own stores must independently identify and prepare required product safety information.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>DTC brand setup topics to review</h2>
+    <p>
+      DTC brands should review the following topics when preparing for EU market entry. The specific items that apply depend on your product categories, target markets and store setup:
+    </p>
+    <ul class="checklist">
+      {setupTopics.map((topic) => (
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>{topic}</span>
+        </li>
+      ))}
+    </ul>
+    <p>
+      Review each topic in the context of your specific products and target EU countries. Some topics may not apply depending on your product category or sales model.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Product safety information topics</h2>
+    <p>
+      DTC brands may need to prepare and display product safety information for each product sold to EU consumers. Key areas to review include:
+    </p>
+    <ul>
+      <li><strong>Product identity</strong> — product name, model, type identifier and images</li>
+      <li><strong>Manufacturer information</strong> — name, address and contact details of the manufacturer</li>
+      <li><strong>EU Responsible Person contact</strong> — where applicable, the EU Responsible Person name and address must be accessible</li>
+      <li><strong>Safety warnings</strong> — warnings appropriate to your product category and foreseeable uses</li>
+      <li><strong>Instructions for safe use</strong> — clear instructions in the language of the target EU market</li>
+      <li><strong>Traceability information</strong> — batch number, serial number or other identifier relevant to product safety</li>
+    </ul>
+    <p>
+      For a comprehensive checklist, see the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a>.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>EU Responsible Person topics for DTC brands</h2>
+    <p>
+      Non-EU DTC brands selling physical consumer products to EU consumers may need an EU Responsible Person to act as the point of contact for product safety matters under GPSR. Unlike marketplace sellers who may be directed to a platform-appointed representative, DTC brands with their own stores must independently arrange this service.
+    </p>
+    <p>
+      Key factors to consider:
+    </p>
+    <ul>
+      <li>Where your business and manufacturer are based</li>
+      <li>Your role in the supply chain (manufacturer, importer, seller)</li>
+      <li>The product categories you sell</li>
+      <li>The EU countries you target</li>
+    </ul>
+    <p>
+      See the <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a> guide and <a href="/eu-responsible-person-service/">EU Responsible Person service</a> page for more context.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Labels, packaging and product page consistency</h2>
+    <p>
+      DTC brands often control multiple information channels simultaneously:
+    </p>
+    <ul>
+      <li><strong>Product label</strong> — physical label attached to or printed on the product</li>
+      <li><strong>Packaging</strong> — outer box, mailer or envelope</li>
+      <li><strong>Packaging inserts</strong> — manuals, instructions, warranty cards, thank-you notes</li>
+      <li><strong>Online product page</strong> — product description, images, technical details</li>
+      <li><strong>Brand support pages</strong> — FAQ, contact, returns, safety information</li>
+      <li><strong>Post-purchase communications</strong> — order confirmation, dispatch notification, follow-up emails</li>
+    </ul>
+    <p>
+      DTC brands may need to review whether product safety information, warnings and instructions are consistent across labels, packaging, manuals and online product pages. Inconsistency between physical and digital channels may create gaps in the information available to consumers and market surveillance authorities.
+    </p>
+    <p>
+      Note: Consistency does not mean identical content in every channel. Different formats and spaces may require different presentation. Focus on ensuring key safety information is available and accurate across each channel.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Shopify, WooCommerce and custom storefront notes</h2>
+    <p>
+      The underlying GPSR topics are similar across all DTC storefront types. Key differences relate to how you display product safety information:
+    </p>
+    <ul>
+      <li><strong>Shopify</strong> — you control product descriptions and media. Consider adding safety information to descriptions, images (including label photos) and separate information pages. Review your current theme and app capabilities.</li>
+      <li><strong>WooCommerce</strong> — you control your WordPress store, product pages and checkout. You can add information to descriptions, create separate safety pages and update footer content. Theme and plugin capabilities may affect how and where you display information.</li>
+      <li><strong>Custom storefront</strong> — full control over design and content. You decide how and where to display product safety information. Ensure your content management system supports the required disclosures.</li>
+    </ul>
+    <p>
+      Unlike marketplace sellers who fill in platform compliance forms, DTC brands running their own stores must independently prepare and display required product information.
+    </p>
+    <p>
+      For Shopify-specific GPSR guidance, see the <a href="/gpsr-compliance-for-shopify/">GPSR Compliance for Shopify Sellers</a> guide. For WooCommerce-specific guidance, see the <a href="/gpsr-compliance-for-woocommerce-sellers/">GPSR Compliance for WooCommerce Sellers</a> guide.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Launch and preorder considerations</h2>
+    <p>
+      DTC brands launching new products, crowdfunding campaigns or EU market expansions should review GPSR topics before products reach EU consumers.
+    </p>
+    <p>
+      Consider reviewing GPSR topics when:
+    </p>
+    <ul>
+      <li><strong>New product launches</strong> — product pages, labels and packaging may need updates before EU launch</li>
+      <li><strong>Crowdfunding or preorder campaigns</strong> — product specifications, packaging and safety information may need review before fulfilling to EU backers</li>
+      <li><strong>EU market expansion</strong> — entering new EU countries may affect language requirements and labelling</li>
+      <li><strong>Product variants</strong> — new colours, sizes or configurations may require separate safety review</li>
+      <li><strong>Bundle products</strong> — combined products may create new safety considerations</li>
+      <li><strong>Packaging changes</strong> — updates to packaging materials or design may affect required information</li>
+      <li><strong>Manufacturer changes</strong> — switching manufacturers may affect product safety documentation</li>
+      <li><strong>Safety warning updates</strong> — product pages and packaging may need revision if safety information changes</li>
+    </ul>
+    <p>
+      Product pages, packaging and instructions can be harder to update after products are in market or preorders have shipped. Review GPSR topics early in your launch planning process.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>GPSR vs EPR for DTC brands</h2>
+    <p>
+      DTC brands selling physical products to EU consumers may encounter both GPSR and EPR topics. These are different regulations covering different obligations:
+    </p>
+    <div class="comparison-table">
+      <div class="comparison-col">
+        <h3>GPSR (General Product Safety Regulation)</h3>
+        <ul>
+          <li>Product safety and traceability</li>
+          <li>EU Responsible Person</li>
+          <li>Manufacturer and contact details</li>
+          <li>Safety warnings and instructions</li>
+          <li>Product information for consumers</li>
+          <li>Market surveillance compliance</li>
+        </ul>
+        <p>See the <a href="/gpsr-general-guide/">GPSR General Guide</a> for more detail.</p>
+      </div>
+      <div class="comparison-col">
+        <h3>EPR (Extended Producer Responsibility)</h3>
+        <ul>
+          <li>Environmental responsibility</li>
+          <li>Packaging waste recovery</li>
+          <li>WEEE (electrical equipment)</li>
+          <li>Battery compliance</li>
+          <li>Country-level registration</li>
+          <li>Reporting and fee obligations</li>
+        </ul>
+        <p>See the <a href="/epr-general-guide/">EPR General Guide</a> and <a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries</a> guide.</p>
+      </div>
+    </div>
+    <p>
+      Both GPSR and EPR may be relevant for DTC brands. Review each separately based on your product types and target markets. Germany and France are common starting points for EPR packaging review. See <a href="/germany-epr-packaging-registration/">Germany EPR</a> and <a href="/france-epr-packaging-registration/">France EPR</a> guides for country-specific detail.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>What DTC brands may need to prepare</h2>
+    <p>
+      Use this checklist to identify areas you may need to prepare before selling to EU consumers. Not every item applies to every product or DTC brand:
+    </p>
+    <ul class="checklist">
+      {prepareChecklist.map((item) => (
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+    <p>
+      For a comprehensive list, see the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a>.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>Common mistakes to avoid</h2>
+    <div class="mistakes-list">
+      {mistakes.map((m) => (
+        <div class="mistake-item">
+          <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+          <p class="mistake-text">{m}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="content-block">
+    <h2>When to use the EU Seller Compliance Checker</h2>
+    <p>
+      If you are not sure which GPSR and EPR topics apply to your DTC brand, use the <a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> to identify areas you may need to review before selling to EU consumers.
+    </p>
+    <p>
+      The checker asks about your business location, store platform, product types and target EU markets to suggest relevant compliance topics to review.
+    </p>
+  </div>
+
+  <div class="content-block">
+    <h2>When to contact a provider</h2>
+    <p>
+      DTC brands who need support with GPSR compliance may consider contacting a qualified compliance service provider in these situations:
+    </p>
+    <ul>
+      <li>You are unsure whether GPSR topics apply to your specific products</li>
+      <li>You need EU Responsible Person representation and do not have an EU entity</li>
+      <li>You want help preparing product safety documentation or safety assessments</li>
+      <li>You sell in multiple EU countries and need coordinated compliance support</li>
+      <li>You want a professional review of your product labels, packaging and online content</li>
+      <li>You are preparing for a product recall or market surveillance inquiry</li>
+    </ul>
+    <p>
+      Browse providers in the <a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a> to understand provider categories and prepare questions before engaging a service.
+    </p>
+    <p>
+      You can also <a href="/request-eu-compliance-quotes/">request compliance quotes</a> through the EUReadySeller quote request form.
+    </p>
+  </div>
+
+  <FAQBlock faqs={pageFAQs} />
+
+  <OfficialSources sources={sources} />
+
+  <DisclaimerBlock />
+
+  <div class="cta-section">
+    <h2>Start your EU compliance review</h2>
+    <p>Use the free compliance checker to identify GPSR and EPR topics for your DTC brand, or leave a message describing your situation.</p>
+    <div class="cta-section-buttons">
+      <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="primary" />
+      <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+    </div>
+  </div>
+
+  <div class="related-guides">
+    <h2>Related guides</h2>
+    <ul>
+      <li><a href="/gpsr-general-guide/">GPSR General Guide</a></li>
+      <li><a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a></li>
+      <li><a href="/gpsr-compliance-for-shopify/">GPSR Compliance for Shopify Sellers</a></li>
+      <li><a href="/gpsr-compliance-for-woocommerce-sellers/">GPSR Compliance for WooCommerce Sellers</a></li>
+      <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+      <li><a href="/gpsr-compliance-for-etsy-sellers/">GPSR Compliance for Etsy Sellers</a></li>
+      <li><a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a></li>
+      <li><a href="/eu-responsible-person-service/">EU Responsible Person Service</a></li>
+      <li><a href="/epr-general-guide/">EPR General Guide</a></li>
+      <li><a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries</a></li>
+      <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a></li>
+      <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+      <li><a href="/request-eu-compliance-quotes/">Request Compliance Quotes</a></li>
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .quick-answer {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-left: 4px solid #0284c7;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quick-answer-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0284c7;
+    margin-bottom: 0.5rem;
+  }
+
+  .quick-answer p {
+    margin: 0;
+    color: #1e293b;
+    line-height: 1.7;
+  }
+
+  .content-block h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+  }
+
+  .content-block p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  .content-block ul {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #475569;
+    padding-left: 1.5rem;
+  }
+
+  .content-block li {
+    margin-bottom: 0.5rem;
+  }
+
+  .comparison-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .comparison-col {
+    background: #f8fafc;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .comparison-col h3 {
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+    color: #1e293b;
+  }
+
+  .comparison-col ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .comparison-col p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .comparison-col a {
+    color: #0284c7;
+  }
+
+  .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .checklist-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+  }
+
+  .checklist-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .mistakes-list {
+    margin: 1.5rem 0;
+  }
+
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .mistake-icon {
+    color: #ef4444;
+    min-width: 18px;
+    margin-top: 2px;
+  }
+
+  .mistake-text {
+    margin: 0;
+    color: #991b1b;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .cta-section h2 {
+    margin-top: 0;
+    color: #1e293b;
+  }
+
+  .cta-section p {
+    color: #475569;
+    margin-bottom: 0;
+  }
+
+  .cta-section-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .related-guides {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .related-guides h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+  }
+
+  .related-guides ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .related-guides li {
+    margin-bottom: 0;
+  }
+
+  .related-guides a {
+    color: #0284c7;
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+
+  .related-guides a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .content-wrapper {
+      padding: 1.5rem 1rem;
+    }
+
+    .comparison-table {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-section-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

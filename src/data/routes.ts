@@ -274,6 +274,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-26',
     aiSummary: 'EPR guide for ecommerce sellers. Explains what EPR is, why it matters for online sellers, core EPR topics sellers may need to review, packaging EPR overview, Germany and France EPR, WEEE and battery topics, and platform-specific EPR paths for Shopify, Amazon, Etsy and WooCommerce. Links to Amazon EPR, Shopify EPR, Germany EPR, France EPR, EPR vs WEEE guide, GPSR General Guide, provider directory and message form. Educational guidance only. Not legal advice.',
   },
+  {
+    path: '/gpsr-compliance-for-dtc-brands/',
+    title: 'GPSR Compliance for DTC Brands',
+    description: 'A practical GPSR guide for DTC brands reviewing EU Responsible Person, product safety information, labels, packaging and store product pages before selling to EU consumers.',
+    h1: 'GPSR Compliance for DTC Brands',
+    category: 'platform-guide',
+    priority: '0.8',
+    changefreq: 'weekly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-27',
+    aiSummary: 'GPSR guide for DTC brands. Explains GPSR topics for direct-to-consumer brands preparing to sell physical products to EU consumers. Covers EU Responsible Person topics, product safety information, labels, packaging, store product pages and provider help. Links to GPSR general guide, product safety checklist, Shopify/WooCommerce GPSR guides, compliance checker and provider directory. Educational guidance only. Not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {
