@@ -25,24 +25,19 @@ const { summary } = Astro.props;
 
 <style>
   .ai-summary {
-    background: var(--color-success-surface);
+    background: var(--color-bg);
     border: 1px solid var(--color-success-pale);
+    border-left: 4px solid var(--color-success);
     border-radius: var(--radius-lg);
     padding: var(--space-5) var(--space-6);
     margin: var(--space-6) 0;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-xs);
   }
 
   .ai-summary::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--color-success);
-    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+    display: none;
   }
 
   .ai-summary-header {
@@ -59,9 +54,10 @@ const { summary } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-success);
+    background: var(--color-success-surface);
+    border: 1px solid var(--color-success-pale);
     border-radius: var(--radius-md);
-    color: #ffffff;
+    color: var(--color-success);
     margin-top: 0.1rem;
   }
 
@@ -71,7 +67,7 @@ const { summary } = Astro.props;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: var(--tracking-wider);
-    color: var(--color-success-dark);
+    color: var(--color-success);
     margin-bottom: 0.15rem;
   }
 
@@ -84,9 +80,8 @@ const { summary } = Astro.props;
 
   .ai-summary-text {
     margin: 0;
-    font-size: var(--text-base);
-    color: #065f46;
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
     line-height: var(--leading-relaxed);
-    font-weight: 450;
   }
 </style>

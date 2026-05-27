@@ -69,21 +69,21 @@ const {
     background: var(--color-primary);
     color: #ffffff;
     border-color: var(--color-primary);
-    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2), 0 0 0 1px rgba(37, 99, 235, 0.08);
   }
 
   .cta-btn--primary:hover {
     background: var(--color-primary-dark);
     border-color: var(--color-primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28), 0 0 0 1px rgba(37, 99, 235, 0.12);
     text-decoration: none;
     color: #ffffff;
   }
 
   .cta-btn--primary:active {
     transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
   }
 
   /* Secondary */
@@ -98,22 +98,22 @@ const {
     background: var(--color-primary-surface);
     border-color: var(--color-primary);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     text-decoration: none;
-    color: var(--color-primary);
+    color: var(--color-primary-dark);
   }
 
   /* Ghost / light */
   .cta-btn--ghost {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.06);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(4px);
   }
 
   .cta-btn--ghost:hover {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
     text-decoration: none;
     color: #ffffff;
@@ -123,8 +123,8 @@ const {
   .cta-btn__arrow {
     display: flex;
     align-items: center;
-    transition: transform var(--transition-fast);
-    opacity: 0.85;
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+    opacity: 0.75;
   }
 
   .cta-btn:hover .cta-btn__arrow {

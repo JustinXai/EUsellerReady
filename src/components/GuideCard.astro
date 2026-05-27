@@ -45,7 +45,7 @@ const { routes, heading = 'Related Guides' } = Astro.props;
 
 <style>
   .guides-section {
-    margin: var(--space-12) 0;
+    margin: var(--space-10) 0;
   }
 
   .guides-header {
@@ -58,11 +58,12 @@ const { routes, heading = 'Related Guides' } = Astro.props;
     color: var(--color-text-main);
     margin-top: var(--space-3);
     letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
   }
 
   .guides-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--space-5);
   }
 
@@ -75,15 +76,15 @@ const { routes, heading = 'Related Guides' } = Astro.props;
     transition:
       transform var(--transition-base),
       box-shadow var(--transition-base),
-      border-color var(--transition-fast);
+      border-color var(--transition-base);
     box-shadow: var(--shadow-xs);
     overflow: hidden;
   }
 
   .guide-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--color-primary-pale);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-border-strong);
     text-decoration: none;
   }
 
@@ -106,29 +107,36 @@ const { routes, heading = 'Related Guides' } = Astro.props;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: var(--tracking-wider);
-    color: var(--color-primary);
-    background: var(--color-primary-surface);
+    color: var(--color-text-muted);
+    background: var(--color-bg-soft);
     padding: 0.25rem 0.625rem;
     border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
   }
 
   .guide-arrow {
-    color: var(--color-primary);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    transition: color var(--transition-fast), transform var(--transition-fast);
   }
 
   .guide-card:hover .guide-arrow {
-    opacity: 1;
+    color: var(--color-primary);
+    transform: translateX(2px);
   }
 
   .guide-title {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: 700;
     color: var(--color-text-main);
     margin: 0;
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-tight);
+  }
+
+  .guide-card:hover .guide-title {
+    color: var(--color-primary);
   }
 
   .guide-desc {
