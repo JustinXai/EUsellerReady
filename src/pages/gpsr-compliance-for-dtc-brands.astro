@@ -13,10 +13,10 @@ import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
 
 const pageFAQs = [
   { question: 'Does GPSR apply to DTC brands?', answer: 'GPSR (General Product Safety Regulation) may apply to DTC brands who sell physical consumer products to EU consumers. The regulation applies based on the products sold and the markets targeted, not the business model or platform alone. DTC brands — including Shopify stores, WooCommerce sites, custom-built storefronts and other direct-to-consumer setups — should review whether their specific products and EU target markets trigger GPSR product safety topics. Product category, target countries and sales channels may all be relevant factors to consider.' },
-  { question: 'Do non-EU DTC brands need to review EU Responsible Person topics?', answer: 'DTC brands based outside the EU who sell physical products to EU consumers may need an EU Responsible Person under GPSR. The requirement depends on where the manufacturer is based, your role in the supply chain, and the products you sell. Non-EU DTC brands controlling their own product labels and packaging typically have more direct obligations than marketplace sellers. See the Do I need an EU Responsible Person? guide for more context on factors to consider.' },
+  { question: 'Do non-EU DTC brands need to review EU Responsible Person topics?', answer: 'DTC brands based outside the EU who sell physical products to EU consumers may need an EU Responsible Person under GPSR. The requirement depends on where the manufacturer is based, your role in the supply chain, and the products you sell. Non-EU DTC brands controlling their own product labels and packaging may have additional considerations to review compared to marketplace sellers. See the Do I need an EU Responsible Person? guide for more context on factors to consider.' },
   { question: 'What product safety information may DTC brands need?', answer: 'DTC brands may need to prepare: product name, identifier and type; manufacturer name, address and contact details; EU Responsible Person contact details where applicable; importer details where relevant; batch or type numbers; safety warnings; instructions for safe use; and language considerations for target EU markets. The specific information needed may vary by product category and target country. See the GPSR Product Safety Information Checklist for a comprehensive list of areas to review.' },
   { question: 'Should product labels, packaging and online product pages be consistent?', answer: 'DTC brands who control their own labels, packaging, manuals and online product pages may need to review whether product safety information, warnings and instructions are consistent across these channels. Inconsistency between physical packaging and online product pages may create gaps in the information available to consumers and market surveillance authorities. Sellers should review each channel independently while ensuring overall consistency in the key safety information provided.' },
-  { question: 'Does GPSR apply to DTC brands using Shopify, WooCommerce or custom storefronts?', answer: 'GPSR topics may apply to DTC brands using Shopify, WooCommerce or custom-built storefronts when selling physical products to EU consumers. Unlike marketplace sellers who fill in platform compliance forms, DTC brands with their own stores are typically responsible for independently identifying and displaying required product safety information. Store setup, theme capabilities and how product information is presented may affect how GPSR topics are addressed. Platform and store interfaces may change over time.' },
+  { question: 'Does GPSR apply to DTC brands using Shopify, WooCommerce or custom storefronts?', answer: 'GPSR topics may apply to DTC brands using Shopify, WooCommerce or custom-built storefronts when selling physical products to EU consumers. DTC brands with their own stores may need to independently review how product safety information is identified and displayed, without relying on marketplace compliance forms. Store setup, theme capabilities and how product information is presented may affect how GPSR topics are addressed. Platform and store interfaces may change over time.' },
   { question: 'Is GPSR the same as EPR for DTC brands?', answer: 'No. GPSR (General Product Safety Regulation) and EPR (Extended Producer Responsibility) are different regulations. GPSR covers product safety, traceability, manufacturer details, EU Responsible Person obligations and consumer-facing product information. EPR covers environmental responsibility for packaging, WEEE and batteries, including country-level registration and reporting obligations. DTC brands selling physical products to EU consumers may need to review both GPSR and EPR topics, depending on their product types and target markets. See the GPSR vs EPR section below for more detail.' },
   { question: 'Should DTC brands use a compliance provider?', answer: 'DTC brands who are uncertain about their GPSR obligations, need EU Responsible Person representation, or want help preparing product safety documentation may consider using a compliance provider. The EU Compliance Provider Directory may help you understand provider categories and prepare questions before engaging a service. DTC brands should independently verify any provider credentials and service scope. See the When to contact a provider section for more context.' },
   { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance and identifies GPSR topics for DTC brands to review. It does not constitute legal advice, determine compliance obligations, or certify that any specific DTC brand is compliant. Product categories, target markets and applicable obligations may vary. Consult qualified legal counsel or a compliance provider for your specific situation.' },
@@ -68,8 +68,8 @@ const prepareChecklist = [
 ];
 
 const mistakes = [
-  'Treating GPSR as only a marketplace issue. DTC brands running their own stores are typically responsible for independently identifying GPSR topics — there are no platform compliance forms to fill in.',
-  'Forgetting that DTC brands control their own product pages, labels and packaging. Unlike marketplace sellers who receive platform guidance, DTC brands must independently prepare and display product safety information.',
+  'Treating GPSR as only a marketplace issue. DTC brands running their own stores may need to independently identify GPSR topics — without relying on platform compliance forms, the responsibility for reviewing topics may fall on the seller.',
+  'Forgetting that DTC brands control their own product pages, labels and packaging. Unlike marketplace sellers who receive platform guidance, DTC brands may need to independently prepare and review how product safety information is displayed.',
   'Keeping product labels, packaging, manuals and online product pages inconsistent. Inconsistency between physical and digital channels may create gaps in the safety information available to consumers and authorities.',
   'Copying generic safety warnings from unrelated products without ensuring they match your specific product, its foreseeable uses and the EU markets you target.',
   'Ignoring EU Responsible Person topics for non-EU DTC brands. Non-EU DTC brands selling physical products to EU consumers may need EU Responsible Person representation, even without a marketplace intermediary.',
@@ -103,7 +103,7 @@ const mistakes = [
   <div class="content-block">
     <h2>Who this applies to</h2>
     <p>
-      This guide is for DTC (direct-to-consumer) brands preparing to sell physical products to consumers in the European Union or wider EEA. It applies whether you are based inside or outside the EU.
+      This guide is for DTC (direct-to-consumer) brands preparing to sell physical products to consumers in the European Union or wider EEA. GPSR topics may be relevant regardless of whether you are based inside or outside the EU.
     </p>
     <p>
       This includes:
@@ -124,13 +124,13 @@ const mistakes = [
   <div class="content-block">
     <h2>Why GPSR matters for DTC brands</h2>
     <p>
-      DTC brands often have more direct control over the customer experience than sellers on third-party marketplaces. You control the product label, packaging, inserts, manuals, online product page and post-purchase communications. This means you also carry more direct responsibility for the product safety information available to consumers.
+      DTC brands often have more direct control over the customer experience than sellers on third-party marketplaces. You may control the product label, packaging, inserts, manuals, online product page and post-purchase communications. This means you may also carry more direct responsibility for ensuring product safety information is available to consumers.
     </p>
     <p>
-      GPSR (General Product Safety Regulation — EU Regulation 2023/988) applies to all physical products sold to EU consumers. It requires sellers to provide product safety documentation, traceability information, and in some cases EU Responsible Person contact details. DTC brands should review these topics before launching in EU markets.
+      GPSR (General Product Safety Regulation — EU Regulation 2023/988) may be relevant for many physical consumer products sold to EU consumers, depending on product category, market setup and seller role. DTC brands may need to review topics including product safety information, traceability information and EU Responsible Person topics where applicable. Consult official sources and qualified providers to understand how GPSR topics may apply to your specific situation.
     </p>
     <p>
-      Unlike marketplace sellers who may receive platform-specific guidance and compliance checklists, DTC brands running their own stores must independently identify and prepare required product safety information.
+      Unlike marketplace sellers who may receive platform-specific guidance and compliance checklists, DTC brands running their own stores may need to independently identify and prepare product safety information topics because they control their own storefront and product pages.
     </p>
   </div>
 
@@ -155,12 +155,12 @@ const mistakes = [
   <div class="content-block">
     <h2>Product safety information topics</h2>
     <p>
-      DTC brands may need to prepare and display product safety information for each product sold to EU consumers. Key areas to review include:
+      DTC brands may need to prepare and make accessible product safety information for each product sold to EU consumers. Key areas to review include:
     </p>
     <ul>
       <li><strong>Product identity</strong> — product name, model, type identifier and images</li>
       <li><strong>Manufacturer information</strong> — name, address and contact details of the manufacturer</li>
-      <li><strong>EU Responsible Person contact</strong> — where applicable, the EU Responsible Person name and address must be accessible</li>
+      <li><strong>EU Responsible Person contact</strong> — where applicable, the EU Responsible Person name and address may need to be accessible</li>
       <li><strong>Safety warnings</strong> — warnings appropriate to your product category and foreseeable uses</li>
       <li><strong>Instructions for safe use</strong> — clear instructions in the language of the target EU market</li>
       <li><strong>Traceability information</strong> — batch number, serial number or other identifier relevant to product safety</li>
@@ -173,7 +173,7 @@ const mistakes = [
   <div class="content-block">
     <h2>EU Responsible Person topics for DTC brands</h2>
     <p>
-      Non-EU DTC brands selling physical consumer products to EU consumers may need an EU Responsible Person to act as the point of contact for product safety matters under GPSR. Unlike marketplace sellers who may be directed to a platform-appointed representative, DTC brands with their own stores must independently arrange this service.
+      Non-EU DTC brands selling physical consumer products to EU consumers may need an EU Responsible Person to act as the point of contact for product safety matters under GPSR. Unlike marketplace sellers who may be directed to a platform-appointed representative, DTC brands with their own stores may need to independently arrange this service.
     </p>
     <p>
       Key factors to consider:
@@ -218,10 +218,10 @@ const mistakes = [
     <ul>
       <li><strong>Shopify</strong> — you control product descriptions and media. Consider adding safety information to descriptions, images (including label photos) and separate information pages. Review your current theme and app capabilities.</li>
       <li><strong>WooCommerce</strong> — you control your WordPress store, product pages and checkout. You can add information to descriptions, create separate safety pages and update footer content. Theme and plugin capabilities may affect how and where you display information.</li>
-      <li><strong>Custom storefront</strong> — full control over design and content. You decide how and where to display product safety information. Ensure your content management system supports the required disclosures.</li>
+      <li><strong>Custom storefront</strong> — full control over design and content. You decide how and where to display product safety information. Consider whether your content management system may need to support relevant disclosures.</li>
     </ul>
     <p>
-      Unlike marketplace sellers who fill in platform compliance forms, DTC brands running their own stores must independently prepare and display required product information.
+      Unlike marketplace sellers who fill in platform compliance forms, DTC brands running their own stores may need to independently prepare and review how product safety information is displayed.
     </p>
     <p>
       For Shopify-specific GPSR guidance, see the <a href="/gpsr-compliance-for-shopify/">GPSR Compliance for Shopify Sellers</a> guide. For WooCommerce-specific guidance, see the <a href="/gpsr-compliance-for-woocommerce-sellers/">GPSR Compliance for WooCommerce Sellers</a> guide.
@@ -231,10 +231,10 @@ const mistakes = [
   <div class="content-block">
     <h2>Launch and preorder considerations</h2>
     <p>
-      DTC brands launching new products, crowdfunding campaigns or EU market expansions should review GPSR topics before products reach EU consumers.
+      DTC brands launching new products, crowdfunding campaigns or EU market expansions may want to review GPSR topics before products reach EU consumers, since product pages, packaging and instructions can be harder to update after launch.
     </p>
     <p>
-      Consider reviewing GPSR topics when:
+      DTC brands may want to review GPSR topics before products reach EU consumers. Consider reviewing GPSR topics when:
     </p>
     <ul>
       <li><strong>New product launches</strong> — product pages, labels and packaging may need updates before EU launch</li>
