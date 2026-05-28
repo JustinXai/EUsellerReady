@@ -287,6 +287,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-27',
     aiSummary: 'GPSR guide for DTC brands. Explains GPSR topics for direct-to-consumer brands preparing to sell physical products to EU consumers. Covers EU Responsible Person topics, product safety information, labels, packaging, store product pages and provider help. Links to GPSR general guide, product safety checklist, Shopify/WooCommerce GPSR guides, compliance checker and provider directory. Educational guidance only. Not legal advice.',
   },
+  {
+    path: '/privacy/',
+    title: 'Privacy Policy | EUReadySeller',
+    description: 'How EUReadySeller handles provider intake submissions, analytics events and basic site usage information.',
+    h1: 'Privacy Policy',
+    category: 'legal',
+    priority: '0.5',
+    changefreq: 'monthly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-28',
+    aiSummary: 'Privacy policy for EUReadySeller. Explains what information is collected through the provider intake form and analytics, how it is used, data storage practices, third-party services, and contact information. Not legal advice.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {

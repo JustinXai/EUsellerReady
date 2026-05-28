@@ -1081,6 +1081,43 @@ export const contentRoadmap: ContentRoadmapItem[] = [
       'EU Compliance Provider Directory',
     ],
   },
+  {
+    path: '/privacy/',
+    status: 'live',
+    categoryId: 'legal',
+    templateId: 'legalTemplate',
+    priority: 'P3',
+    primaryKeyword: 'EUReadySeller privacy policy',
+    secondaryKeywords: [
+      'EUReadySeller data collection',
+      'privacy policy ecommerce compliance',
+      'provider intake form privacy',
+      'GA4 privacy disclosure',
+    ],
+    longTailQuestions: [
+      'what information does EUReadySeller collect',
+      'how does EUReadySeller use analytics data',
+      'is the provider intake form submission private',
+      'does EUReadySeller share data with third parties',
+      'does EUReadySeller store IP addresses',
+    ],
+    seoTitleDraft: 'Privacy Policy | EUReadySeller',
+    metaDescriptionDraft: 'How EUReadySeller handles provider intake submissions, analytics events and basic site usage information.',
+    aiAnswerTarget: 'Privacy policy for EUReadySeller. Explains what information is collected through the provider intake form and analytics, how it is used, data storage practices, and third-party services. Not legal advice.',
+    snippetAnswer: 'EUReadySeller privacy policy. Covers data collection through the provider intake form, Google Analytics 4 usage, data storage, third-party services, and contact information. Not legal advice.',
+    userSegment: ['non-eu-seller', 'amazon-seller', 'shopify-merchant', 'etsy-seller', 'dtc-brand'],
+    funnelStage: 'awareness',
+    conversionIntent: 'none',
+    plannedFaqQuestions: [],
+    requiredInternalLinks: [
+      '/request-eu-compliance-quotes/',
+    ],
+    officialSourceTopics: ['general'],
+    monetizationPath: 'none',
+    internalLinkAnchors: [
+      'request provider quotes',
+    ],
+  },
 ];
 
 // --- Helpers ---

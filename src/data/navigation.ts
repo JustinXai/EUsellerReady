@@ -36,4 +36,10 @@ export const footerLinks = [
       { label: 'Compliance Checklist', href: '/eu-seller-compliance-checklist/' },
     ],
   },
+  {
+    heading: 'Legal',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy/' },
+    ],
+  },
 ];

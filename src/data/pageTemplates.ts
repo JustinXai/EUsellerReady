@@ -173,6 +173,20 @@ export const PAGE_TEMPLATES: Record<string, PageTemplate> = {
     priority: '0.8',
     changefreq: 'monthly',
   },
+
+  legalTemplate: {
+    templateId: 'legalTemplate',
+    categoryId: 'legal',
+    description: 'Legal pages such as privacy policy and terms of service.',
+    requiredBlocks: ['PageHeader', 'QuickAnswer', 'Content', 'Disclaimer'],
+    optionalBlocks: ['ContactSection'],
+    ctaPlacement: 'none',
+    primaryCta: '',
+    secondaryCta: '',
+    schemaTypes: ['WebPage'],
+    priority: '0.5',
+    changefreq: 'monthly',
+  },
 };
 
 export function getTemplateById(templateId: string): PageTemplate | undefined {

@@ -1,0 +1,173 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import { site } from '../data/site';
+import { buildWebPageSchema } from '../lib/schema';
+
+const pagePath = '/privacy/';
+const canonical = `${site.siteUrl}/privacy/`;
+
+const jsonLd = [
+  buildWebPageSchema(
+    pagePath,
+    'Privacy Policy | EUReadySeller',
+    'How EUReadySeller handles provider intake submissions, analytics events and basic site usage information.',
+    'Privacy Policy'
+  ),
+];
+
+const today = new Date().toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+<Layout
+  title="Privacy Policy | EUReadySeller"
+  description="How EUReadySeller handles provider intake submissions, analytics events and basic site usage information."
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <PageHeader
+    heading="Privacy Policy"
+    subheading="How EUReadySeller handles information you choose to share."
+  />
+
+  <div class="content-wrapper">
+    <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        EUReadySeller collects information you choose to submit through the provider intake form and uses basic analytics to understand site usage. This page explains what is collected, how it is used, and what is not collected.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Information we collect</h2>
+
+      <h3>Provider intake form submissions</h3>
+      <p>
+        When you submit the provider intake form, you may choose to share the following information:
+      </p>
+      <ul>
+        <li>Email address (required)</li>
+        <li>Name or business name, if you choose to provide it</li>
+        <li>Business location, if you choose to share it</li>
+        <li>Selling platform (e.g. Shopify, Amazon, Etsy, WooCommerce)</li>
+        <li>Target EU countries (Germany, France, Spain, Italy, Netherlands, or other)</li>
+        <li>Compliance topics you need help with (GPSR, EU Responsible Person, EPR packaging, WEEE, batteries)</li>
+        <li>Product category</li>
+        <li>Message describing your situation</li>
+        <li>Page URL, referrer, and user agent at time of submission</li>
+        <li>IP address, hashed before storage for abuse prevention (raw IP addresses are not intentionally stored)</li>
+      </ul>
+
+      <h3>Analytics data</h3>
+      <p>
+        EUReadySeller uses Google Analytics 4 (GA4), which may collect aggregate usage information such as pages visited, time on page, and general geographic indicators. GA4 does not store individual-level identifying data beyond what is standard for analytics services.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>How we use information</h2>
+      <ul>
+        <li>Understand common seller compliance questions and needs</li>
+        <li>Review and improve site content and form usability</li>
+        <li>Prepare for future provider matching workflows</li>
+        <li>Monitor for spam and abuse of the submission form</li>
+      </ul>
+      <p>
+        Submitting the form does not guarantee a reply, quote or provider match. EUReadySeller does not provide legal advice.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Analytics events</h2>
+      <p>
+        The form submission event <code>provider_intake_submit_success</code> may include the following non-sensitive aggregate parameters:
+      </p>
+      <ul>
+        <li><code>platform</code> — the selected selling platform</li>
+        <li><code>situation</code> — the selected current situation</li>
+        <li><code>countries_count</code> — number of selected target countries</li>
+        <li><code>topics_count</code> — number of selected compliance topics</li>
+        <li><code>product_category_present</code> — whether a product category was entered (boolean)</li>
+      </ul>
+      <p>
+        The event does <strong>not</strong> send:
+      </p>
+      <ul>
+        <li>Email address, name, or message content</li>
+        <li>Raw country list or raw topic list</li>
+        <li>IP address hash or raw IP address</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>What not to submit</h2>
+      <p>To protect your security, do not include:</p>
+      <ul>
+        <li>Passwords or API keys</li>
+        <li>Supplier contracts or legal agreements</li>
+        <li>Highly confidential legal documents</li>
+        <li>Sensitive personal identification documents</li>
+      </ul>
+      <p>
+        For basic scoping help, a description of your business situation is sufficient. You can discuss detailed documentation directly with providers if follow-up occurs.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Data storage</h2>
+      <ul>
+        <li>Provider intake submissions are stored in server-side records for operational review</li>
+        <li>Raw IP addresses are not intentionally stored; an IP hash may be stored for abuse prevention</li>
+        <li>No public dashboard exposes submission data</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Third-party services</h2>
+      <ul>
+        <li><strong>Google Analytics 4</strong> — for aggregate site usage analytics</li>
+        <li><strong>Hosting and infrastructure providers</strong> — servers that run the site and store submission data</li>
+        <li><strong>Future provider workflows</strong> — may involve third-party providers only if a specific user request requires follow-up, and only with information the user explicitly submitted</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Contact</h2>
+      <p>
+        For privacy-related questions, use the <a href="/request-eu-compliance-quotes/">provider intake form</a> and mention "privacy question" in the message field.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Disclaimer</h2>
+      <p>
+        This page is informational and not legal advice. EUReadySeller does not provide legal advice.
+      </p>
+    </div>
+
+    <p class="last-updated">Last updated: {today}</p>
+
+    <DisclaimerBlock />
+  </div>
+</Layout>
+
+<style>
+  .last-updated {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
+  }
+
+  code {
+    background: var(--color-bg-muted);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    color: var(--color-text-main);
+  }
+</style>
