@@ -55,7 +55,7 @@ export const checklistFAQs: FAQItem[] = [
   {
     question: 'What is EPR packaging registration?',
     answer:
-      'Extended Producer Responsibility (EPR) is an EU environmental regulation requiring sellers to register for packaging recovery in the countries where they sell. Germany and France have active EPR packaging schemes.',
+      'Extended Producer Responsibility (EPR) is an EU environmental responsibility topic that may require sellers to review packaging recovery registration topics in the countries where they sell. Germany and France have active EPR packaging schemes.',
   },
 ];
 
