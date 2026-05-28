@@ -87,6 +87,16 @@ const SOFT_RISK = [
   { phrase: 'we certify', context: 'Too strong a claim — prefer "provides" or "offers"' },
   { phrase: 'EU-approved', context: 'Potentially misleading — prefer "meets requirements" or "aligns with"' },
   { phrase: 'avoid all fines', context: 'Unrealistic guarantee — prefer "help prepare" or "may reduce risk"' },
+  // Germany EPR specific — added after GSC-driven micro-optimization
+  { phrase: 'requires sellers to register', context: 'Too strong — prefer "may require sellers to review registration topics depending on setup"' },
+  { phrase: 'sellers must declare', context: 'Too strong — prefer "sellers may need to review or submit... depending on their setup"' },
+  { phrase: 'register with the central packaging register before first selling', context: 'Too strong — prefer "Review whether LUCID registration topics are relevant before launching"' },
+  { phrase: 'before first selling in Germany', context: 'Too strong — prefer "before launching in Germany"' },
+  { phrase: 'who must register', context: 'Too strong — prefer "Who may need to review registration topics"' },
+  { phrase: 'should independently verify', context: 'Too strong — prefer "may need to review topics based on packaging role, target market and setup"' },
+  { phrase: 'should independently assess', context: 'Too strong — prefer "may need to review topics depending on their setup"' },
+  { phrase: 'registration responsibility typically remains', context: 'Too strong — prefer "registration topics may still need to be reviewed by the seller depending on setup"' },
+  { phrase: 'typically required', context: 'Too strong — prefer "topics may need to be reviewed"' },
 ];
 
 let exitCode = 0;

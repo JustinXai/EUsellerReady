@@ -51,6 +51,15 @@ export const softRiskPhrases: string[] = [
   'reporting obligations',
   'environmental obligations',
   'require separate registrations',
+  'requires sellers to register',
+  'sellers must declare',
+  'register with the central packaging register before first selling',
+  'before first selling in Germany',
+  'who must register',
+  'should independently verify',
+  'should independently assess',
+  'registration responsibility typically remains',
+  'typically required',
 ];
 
 // Safe phrases that are explicitly allowed (whitelist)
