@@ -97,6 +97,14 @@ const SOFT_RISK = [
   { phrase: 'should independently assess', context: 'Too strong — prefer "may need to review topics depending on their setup"' },
   { phrase: 'registration responsibility typically remains', context: 'Too strong — prefer "registration topics may still need to be reviewed by the seller depending on setup"' },
   { phrase: 'typically required', context: 'Too strong — prefer "topics may need to be reviewed"' },
+  // Additional EPR/WEEE specific — added after live mismatch fix
+  { phrase: 'EU Responsible Person obligations', context: 'Too conclusive — prefer "EU Responsible Person topics" or "EU Responsible Person requirements that may be relevant"' },
+  { phrase: 'responsible for financing', context: 'Too strong — prefer "may need to review financing or producer responsibility topics"' },
+  { phrase: 'must be marked', context: 'Too strong — prefer "may need to be marked depending on category and market rules"' },
+  { phrase: 'does not need WEEE registration', context: 'Too conclusive — prefer "may not need to review WEEE registration topics depending on product setup"' },
+  { phrase: 'battery registration requirements vary', context: 'Too conclusive — prefer "battery registration topics can vary by country"' },
+  { phrase: 'Packaging quantities must be reported', context: 'Too strong — prefer "Packaging quantity reporting topics may need to be reviewed"' },
+  { phrase: 'separate registration, reporting', context: 'Too strong — prefer "separate schemes, registration topics, reporting topics, or fee contribution topics"' },
 ];
 
 let exitCode = 0;
