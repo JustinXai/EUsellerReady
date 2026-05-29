@@ -33,28 +33,54 @@ const jsonLd = [
   />
 
   <div class="content-wrapper">
-    <div class="quick-answer">
-      <p class="quick-answer-label">Quick Answer</p>
-      <p>
-        This form helps sellers describe their EU compliance situation so providers can understand your needs. Submit your platform, target markets, and compliance topics. This is educational intake only — it does not guarantee a reply, quote, or provider match.
-      </p>
-    </div>
+    <div class="main-two-column">
+      <main class="main-column">
+        <section class="form-section">
+          <h2 class="form-section-heading">Describe your seller situation</h2>
+          <p class="form-intro">
+            Tell us what you sell, where you sell, and which EU compliance topics you need help reviewing.
+          </p>
+          <LeadForm topic="provider-intake" />
+        </section>
+      </main>
 
-    <AISummary summary={route.aiSummary} />
+      <aside class="sidebar-column">
+        <div class="quick-answer-card">
+          <h3 class="sidebar-card-title">Quick Answer</h3>
+          <p>
+            This form helps sellers describe their EU compliance situation so providers can understand your needs. Submit your platform, target markets, and compliance topics. This is educational intake only — it does not guarantee a reply, quote, or provider match.
+          </p>
+        </div>
 
-    <section class="form-section">
-      <h2 class="form-section-heading">Describe your seller situation</h2>
-      <LeadForm topic="provider-intake" />
-    </section>
+        <div class="sidebar-card">
+          <h3 class="sidebar-card-title">AI-readable Summary</h3>
+          <AISummary summary={route.aiSummary} />
+        </div>
 
-    <div class="content-block">
-      <h2>What happens next</h2>
-      <ul>
-        <li>We review submitted information to understand common seller needs.</li>
-        <li>Provider availability may vary.</li>
-        <li>This form does not guarantee a reply, quote or provider match.</li>
-        <li>EUReadySeller does not certify, approve or guarantee providers.</li>
-      </ul>
+        <div class="sidebar-card compact">
+          <h3 class="sidebar-card-title">What happens next</h3>
+          <ul>
+            <li>We review submitted information to understand common seller needs.</li>
+            <li>Provider availability may vary.</li>
+            <li>This form does not guarantee a reply, quote or provider match.</li>
+            <li>EUReadySeller does not certify, approve or guarantee providers.</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card compact">
+          <h3 class="sidebar-card-title">What not to submit</h3>
+          <p>To protect your security, do not include:</p>
+          <ul>
+            <li>Passwords or API keys</li>
+            <li>Full supplier contracts or legal agreements</li>
+            <li>Highly confidential legal documents</li>
+            <li>Sensitive personal identification documents</li>
+          </ul>
+          <p class="form-note">
+            For basic scoping help, a description of your situation is sufficient. You can discuss detailed documentation directly with providers.
+          </p>
+        </div>
+      </aside>
     </div>
 
     <div class="content-block">
@@ -67,20 +93,6 @@ const jsonLd = [
         <li>Compliance topics you need help with (GPSR, EU RP, EPR, WEEE, batteries)</li>
         <li>Any marketplace requests or warnings you have received</li>
       </ul>
-    </div>
-
-    <div class="content-block">
-      <h2>What not to submit</h2>
-      <p>To protect your security, do not include:</p>
-      <ul>
-        <li>Passwords or API keys</li>
-        <li>Full supplier contracts or legal agreements</li>
-        <li>Highly confidential legal documents</li>
-        <li>Sensitive personal identification documents</li>
-      </ul>
-      <p class="form-note">
-        For basic scoping help, a description of your situation is sufficient. You can discuss detailed documentation directly with providers.
-      </p>
     </div>
 
     <div class="content-block">
@@ -104,30 +116,183 @@ const jsonLd = [
 </Layout>
 
 <style>
-  .form-section {
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+  }
+
+  .main-two-column {
+    display: flex;
+    gap: var(--space-8);
     margin: var(--space-10) 0;
+  }
+
+  .main-column {
+    flex: 1 1 60%;
+    min-width: 0;
+  }
+
+  .sidebar-column {
+    flex: 1 1 40%;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .form-section {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .form-section-heading {
     font-size: clamp(1.25rem, 2.5vw, 1.5rem);
     font-weight: 700;
     color: var(--color-text-main);
-    margin-bottom: var(--space-6);
-    text-align: center;
+    margin-bottom: var(--space-3);
     letter-spacing: var(--tracking-tight);
   }
 
-  .form-section > :global(.lead-form-container) {
-    width: 100%;
-    max-width: 720px;
+  .form-intro {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+    line-height: 1.6;
+  }
+
+  .sidebar-card {
+    background: var(--color-bg-secondary);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+  }
+
+  .sidebar-card.compact {
+    padding: 1rem 1.25rem;
+  }
+
+  .sidebar-card-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin: 0 0 var(--space-3) 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-card.compact .sidebar-card-title {
+    margin-bottom: var(--space-2);
+  }
+
+  .sidebar-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .sidebar-card.compact p {
+    margin-bottom: var(--space-2);
+  }
+
+  .sidebar-card ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .sidebar-card.compact ul {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sidebar-card.compact li {
+    margin-bottom: 0.25rem;
   }
 
   .form-note {
+    font-size: 0.8125rem !important;
+    color: #6b7280 !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .quick-answer-card {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    border: 1px solid #dbeafe;
+  }
+
+  .quick-answer-card .sidebar-card-title {
+    color: #1e40af;
+  }
+
+  .quick-answer-card p {
+    color: #1e3a5f;
     font-size: 0.875rem;
-    color: #6b7280;
-    margin-top: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .content-block {
+    margin: var(--space-10) 0;
+  }
+
+  .content-block h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: var(--space-4);
+  }
+
+  .content-block ul {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .content-block li {
+    margin-bottom: var(--space-2);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .content-block a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .content-block a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .main-two-column {
+      flex-direction: column;
+    }
+
+    .main-column,
+    .sidebar-column {
+      flex: 1 1 100%;
+    }
+
+    .sidebar-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .quick-answer-card {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sidebar-column {
+      grid-template-columns: 1fr;
+    }
+
+    .quick-answer-card {
+      grid-column: 1;
+    }
   }
 </style>
