@@ -12,12 +12,14 @@ import { getSourcesForTopics } from '../data/officialSources';
 import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
 
 const pageFAQs = [
+  { question: 'What type of EU compliance provider might an ecommerce seller need?', answer: 'It depends on product category, target country, sales platform and the compliance topic being reviewed. Sellers may need to review EU Responsible Person service, GPSR product safety documentation, EPR packaging, WEEE, battery or marketplace evidence support. Provider types vary in scope and specialisation.' },
+  { question: 'Do electronics sellers need a different compliance provider?', answer: 'Electronics sellers may need to review WEEE, batteries, CE marking, GPSR product safety information or marketplace evidence topics. Different providers may support different parts of the process, so sellers should describe the product category and target market clearly when requesting help.' },
+  { question: 'Does EUReadySeller certify compliance providers?', answer: 'No. EUReadySeller provides educational information and intake tools. It does not certify, approve or guarantee any provider, and it does not provide legal advice. Sellers should independently verify any provider credentials and service scope.' },
   { question: 'What is an EU compliance provider?', answer: 'An EU compliance provider is a service that may help ecommerce sellers with one or more EU compliance topics such as EU Responsible Person representation, GPSR product safety support, EPR packaging registration, WEEE, or battery compliance. Providers may include legal service firms, compliance consultancies, or specialised service companies. EUReadySeller does not certify or guarantee any provider.' },
   { question: 'Do ecommerce sellers need one provider or multiple providers?', answer: 'It depends on the topics you need to cover and whether one provider offers combined services. Some providers may handle EU Responsible Person representation, EPR packaging, and WEEE topics under one service. Others may specialise in one area. Sellers targeting multiple EU markets and topics may need to work with different providers or a provider with a broad service scope.' },
   { question: 'Is an EU Responsible Person provider the same as an EPR provider?', answer: 'No. An EU Responsible Person provider typically offers EU Responsible Person representation services for product safety purposes under GPSR contexts. An EPR provider typically offers packaging, WEEE, or battery registration and reporting services. These are different compliance areas with different regulatory frameworks. Some providers may offer both, but they are not the same service.' },
   { question: 'Can one provider cover GPSR, EPR, WEEE and batteries?', answer: 'Some providers may offer combined services covering multiple EU compliance topics, while others may specialise in one area. Whether one provider can cover all your needs depends on the specific topics, countries, and product categories involved. Sellers should ask providers directly about their service scope and coverage before engaging.' },
   { question: 'How should Amazon or Shopify sellers compare providers?', answer: 'When comparing providers, sellers may want to consider: the countries and topics covered, the product categories supported, whether the provider has experience with your selling platform, the service scope and what is included, the pricing model, the evidence or documents provided, and whether the provider can support renewals and ongoing reporting. Asking the specific questions listed on this page may help sellers make a more informed comparison.' },
-  { question: 'Does EUReadySeller certify or guarantee providers?', answer: 'No. EUReadySeller does not certify, guarantee, approve or endorse any compliance provider. This directory page is educational and helps sellers understand provider categories and prepare questions before contacting qualified providers. EUReadySeller may later include provider listings or referral relationships, but any such information should be independently verified by sellers.' },
   { question: 'Can I leave a message if I am not sure what I need?', answer: 'Yes. If you are not sure which provider category or service you need, you can use the message form on this page or the EU Seller Compliance Checker to identify the topics that may apply to your situation. Provider availability and service scope may vary, and providers may ask clarifying questions before accepting a request.' },
   { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance about EU compliance provider categories. It does not constitute legal advice or determine which providers or services may be right for your business. Consult qualified legal counsel or a compliance provider for your specific situation.' },
 ];
@@ -70,6 +72,37 @@ const jsonLd = [
     </div>
 
     <div class="content-block">
+      <h2>EU compliance provider types sellers may need to review</h2>
+      <p>
+        EU compliance providers may specialise in different areas. Understanding the main provider types may help sellers identify the right service for their needs, depending on product category, country, platform and seller setup:
+      </p>
+      <ul>
+        <li><strong>EU Responsible Person service providers</strong> — for product safety representative and contact services in GPSR contexts</li>
+        <li><strong>EPR packaging registration support providers</strong> — for country-specific packaging EPR registration, reporting and scheme participation</li>
+        <li><strong>WEEE and electronics compliance support providers</strong> — for electrical and electronic product compliance topics</li>
+        <li><strong>Battery compliance support providers</strong> — for battery-containing product registration and reporting</li>
+        <li><strong>Product safety and GPSR documentation support providers</strong> — for product safety documentation, warnings, and compliance review</li>
+        <li><strong>Marketplace evidence and documentation support providers</strong> — for platform-specific compliance guidance and evidence requests</li>
+      </ul>
+      <p>
+        Some providers may offer combined services covering multiple categories. Others may specialise in one area. Sellers should review the specific scope of any provider before engaging. This directory is educational and does not certify or endorse providers.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Electronic product compliance provider topics</h2>
+      <p>
+        Sellers of electronics or products containing electrical components may need to review WEEE, batteries, CE marking, product safety information, or marketplace evidence requests depending on the product category and target market.
+      </p>
+      <p>
+        Electronic product compliance support may involve different provider types depending on whether the issue is WEEE registration, battery compliance, product safety documentation, labelling, or marketplace review. An electronic product compliance supplier or electronic compliance company may offer one or more of these services, but service scope varies.
+      </p>
+      <p>
+        EUReadySeller does not determine which provider is required. It helps sellers describe the situation before contacting providers. For a comparison of WEEE and battery topics, see the <a href="/epr-packaging-vs-weee-vs-batteries/">EPR packaging vs WEEE vs batteries guide</a>. For product safety information requirements, see the <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
       <h2>Provider categories to review</h2>
       <p>
         EU compliance providers may specialise in different areas. Understanding the main provider categories may help sellers identify the right type of service for their needs:
@@ -92,6 +125,9 @@ const jsonLd = [
         An EU Responsible Person is a natural or legal person established in the EU who receives documentation from non-EU manufacturers and ensures compliance with GPSR product safety requirements. EU Responsible Person providers may offer representative services for non-EU sellers.
       </p>
       <p>
+        Sellers comparing EU Responsible Person service options may need to review product category, manufacturer details, product safety documentation, marketplace requests and whether GPSR topics apply to their situation. See <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a> for initial scoping.
+      </p>
+      <p>
         When reviewing EU Responsible Person providers, consider:
       </p>
       <ul>
@@ -102,7 +138,7 @@ const jsonLd = [
         <li>The renewal terms and ongoing obligations</li>
       </ul>
       <p>
-        See the <a href="/eu-responsible-person-service/">EU Responsible Person service guide</a> and <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a> for more context.
+        See the <a href="/eu-responsible-person-service/">EU Responsible Person service guide</a> and <a href="/do-i-need-an-eu-responsible-person/">Do I need an EU Responsible Person?</a> for more context. To request quotes, use the <a href="/request-eu-compliance-quotes/">provider intake form</a>.
       </p>
     </div>
 
@@ -122,7 +158,7 @@ const jsonLd = [
         <li>Ongoing support and product update handling</li>
       </ul>
       <p>
-        Platform-specific guidance is available in the <a href="/gpsr-compliance-for-shopify/">GPSR compliance for Shopify sellers</a>, <a href="/gpsr-compliance-for-amazon-sellers/">GPSR compliance for Amazon sellers</a>, and <a href="/gpsr-compliance-for-etsy-sellers/">GPSR compliance for Etsy sellers</a> guides.
+        Platform-specific guidance is available in the <a href="/gpsr-compliance-for-shopify/">GPSR compliance for Shopify sellers</a>, <a href="/gpsr-compliance-for-amazon-sellers/">GPSR compliance for Amazon sellers</a>, and <a href="/gpsr-compliance-for-etsy-sellers/">GPSR compliance for Etsy sellers</a> guides. The <a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a> may help sellers prepare documentation topics before engaging a provider.
       </p>
     </div>
 
@@ -266,6 +302,16 @@ const jsonLd = [
       </p>
     </div>
 
+    <div class="cta-block">
+      <h2>Need help describing your provider request?</h2>
+      <p>
+        Use the provider intake form to describe your platform, product category, target EU countries and compliance topics. This does not guarantee a reply, quote or provider match.
+      </p>
+      <div class="cta-block-button">
+        <a href="/request-eu-compliance-quotes/" class="cta-primary-button">Request provider quotes</a>
+      </div>
+    </div>
+
     <div class="content-block">
       <h2>Provider disclosure</h2>
       <div class="disclosure-box">
@@ -319,3 +365,48 @@ const jsonLd = [
     </div>
     </div>
 </Layout>
+
+<style>
+  .cta-block {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    border: 1px solid #dbeafe;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: var(--space-8) 0;
+  }
+
+  .cta-block h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .cta-block p {
+    font-size: 0.9375rem;
+    color: #4a5568;
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+
+  .cta-block-button {
+    display: inline-block;
+  }
+
+  .cta-primary-button {
+    display: inline-block;
+    background: #2563eb;
+    color: #ffffff;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+  }
+
+  .cta-primary-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+  }
+</style>
