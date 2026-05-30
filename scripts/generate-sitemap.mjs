@@ -44,7 +44,7 @@ function generateSitemap() {
       const priority = r.priority ?? '0.8';
       const changefreq = r.changefreq ?? 'monthly';
       return `  <url>
-    <loc>${loc}</loc>
+    <loc>${SITE_URL}${r.path === '/' ? '/' : r.path}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
