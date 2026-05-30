@@ -300,6 +300,19 @@ export const routes: Route[] = [
     lastmod: '2026-05-28',
     aiSummary: 'Privacy policy for EUReadySeller. Explains what information is collected through the provider intake form and analytics, how it is used, data storage practices, third-party services, and contact information. Not legal advice.',
   },
+  {
+    path: '/verpackungsregister-amazon-sellers/',
+    title: 'Verpackungsregister for Amazon Sellers: LUCID, EPR Number, and Germany Packaging Registration',
+    description: 'Understand Verpackungsregister, LUCID, and EPR number requirements for Amazon sellers. Learn what German packaging registration means for Amazon sellers and what to prepare before contacting a provider.',
+    h1: 'Verpackungsregister for Amazon Sellers: LUCID, EPR Number, and Germany Packaging Registration',
+    category: 'platform_compliance',
+    priority: '0.8',
+    changefreq: 'weekly',
+    includeInSitemap: true,
+    includeInLlms: true,
+    lastmod: '2026-05-30',
+    aiSummary: 'Verpackungsregister and LUCID guide for Amazon sellers. Explains Germany packaging EPR registration, EPR number for Germany, Amazon EPR registration workflow, and what sellers should prepare before contacting a compliance provider. Links to the broader Germany EPR page, EPR vs WEEE vs batteries guide, provider directory, and compliance checker.',
+  },
 ];
 
 export function getRouteByPath(path: string): Route | undefined {

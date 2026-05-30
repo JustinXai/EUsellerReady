@@ -1,0 +1,222 @@
+---
+import Layout from '../components/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import AISummary from '../components/AISummary.astro';
+import FAQBlock from '../components/FAQBlock.astro';
+import DisclaimerBlock from '../components/DisclaimerBlock.astro';
+import OfficialSources from '../components/OfficialSources.astro';
+import CTABox from '../components/CTABox.astro';
+import { site } from '../data/site';
+import { routes } from '../data/routes';
+import { getSourcesForTopics } from '../data/officialSources';
+import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
+
+const pageFAQs = [
+  { question: 'What is Verpackungsregister for Amazon sellers?', answer: 'Verpackungsregister is the German term for the national packaging register. For Amazon sellers, Verpackungsregister refers to the registration context around Germany packaging EPR obligations. Amazon sellers who ship products in packaging to German consumers may need to review Verpackungsregister topics, including LUCID registration and dual system participation, depending on their packaging role and seller setup.' },
+  { question: 'Do Amazon sellers need LUCID registration for Germany?', answer: 'Amazon sellers who ship packaged goods to consumers in Germany may need to review LUCID registration topics. LUCID is the central packaging register operated by the Zentrale Stelle. Amazon may verify EPR registration numbers as part of its seller compliance checks. Sellers should review whether LUCID topics and dual system participation apply to their situation.' },
+  { question: 'What EPR number does Germany require for Amazon sellers?', answer: 'Germany may require different registration references depending on the EPR category. For packaging EPR, sellers may encounter references to LUCID registration and dual system participation confirmation. Amazon may request an EPR number or evidence of registration for Germany as part of its compliance verification process. The specific format and submission process may depend on the EPR category and Amazon\'s current requirements.' },
+  { question: 'How does Amazon EPR registration work for Germany?', answer: 'Amazon sellers who need Germany EPR compliance may need to obtain their EPR number or registration evidence and submit it through Amazon Seller Central. Amazon may have its own EPR compliance program where sellers can submit their registration details or use an Amazon-partnered solution. Independent registration through LUCID and dual system participation may still be required depending on seller setup.' },
+  { question: 'Is German packaging registration the same as WEEE for Amazon sellers?', answer: 'No. German packaging registration (LUCID/Verpackungsregister) and WEEE are different regulations. Packaging EPR covers shipping materials. WEEE covers electrical and electronic products. Amazon sellers who sell electronics in Germany may need to address both packaging EPR and WEEE registration topics separately.' },
+  { question: 'What should Amazon sellers prepare before contacting a compliance provider?', answer: 'Before requesting provider assistance, Amazon sellers may need to prepare: their Amazon seller URL, product categories and packaging types used, estimated annual packaging volumes, target EU markets including Germany, whether they already have any EPR registrations, and details of any Amazon compliance requests received. Having this information ready can help providers give accurate quotes.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance about Germany packaging EPR topics for Amazon sellers. It does not constitute legal advice or determine whether specific registration requirements apply to your business. Consult qualified legal counsel or a compliance provider for your specific situation.' },
+];
+
+const pagePath = '/verpackungsregister-amazon-sellers/';
+const canonical = `${site.siteUrl}/verpackungsregister-amazon-sellers`;
+const route = routes.find((r) => r.path === pagePath) ?? routes.find((r) => r.path === '/verpackungsregister-amazon-sellers/');
+
+const sources = getSourcesForTopics(['epr', 'germanyEpr']);
+
+const jsonLd = [
+  buildWebPageSchema(pagePath, route.title, route.description, route.h1),
+  buildFAQPageSchema(pageFAQs),
+];
+---
+
+<Layout
+  title={route.title}
+  description={route.description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+
+    <PageHeader
+      heading={route.h1}
+      subheading="Understand Verpackungsregister, LUCID, and EPR number requirements for Amazon sellers navigating German packaging EPR compliance."
+    />
+
+    <div class="prose-shell">
+      <div class="quick-answer">
+      <p class="quick-answer-label">Quick Answer</p>
+      <p>
+        Amazon sellers who ship packaged goods to German consumers may need to review Germany packaging EPR topics including Verpackungsregister and LUCID registration. Amazon may verify EPR registration numbers as part of seller compliance checks. This guide explains what Amazon sellers should understand about German packaging registration and what to prepare before contacting a compliance provider.
+      </p>
+    </div>
+
+    <AISummary summary={route.aiSummary} />
+
+    <div class="content-block">
+      <h2>Who this applies to</h2>
+      <p>
+        This guide is for Amazon sellers — including FBA and MFN sellers — who sell or plan to sell physical products in packaging to consumers in Germany. It is relevant for sellers based inside or outside the EU who use Amazon to reach German buyers.
+      </p>
+      <p>
+        Topics on this page may apply regardless of your business location, as Germany EPR topics relate to selling packaged goods to German consumers.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Verpackungsregister and LUCID for Amazon sellers</h2>
+      <p>
+        Verpackungsregister is commonly used when sellers discuss Germany packaging EPR registration topics. LUCID (Lizensierungsdaten-Infrastruktur der dualen Systeme) is the online register operated by the Zentrale Stelle (Central Body) for packaging registration in Germany.
+      </p>
+      <p>
+        Amazon sellers may encounter references to Verpackungsregister and LUCID in several contexts:
+      </p>
+      <ul>
+        <li><strong>Amazon compliance requests</strong> — Amazon may ask sellers to provide their EPR number or evidence of registration for Germany</li>
+        <li><strong>Registration timing</strong> — Sellers may need to review LUCID registration topics before launching products in Germany</li>
+        <li><strong>Dual system participation</strong> — LUCID registration alone is not sufficient; sellers also need participation in a licensed dual system</li>
+        <li><strong>Annual reporting</strong> — Packaging volumes placed on the German market may need to be reported to both the dual system and potentially LUCID</li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>What is the EPR number for Germany on Amazon?</h2>
+      <p>
+        When Amazon refers to an EPR number for Germany, it typically means evidence of packaging EPR registration. This may include:
+      </p>
+      <ul>
+        <li><strong>LUCID registration confirmation</strong> — A confirmation number or reference from the LUCID register</li>
+        <li><strong>Dual system participation number</strong> — Evidence of participation in a licensed dual system (Duale Systeme)</li>
+        <li><strong>Combined reference</strong> — Amazon may ask for a single EPR number that covers packaging registration for Germany</li>
+      </ul>
+      <p>
+        The specific format Amazon requires may vary by EPR category and submission process. Sellers should review the current Amazon Seller Central guidance for the exact information to submit.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Amazon EPR registration workflow for Germany</h2>
+      <p>
+        Here is a general overview of the Amazon EPR registration workflow for Germany packaging:
+      </p>
+      <ol>
+        <li><strong>Identify whether EPR applies</strong> — Determine whether your products and packaging require Germany packaging EPR based on your sales volume and packaging role</li>
+        <li><strong>Register with LUCID</strong> — Create an account and register on the LUCID portal (lucide-register.de) operated by the Zentrale Stelle</li>
+        <li><strong>Join a dual system</strong> — Participate in a licensed dual system (such as Gruner Punkt, Interseroh, or BellandVision) for packaging recovery</li>
+        <li><strong>Report your participation</strong> — Confirm your dual system participation number in LUCID</li>
+        <li><strong>Submit to Amazon</strong> — Submit your EPR number or registration evidence through Amazon Seller Central if Amazon requests it</li>
+        <li><strong>Annual reporting</strong> — Report packaging volumes to your dual system annually and maintain your LUCID registration</li>
+      </ol>
+      <p>
+        A compliance provider may help manage registration and ongoing reporting for sellers who prefer not to handle these topics directly.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Packaging EPR, WEEE and batteries: what Amazon sellers need to know</h2>
+      <p>
+        Amazon sellers in Germany may need to address multiple EPR categories. Here is a brief overview:
+      </p>
+      <ul>
+        <li><strong>Packaging EPR (Verpackungsregister / LUCID)</strong> — Covers shipping packaging materials. Almost every Amazon seller shipping products to German consumers may need to review this.</li>
+        <li><strong>WEEE</strong> — Covers electrical and electronic products. Amazon sellers of electronics may need separate WEEE registration in Germany.</li>
+        <li><strong>Batteries</strong> — Covers batteries sold separately or included in products. Amazon sellers of battery-powered electronics may need battery compliance topics.</li>
+      </ul>
+      <p>
+        For a full comparison of these topics, see the <a href="/epr-packaging-vs-weee-vs-batteries/">EPR packaging vs WEEE vs batteries guide</a>.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>What Amazon sellers should prepare before contacting a provider</h2>
+      <p>
+        Having the following information ready can help compliance providers give accurate quotes:
+      </p>
+      <ul class="checklist">
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Amazon seller URL and marketplace account details</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Product categories and approximate number of SKUs</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Packaging types and materials used (boxes, fillers, etc.)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Estimated annual packaging volumes by material type</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Target EU markets (Germany, France, others)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Any Amazon compliance requests received (EPR warning, evidence request, etc.)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Existing EPR registrations (if any)</span>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-icon"></span>
+          <span>Whether you sell electronics, batteries, or both</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h2>Provider help for Amazon sellers</h2>
+      <p>
+        Germany EPR packaging registration involves country-specific registration through LUCID, dual system agreements, and annual reporting. Many Amazon sellers use a compliance provider to manage this process, particularly if they are new to German market requirements.
+      </p>
+      <p>
+        Providers can typically help with:
+      </p>
+      <ul>
+        <li>LUCID registration and account management</li>
+        <li>Dual system arrangement</li>
+        <li>Amazon EPR number submission support</li>
+        <li>Annual packaging volume reporting</li>
+        <li>Multi-country EPR management (Germany, France, and other EU markets)</li>
+      </ul>
+      <p>
+        <a href="/request-eu-compliance-quotes/">Request compliance provider quotes</a> to get help with Germany EPR packaging registration for Amazon sellers.
+      </p>
+    </div>
+    </div>
+
+    <div class="wide-shell">
+      <FAQBlock faqs={pageFAQs} />
+
+    <OfficialSources sources={sources} />
+
+    <DisclaimerBlock />
+
+    <div class="cta-section">
+      <h2>Need help?</h2>
+      <p>Use the free compliance checker to identify which topics apply to your Amazon business, or leave a message describing your situation.</p>
+      <div class="cta-section-buttons">
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
+        <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="secondary" />
+      </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/germany-epr-packaging-registration/">Germany EPR Packaging Registration</a></li>
+        <li><a href="/epr-packaging-vs-weee-vs-batteries/">EPR Packaging vs WEEE vs Batteries</a></li>
+        <li><a href="/epr-compliance-for-amazon-sellers/">EPR Compliance for Amazon Sellers</a></li>
+        <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a></li>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+      </ul>
+    </div>
+    </div>
+</Layout>
