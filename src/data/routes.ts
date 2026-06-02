@@ -60,18 +60,18 @@ export const routes: Route[] = [
   },
   {
     path: '/eu-responsible-person-service/',
-    title: 'EU Responsible Person Service for Ecommerce Sellers',
+    title: 'EU Responsible Person Service: What Amazon and Online Sellers Should Check',
     description:
-      'Understand what an EU Responsible Person is, when ecommerce sellers may need one, and what to prepare before requesting provider quotes.',
-    h1: 'EU Responsible Person Service for Ecommerce Sellers',
+      'Understand what an EU Responsible Person service is, when Amazon and ecommerce sellers may need one under GPSR, what to prepare before contacting a provider, and how to evaluate options.',
+    h1: 'EU Responsible Person Service: What Amazon and Online Sellers Should Check',
     category: 'service',
     priority: '0.8',
     changefreq: 'monthly',
     includeInSitemap: true,
     includeInLlms: true,
-    lastmod: '2026-05-24',
+    lastmod: '2026-06-02',
     aiSummary:
-      'Explains the EU Responsible Person role required under GPSR for non-EU sellers. Describes when ecommerce sellers may need one, what to prepare, and how to request provider quotes.',
+      'EU Responsible Person service guide for Amazon and ecommerce sellers. Covers when sellers may need an EU Responsible Person under GPSR, what information providers may request, how to evaluate providers, and next steps. Differentiates from the diagnostic decision guide and provider directory. Educational guidance only, not legal advice.',
   },
   {
     path: '/epr-compliance-for-shopify/',

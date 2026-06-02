@@ -88,31 +88,16 @@ export const gpsrFAQs: FAQItem[] = [
 ];
 
 export const euRpFAQs: FAQItem[] = [
-  {
-    question: 'What is an EU Responsible Person?',
-    answer:
-      'An EU Responsible Person is an entity based in the EU that acts as the point of contact for EU market surveillance authorities on product safety matters. They are required under GPSR for non-EU sellers.',
-  },
-  {
-    question: 'Do I need an EU Responsible Person?',
-    answer:
-      'If you are a non-EU seller shipping physical products to EU consumers, you likely need an EU Responsible Person. EU-based sellers typically do not require one.',
-  },
-  {
-    question: 'What does an EU Responsible Person do?',
-    answer:
-      'An EU Responsible Person keeps technical documentation, ensures product compliance information is available to authorities, and acts as the contact point for EU market surveillance authorities.',
-  },
-  {
-    question: 'Can I use a compliance service provider as my EU Responsible Person?',
-    answer:
-      'Yes. Many compliance service providers offer EU Responsible Person services. You can request quotes through EUReadySeller\'s quote request form.',
-  },
-  {
-    question: 'What information do I need to share with an EU Responsible Person?',
-    answer:
-      'You will typically need to share product descriptions, technical documentation, safety assessments, packaging details, and information about your target EU markets.',
-  },
+  { question: 'What is an EU Responsible Person service?', answer: 'An EU Responsible Person service is a professional service that helps non-EU sellers meet the EU Responsible Person requirement under GPSR. The EU Responsible Person acts as the designated point of contact for EU market surveillance authorities on product safety matters. Compliance service providers may offer EU Responsible Person services as part of a broader product compliance package.' },
+  { question: 'When might an Amazon seller need an EU Responsible Person?', answer: 'Amazon sellers based outside the EU who sell physical products to EU consumers may need an EU Responsible Person under GPSR. This may depend on the product categories sold, the EU marketplaces used, and the seller\'s role in the supply chain. Platform requirements may change, so review Amazon Seller Central and the GPSR guide for Amazon sellers for current guidance.' },
+  { question: 'What does an EU Responsible Person do?', answer: 'An EU Responsible Person keeps technical documentation accessible for EU market surveillance authorities, ensures product compliance information is available, and acts as the contact point for authorities on product safety matters. They do not guarantee compliance but serve as the designated contact under GPSR.' },
+  { question: 'What information do EU Responsible Person service providers usually ask for?', answer: 'Providers may ask for: business name, address, and contact details; product descriptions and categories; manufacturer details; target EU marketplaces; existing compliance documentation; and packaging or labeling information. Specific requirements may depend on the provider and product types involved.' },
+  { question: 'How is an EU Responsible Person service different from a general product compliance service?', answer: 'An EU Responsible Person service specifically addresses the GPSR requirement for a designated EU contact. A general product compliance service may cover additional topics such as GPSR documentation, CE marking, GPSR reporting, or sector-specific requirements. Sellers should review what each provider includes and whether additional compliance topics may apply.' },
+  { question: 'Can I use a compliance service provider as my EU Responsible Person?', answer: 'Yes. Many compliance service providers offer EU Responsible Person services. For a broader view of provider categories and options, see the EU Compliance Provider Directory. EUReadySeller does not certify or recommend specific providers.' },
+  { question: 'What should I prepare before contacting a provider?', answer: 'Before contacting a provider, review whether an EU Responsible Person may be relevant to your situation using the EU Seller Compliance Checker or the Do I Need an EU Responsible Person? guide. Gather your product categories, target EU marketplaces, manufacturer details, and any existing compliance documentation. Having this information ready may help providers give a more accurate assessment.' },
+  { question: 'How do I evaluate EU Responsible Person providers?', answer: 'When evaluating providers, review what the service includes (designation scope, documentation support, contact handling), pricing structure, geographic coverage, and whether the provider has experience with your product categories. EUReadySeller provides educational guidance only. Sellers should verify provider credentials and terms independently.' },
+  { question: 'What is the difference between this service guide and the Do I Need an EU Responsible Person? guide?', answer: 'The Do I Need an EU Responsible Person? guide helps sellers determine whether an EU Responsible Person may apply to their situation. This EU Responsible Person Service guide focuses on what to do if you have determined one may be needed — including what to prepare, what providers may ask for, and how to evaluate options.' },
+  { question: 'Is this legal advice?', answer: 'No. This page provides educational guidance and identifies topics to review. It does not constitute legal advice or a compliance determination. Consult qualified legal counsel or a compliance provider for your specific situation.' },
 ];
 
 export const eprFAQs: FAQItem[] = [

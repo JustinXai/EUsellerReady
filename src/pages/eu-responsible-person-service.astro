@@ -9,7 +9,8 @@ import CTABox from '../components/CTABox.astro';
 import { site } from '../data/site';
 import { routes } from '../data/routes';
 import { euRpFAQs } from '../data/faq';
-import { getSourcesForTopic } from '../data/officialSources';
+import { getSourcesForTopics } from '../data/officialSources';
+
 import { buildWebPageSchema, buildFAQPageSchema } from '../lib/schema';
 
 const pagePath = '/eu-responsible-person-service/';
@@ -21,26 +22,34 @@ const jsonLd = [
   buildFAQPageSchema(euRpFAQs),
 ];
 
-const sources = getSourcesForTopic('euResponsiblePerson');
+const sources = getSourcesForTopics(['euResponsiblePerson', 'gpsr', 'amazonGpsr']);
 
-const checklist = [
-  'Confirm whether you need an EU Responsible Person (non-EU sellers typically do)',
-  'Research and compare EU Responsible Person service providers',
-  'Request quotes from providers through EUReadySeller',
-  'Prepare product technical documentation package',
-  'Share documentation with your appointed EU Responsible Person',
-  'Add EU Responsible Person contact details to product packaging and listings',
-  'Maintain ongoing communication with your EU Responsible Person',
+const prepItems = [
+  'Confirm whether an EU Responsible Person may be relevant to your situation (use the <a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a> guide or the EU Seller Compliance Checker)',
+  'Identify the EU marketplaces and product categories where you sell',
+  'Gather manufacturer or brand owner details including name, address, and contact information',
+  'Prepare product descriptions, categories, and identifiers (such as GTINs or batch numbers)',
+  'Identify your role in the supply chain — are you the manufacturer, importer, or seller?',
+  'Collect existing product safety documentation or technical files if available',
+  'Note the target EU countries and any relevant sales volume information',
+  'Prepare a list of questions about provider scope, coverage, and terms',
 ];
 
-const mistakes = [
-  'Assuming EU-based sellers need an EU Responsible Person — EU-based sellers typically do not',
-  'Using a generic EU contact without formal designation — the appointment must be documented',
-  'Forgetting to update EU Responsible Person details when switching providers',
-  'Not preparing product documentation before engaging a provider, causing delays',
+const complianceDiffItems = [
+  { topic: 'EU Responsible Person service', covers: 'Designated EU contact under GPSR, technical documentation access, authority contact point, documentation handling for your product categories', scope: 'GPSR-specific EU Responsible Person obligations' },
+  { topic: 'General product compliance service', covers: 'Broader topics including GPSR documentation, CE marking, sector-specific requirements, regulatory reporting, product testing, and labeling', scope: 'Multiple compliance topics across regulations' },
+];
+
+const evalPoints = [
+  'What EU countries and product categories does the service cover?',
+  'Does the provider act as the formal EU Responsible Person under GPSR, or do they assist with documentation only?',
+  'What documentation does the provider handle and retain on your behalf?',
+  'What are the pricing terms — one-time fee, annual subscription, per-product charges?',
+  'How does the provider handle changes in product range or new product categories?',
+  'Does the provider have experience with your specific product types and EU marketplaces?',
+  'What are the terms for ending the service or switching providers?',
 ];
 ---
-
 <Layout
   title={route.title}
   description={route.description}
@@ -49,50 +58,107 @@ const mistakes = [
 >
   <PageHeader
     heading={route.h1}
-    subheading="Understand what an EU Responsible Person is, when ecommerce sellers may need one, and what to prepare before requesting provider quotes."
+    subheading="Understand what an EU Responsible Person service is, when Amazon and ecommerce sellers may need one under GPSR, what to prepare before contacting a provider, and how to evaluate options."
   />
 
   <div class="content-wrapper">
     <div class="quick-answer">
       <p class="quick-answer-label">Quick Answer</p>
       <p>
-        An EU Responsible Person is required under GPSR for non-EU sellers placing physical products on the EU market. If you are based outside the EU (US, UK, China, Canada, etc.) and sell physical products to EU consumers, you likely need an EU Responsible Person. EU-based sellers typically do not.
+        Under GPSR (General Product Safety Regulation), non-EU sellers placing physical products on the EU market may need a designated EU Responsible Person. An EU Responsible Person service helps sellers fulfil this requirement by providing a named EU-based contact. Whether this may apply to your situation depends on your seller location, product category, and marketplace setup. This guide covers what the service involves, what to prepare, and how to evaluate options. It is educational guidance only and does not constitute legal advice.
       </p>
     </div>
 
     <AISummary summary={route.aiSummary} />
 
     <div class="content-block">
-      <h2>Who may need an EU Responsible Person?</h2>
+      <h2>What is an EU Responsible Person service?</h2>
       <p>
-        Non-EU sellers shipping physical products to EU consumers typically need an EU Responsible Person under GPSR. EU-based manufacturers and sellers generally do not need one, as they can fulfil the obligations directly. Use the free compliance checker to scope your situation.
+        An EU Responsible Person service is a professional offering that helps non-EU sellers meet the GPSR requirement for a designated EU contact. Under GPSR (General Product Safety Regulation), non-EU sellers placing physical products on the EU market may need to formally designate an EU-based entity as the point of contact for EU market surveillance authorities.
+      </p>
+      <p>
+        The EU Responsible Person acts as the named contact for authorities on product safety matters. They are required to keep technical documentation accessible and to cooperate with market surveillance requests. An EU Responsible Person service provider may handle this designation on behalf of sellers, and may also provide related documentation support.
+      </p>
+      <p>
+        This service may be relevant for sellers on Amazon, Etsy, Shopify, WooCommerce, or any other platform where physical products are sold to EU consumers from outside the EU. Requirements may depend on product category, seller location, and marketplace setup. Sellers should review the current GPSR guidance and platform requirements to determine applicability.
       </p>
 
-      <h2>What to prepare before requesting quotes</h2>
+      <h2>When Amazon sellers may need responsible person information</h2>
+      <p>
+        Amazon sellers based outside the EU who sell physical products to EU consumers may need to provide EU Responsible Person information as part of their GPSR compliance setup. This may apply in the following situations:
+      </p>
+      <ul>
+        <li>You sell physical products to EU consumers from a non-EU country (US, UK, China, Canada, etc.)</li>
+        <li>You sell on Amazon EU marketplaces such as Amazon.de, Amazon.fr, Amazon.it, Amazon.es, Amazon.nl, Amazon.be, or Amazon.se</li>
+        <li>Your products are subject to product safety regulations under GPSR</li>
+        <li>Amazon has requested responsible party information through Seller Central account settings</li>
+        <li>You are expanding into new EU marketplaces and want to review compliance topics in advance</li>
+      </ul>
+      <p>
+        Requirements may depend on the product categories sold, your role in the supply chain, and how your seller account is set up. For a practical overview of GPSR topics for Amazon sellers, see the <a href="/gpsr-compliance-for-amazon-sellers/">GPSR guide for Amazon sellers</a>. To determine whether an EU Responsible Person may apply to your situation, use the <a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a> guide.
+      </p>
+
+      <h2>What sellers should prepare before contacting a provider</h2>
+      <p>
+        Before reaching out to an EU Responsible Person service provider, sellers may find it helpful to prepare the following information. Having this ready may allow providers to give a clearer picture of the scope and terms:
+      </p>
       <ul class="checklist">
-        {checklist.map((item) => (
+        {prepItems.map((item) => (
           <li class="checklist-item">
             <span class="checklist-icon"></span>
-            <span>{item}</span>
+            <span set:html={item} />
           </li>
         ))}
       </ul>
+      <p>
+        Using the <a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> before contacting providers may help clarify which topics may be relevant to your situation.
+      </p>
 
-      <h2>Common mistakes when selecting an EU Responsible Person</h2>
-      <div class="mistakes-list">
-        {mistakes.map((m) => (
-          <div class="mistake-item">
-            <svg class="mistake-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
-            </svg>
-            <p class="mistake-text">{m}</p>
+      <h2>GPSR responsible person service vs general product compliance service</h2>
+      <p>
+        EU Responsible Person services and general product compliance services are not the same thing. Understanding the difference may help sellers choose the right approach:
+      </p>
+      <div class="comparison-grid">
+        {complianceDiffItems.map((item) => (
+          <div class="comparison-card">
+            <h3>{item.topic}</h3>
+            <p><strong>May cover:</strong> {item.covers}</p>
+            <p><strong>Scope:</strong> {item.scope}</p>
           </div>
         ))}
       </div>
-
-      <h2>Provider options</h2>
       <p>
-        EU Responsible Person services are offered by compliance service providers, legal firms and specialized compliance platforms. For a broader view of compliance provider categories, see the <a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a>.
+        Some providers offer both — an EU Responsible Person service plus broader compliance support. Others focus specifically on the EU Responsible Person role. Sellers should clarify what each provider includes and whether additional compliance topics (such as EPR packaging, WEEE, or CE marking) may also be relevant to their products. For a directory of provider categories, see the <a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a>.
+      </p>
+
+      <h2>How to evaluate providers without relying on guarantees</h2>
+      <p>
+        When evaluating EU Responsible Person service providers, sellers should review several factors. EUReadySeller does not certify or recommend specific providers — sellers should verify credentials and terms independently.
+      </p>
+      <p>Consider asking providers the following:</p>
+      <ul>
+        {evalPoints.map((point) => (
+          <li>{point}</li>
+        ))}
+      </ul>
+      <p>
+        EUReadySeller provides educational guidance only. Providers listed or referenced on this site are not certified, endorsed, or guaranteed by EUReadySeller. Sellers should conduct their own due diligence before engaging any provider.
+      </p>
+
+      <h2>Related guides and next steps</h2>
+      <p>
+        Depending on where you are in your compliance review, the following guides may help:
+      </p>
+      <ul>
+        <li><a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a> — determine whether an EU Responsible Person may apply to your situation</li>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a> — GPSR overview and responsible person topics for Amazon sellers</li>
+        <li><a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a> — what product safety information to prepare</li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a> — free tool to identify which compliance topics may apply to your situation</li>
+        <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a> — browse compliance provider categories and options</li>
+        <li><a href="/request-eu-compliance-quotes/">Request EU Compliance Quotes</a> — submit your needs to receive quotes from providers</li>
+      </ul>
+      <p>
+        If you have determined that an EU Responsible Person may be needed for your situation, prepare the information listed above and request quotes from qualified providers.
       </p>
     </div>
 
@@ -103,12 +169,25 @@ const mistakes = [
     <DisclaimerBlock />
 
     <div class="cta-section">
-      <h2>Request EU Responsible Person service quotes</h2>
-      <p>Get in touch with qualified EU Responsible Person service providers.</p>
+      <h2>Ready to review EU Responsible Person options?</h2>
+      <p>Prepare your product and seller information, then request quotes from compliance providers.</p>
       <div class="cta-section-buttons">
-        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
         <CTABox text={site.primaryCtaText} href={site.primaryCtaHref} variant="secondary" />
+        <CTABox text={site.secondaryCtaText} href={site.secondaryCtaHref} variant="ghost" />
       </div>
+    </div>
+
+    <div class="related-guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/do-i-need-an-eu-responsible-person/">Do I Need an EU Responsible Person?</a></li>
+        <li><a href="/gpsr-compliance-for-amazon-sellers/">GPSR Compliance for Amazon Sellers</a></li>
+        <li><a href="/gpsr-product-safety-information-checklist/">GPSR Product Safety Information Checklist</a></li>
+        <li><a href="/eu-compliance-provider-directory/">EU Compliance Provider Directory</a></li>
+        <li><a href="/tools/eu-seller-compliance-checker/">EU Seller Compliance Checker</a></li>
+        <li><a href="/gpsr-general-guide/">GPSR General Guide</a></li>
+        <li><a href="/request-eu-compliance-quotes/">Request EU Compliance Quotes</a></li>
+      </ul>
     </div>
   </div>
 </Layout>
