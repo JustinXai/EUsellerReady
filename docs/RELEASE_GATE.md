@@ -19,37 +19,59 @@ Use this checklist for every sprint.
 - Do not commit if the working tree contains unrelated or risky files.
 
 ## Before deployment
-- Ensure the branch is committed and pushed.
-- Ensure validation has passed.
-- Deploy only through the approved deployment script when deployment is required.
+- Ensure the branch is committed and pushed to `origin/main`.
+- Ensure `npm run cf:build` passes locally before pushing.
+- Cloudflare Pages builds automatically from Git integration on push to `main`.
+- Do NOT use `npm run deploy:server` for routine production releases (old server is rollback-only).
 
 ## After deployment
-- Run public live verification with cache-busting.
-- Confirm HTTP 200, title/H1, canonical, required phrases, and forbidden phrase absence.
-- Confirm sitemap.xml and llms.txt inclusion for changed/new URLs.
+- Run `npm run external:smoke` — targets `https://eureadyseller.com`.
+- Verify apex live checks via public curl:
+  - HTTP 200 on root and key pages.
+  - Non-slash URLs redirect to trailing slash (308).
+  - `sitemap.xml`, `robots.txt`, `llms.txt` present.
+  - Canonical on key pages points to `https://eureadyseller.com/` (not `pages.dev`).
+  - No contamination (no RutaAPI, LinkAI, SellerFixHub, ExtensionFixes, `lucide-register.de`).
+- Confirm sitemap and llms coverage for changed/new URLs.
+- Submit `https://eureadyseller.com/sitemap.xml` to GSC only after live checks pass.
 
 ## Cloudflare Pages Deployment Checks
-When deploying to Cloudflare Pages (see `docs/CLOUDFLARE_PAGES_MIGRATION.md`):
+Cloudflare Pages is the production deployment target as of 2026-06-03 (see `docs/CLOUDFLARE_PAGES_MIGRATION.md`).
 
-### Before DNS cutover
-- [ ] Run `npm run cf:build` locally and confirm it passes.
-- [ ] Verify the `pages.dev` preview URL via public curl.
-- [ ] Confirm trailing-slash canonical URLs return HTTP 200.
-- [ ] Confirm non-slash URLs redirect to trailing-slash (if strict redirect is required).
-- [ ] Confirm `sitemap.xml`, `robots.txt`, `llms.txt` are present.
-- [ ] Confirm `_headers` is served correctly at the preview URL.
-- [ ] Confirm no contamination on `pages.dev` (wrong domains, wrong content).
+### Pre-push (local)
+- [ ] Run `npm run cf:build` locally — must pass.
+- [ ] Run `git diff -- src/pages` — must be empty (no page content changes).
 
-### Custom domain cutover
-- [ ] Add custom domain in Cloudflare Pages dashboard.
-- [ ] Wait for SSL certificate to provision.
-- [ ] Test `https://eureadyseller.com/` — must return 200 with correct content.
-- [ ] Test key pages: Germany EPR, France EPR, GPSR Amazon, EU RP Service.
-- [ ] Test non-slash redirect on custom domain.
-- [ ] Monitor GSC for 404s or canonical errors after cutover.
+### After Git push (cloudflare.com dashboard)
+Cloudflare Pages builds automatically from Git integration on push to `main`.
+
+### After Cloudflare Pages build succeeds
+- [ ] Verify `https://eusellerready.pages.dev` (preview) via public curl:
+  - [ ] Root and key pages return HTTP 200.
+  - [ ] Non-slash URLs return 308 redirect to trailing slash.
+  - [ ] `sitemap.xml`, `robots.txt`, `llms.txt` return 200.
+  - [ ] `_headers` served correctly (security headers present).
+  - [ ] No contamination (wrong domains, wrong content).
+  - [ ] Canonical on key pages points to `https://eureadyseller.com/` not `pages.dev`.
+
+### Custom domain live checks (apex — https://eureadyseller.com)
+- [ ] Test `https://eureadyseller.com/` — HTTP 200.
+- [ ] Test key pages: Germany EPR, France EPR, GPSR Amazon, EU RP Service — all 200.
+- [ ] Non-slash URL on apex redirects to trailing slash.
+- [ ] `sitemap.xml` contains all 22 routes.
+- [ ] `robots.txt` has correct Sitemap directive.
+- [ ] Run `npm run external:smoke` — must PASS.
+- [ ] Check GSC for 404s or canonical errors.
+
+### GSC submission
+- [ ] Submit `https://eureadyseller.com/sitemap.xml` to GSC **only after** all live checks pass.
+- [ ] Monitor GSC for 1–2 weeks post-release.
 
 ### Rule of evidence
-Public curl output always wins over local checks. Do not mark Cloudflare Pages migration complete until custom domain live checks pass.
+Public curl output always wins over local checks. Do not mark a release complete until custom domain live checks pass.
+
+### Old server status
+The old VPS/Caddy server at `/opt/eureadyseller/` must remain online for **3–7 days** as rollback target. Do not decommission it during this window.
 
 ## Final exit criteria
 - Final status must be `GSC_READY` or `NEEDS_FIX`.
