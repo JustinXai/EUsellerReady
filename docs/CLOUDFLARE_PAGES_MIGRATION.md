@@ -38,7 +38,9 @@
 | Build command | `npm run cf:build` |
 | Build output directory | `dist` |
 | Root directory | `/` (repo root) |
-| Environment variables | None required (static build, no server secrets) |
+| Environment variables | `MESSAGE_IP_HASH_SALT` (secret, Pages Functions) — required for IP/UA hashing |
+| D1 binding | `MESSAGE_DB` → database `eureadyseller_messages` |
+| Pages Function | `functions/api/messages.ts` serves `POST /api/messages` |
 
 ## Migration Verification Results (2026-06-03)
 
@@ -129,11 +131,58 @@ If Cloudflare Pages causes issues after cutover:
 
 ## Cloudflare Pages-Specific Notes
 
+### Message API (Pages Function + D1)
+After the 2026-06-03 static cutover, the provider intake form (`/request-eu-compliance-quotes/`) was broken because `/api/messages` was previously proxied by old-server Caddy to `127.0.0.1:8787`.
+
+**Current architecture (post-migration fix):**
+| Element | Detail |
+|---|---|
+| Route | `POST /api/messages` |
+| Handler | `functions/api/messages.ts` (Cloudflare Pages Function) |
+| Storage | Cloudflare D1 database `eureadyseller_messages` |
+| Binding name | `MESSAGE_DB` |
+| Secret env | `MESSAGE_IP_HASH_SALT` (set in Pages dashboard, not in repo) |
+| Old VPS API | Rollback/data-reference only — do not decommission until production POST verified and old data backed up |
+
+**D1 setup (manual — wrangler not authenticated in dev environment):**
+1. Cloudflare dashboard → **Workers & Pages** → **D1** → Create database: `eureadyseller_messages`
+2. **Workers & Pages** → **eusellerready** → **Settings** → **Functions** → **D1 database bindings**
+3. Add binding: Variable name `MESSAGE_DB`, Database `eureadyseller_messages`
+4. Apply to **Production** and **Preview**
+5. Run migration SQL: `migrations/0001_create_messages.sql` via dashboard SQL console or:
+   ```bash
+   npx wrangler d1 execute eureadyseller_messages --file=migrations/0001_create_messages.sql --remote
+   ```
+6. Pages → **Settings** → **Environment variables** → add secret `MESSAGE_IP_HASH_SALT` (generate new salt; do not copy from old server into repo)
+7. Redeploy Pages after binding + env are set
+
+**Historical data backup (old server — not migrated to D1 unless requested):**
+| File | Path | Size (2026-06-08) |
+|---|---|---|
+| Messages JSONL | `/opt/eureadyseller/data/messages.jsonl` | 5.4 KB, 11 lines |
+| API env | `/opt/eureadyseller/message-api.env` | 242 bytes |
+
+Backup command (on old server, before decommission):
+```bash
+sudo cp /opt/eureadyseller/data/messages.jsonl /opt/backups/eureadyseller/messages-jsonl-$(date +%Y%m%d).jsonl
+sudo cp /opt/eureadyseller/message-api.env /opt/backups/eureadyseller/message-api-env-$(date +%Y%m%d).env
+```
+Do not commit backup files or env values to git.
+
+**Production verification commands:**
+```bash
+curl -sS -X POST https://eureadyseller.com/api/messages \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","message":"CF Pages Function migration test - safe to delete","platform":"amazon"}'
+
+curl -sS https://eureadyseller.com/api/messages
+# Expect JSON 405, not homepage HTML
+```
+
 ### Static output compatibility
 - Astro `output: "static"` confirmed — fully compatible with Cloudflare Pages
-- No SSR dependencies
-- No server-side environment variables required
-- No Caddy-specific rewrite rules needed
+- Pages Functions handle `/api/messages` at the edge (not Astro SSR)
+- No Caddy-specific rewrite rules needed on Cloudflare Pages
 
 ### Security headers via `_headers`
 `public/_headers` is copied into `dist/` at build time. Cloudflare Pages serves it automatically at the edge.

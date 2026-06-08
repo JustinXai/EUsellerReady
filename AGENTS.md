@@ -10,6 +10,7 @@ EUReadySeller is the public site at eureadyseller.com (Cloudflare Pages, product
 - FAQ data in `src/data/faq.ts`
 - Official source mappings in `src/data/officialSources.ts`
 - Validation scripts in `scripts/`
+- Provider intake API: `functions/api/messages.ts` (Cloudflare Pages Function + D1 `MESSAGE_DB`)
 
 ## Deployment — Cloudflare Pages (production, live)
 As of 2026-06-03, production is served by Cloudflare Pages, not the old VPS/Caddy server.
@@ -24,9 +25,11 @@ As of 2026-06-03, production is served by Cloudflare Pages, not the old VPS/Cadd
 7. Submit sitemap to GSC only after live checks pass.
 
 ### Old server (rollback only)
-- Old VPS/Caddy server at `/opt/eureadyseller/` must remain online for **3–7 days** as rollback target.
+- Old VPS/Caddy server at `/opt/eureadyseller/` remains online until message API migration is verified on Cloudflare.
+- `eureadyseller-message-api.service` is rollback/data-reference only after D1 migration.
 - Do NOT use `npm run deploy:server` for routine production releases.
-- Use `ssh euready "/opt/eureadyseller/deploy.sh"` only for emergency rollback recovery.
+- Use `ssh ruta2back "/opt/eureadyseller/deploy.sh"` only for emergency rollback recovery.
+- Backup `/opt/eureadyseller/data/messages.jsonl` before decommission.
 
 ## Release gate
 Before finishing a change, run `npm run cf:build`, confirm live public behavior via curl checks on the apex domain, and ensure the final status is `GSC_READY` or `NEEDS_FIX`.

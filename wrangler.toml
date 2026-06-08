@@ -1,0 +1,14 @@
+# Cloudflare Pages + D1 configuration for EUReadySeller
+# D1 binding must also be set in Cloudflare dashboard:
+# Pages > eusellerready > Settings > Functions > D1 database bindings > MESSAGE_DB
+
+name = "eusellerready"
+compatibility_date = "2024-09-01"
+pages_build_output_dir = "dist"
+
+# After creating the database, set database_id from:
+#   npx wrangler d1 create eureadyseller_messages
+[[d1_databases]]
+binding = "MESSAGE_DB"
+database_name = "eureadyseller_messages"
+# database_id = "<set-after-d1-create>"

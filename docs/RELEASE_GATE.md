@@ -24,6 +24,14 @@ Use this checklist for every sprint.
 - Cloudflare Pages builds automatically from Git integration on push to `main`.
 - Do NOT use `npm run deploy:server` for routine production releases (old server is rollback-only).
 
+## Message API release checks (provider intake form)
+After any change to `functions/api/messages.ts` or D1 schema:
+- [ ] `POST https://eureadyseller.com/api/messages` returns 200 with `{"ok":true,"id":"..."}` (harmless test data only).
+- [ ] `GET https://eureadyseller.com/api/messages` returns JSON 405 (not homepage HTML).
+- [ ] `OPTIONS` preflight does not block browser submission from `/request-eu-compliance-quotes/`.
+- [ ] New test record appears in D1 (`MESSAGE_DB`), not in old server `messages.jsonl`.
+- [ ] D1 binding `MESSAGE_DB` and secret `MESSAGE_IP_HASH_SALT` configured in Pages dashboard.
+
 ## After deployment
 - Run `npm run external:smoke` — targets `https://eureadyseller.com`.
 - Verify apex live checks via public curl:

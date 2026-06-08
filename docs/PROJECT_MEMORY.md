@@ -55,10 +55,18 @@ As of 2026-06-03, the production site is served by **Cloudflare Pages**, not the
 7. Monitor GSC for 404s or canonical errors.
 8. Submit sitemap to GSC only after live checks pass.
 
+### Message API — Cloudflare Pages Function + D1
+- `POST /api/messages` is served by `functions/api/messages.ts` (not old VPS).
+- D1 binding: `MESSAGE_DB` → `eureadyseller_messages`.
+- Pages secret: `MESSAGE_IP_HASH_SALT` (dashboard only, not in repo).
+- Old `eureadyseller-message-api.service` on VPS (`127.0.0.1:8787`) is rollback/data-reference only.
+- Historical JSONL: `/opt/eureadyseller/data/messages.jsonl` (11 records, ~5.4 KB as of 2026-06-08) — backup before decommission.
+- Do not decommission old server until production POST verified and JSONL backed up.
+
 ### Old server — rollback only
-- Old VPS/Caddy server (`/opt/eureadyseller/`) must remain online for **3–7 days** as rollback target.
+- Old VPS/Caddy server (`/opt/eureadyseller/`) must remain online until message API migration verified on Cloudflare.
 - Do NOT use `deploy.sh` as a normal deployment path after cutover.
-- If rollback is needed: revert DNS in Cloudflare dashboard, redeploy via `ssh euready "/opt/eureadyseller/deploy.sh"` only as emergency recovery.
+- If rollback is needed: revert DNS in Cloudflare dashboard, redeploy via `ssh ruta2back "/opt/eureadyseller/deploy.sh"` only as emergency recovery.
 
 ### Old deploy.sh (deprecated for production)
 `npm run deploy:server` in `package.json` must not be used for routine production releases. It is retained for emergency rollback only.
