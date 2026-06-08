@@ -134,34 +134,38 @@ function clientIp(request: Request): string {
   return '';
 }
 
-export const onRequestOptions: PagesFunction<Env> = async ({ request }) => {
+export const onRequest: PagesFunction<Env> = async (context) => {
+  const { request, env } = context;
   const origin = request.headers.get('Origin');
-  const corsOrigin = resolveCorsOrigin(origin);
-  if (!corsOrigin) {
-    return new Response(null, { status: 204 });
+  const method = request.method;
+
+  if (method === 'OPTIONS') {
+    const corsOrigin = resolveCorsOrigin(origin);
+    if (!corsOrigin) {
+      return new Response(null, { status: 204 });
+    }
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': corsOrigin,
+        'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Vary': 'Origin',
+      },
+    });
   }
-  return new Response(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': corsOrigin,
-      'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Vary': 'Origin',
-    },
-  });
-};
 
-export const onRequestGet: PagesFunction<Env> = async ({ request }) => {
-  const origin = request.headers.get('Origin');
-  return jsonResponse(
-    { ok: false, error: 'Method not allowed. Use POST to submit provider intake messages.' },
-    405,
-    origin,
-  );
-};
+  if (method === 'GET') {
+    return jsonResponse(
+      { ok: false, error: 'Method not allowed. Use POST to submit provider intake messages.' },
+      405,
+      origin,
+    );
+  }
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const origin = request.headers.get('Origin');
+  if (method !== 'POST') {
+    return jsonResponse({ ok: false, error: 'Method not allowed' }, 405, origin);
+  }
 
   try {
     let body: LeadPayload;
@@ -200,21 +204,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const ipHash = await hashWithSalt(clientIp(request), env.MESSAGE_IP_HASH_SALT);
     const userAgentHash = await hashWithSalt(userAgent, env.MESSAGE_IP_HASH_SALT);
 
-    const record = {
-      id,
-      createdAt,
-      email: body.email!.trim().toLowerCase(),
-      name: body.name ? body.name.trim() : null,
-      location: body.location || null,
-      platform: body.platform || null,
-      countries,
-      topics,
-      situation: body.situation || null,
-      productCategory: body.productCategory ? body.productCategory.trim() : null,
-      message: body.message!.trim(),
-      page: body.page || '/request-eu-compliance-quotes/',
-    };
-
     await env.MESSAGE_DB.prepare(
       `INSERT INTO messages (
         id, created_at, email, name, location, platform, product_category,
@@ -225,16 +214,16 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       .bind(
         id,
         createdAt,
-        record.email,
-        record.name,
-        record.location,
-        record.platform,
-        record.productCategory,
+        body.email!.trim().toLowerCase(),
+        body.name ? body.name.trim() : null,
+        body.location || null,
+        body.platform || null,
+        body.productCategory ? body.productCategory.trim() : null,
         JSON.stringify(countries),
         JSON.stringify(topics),
-        record.situation,
-        record.message,
-        record.page,
+        body.situation || null,
+        body.message!.trim(),
+        body.page || '/request-eu-compliance-quotes/',
         userAgentHash,
         ipHash,
         'new',
@@ -246,13 +235,4 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   } catch {
     return jsonResponse({ ok: false, error: 'Internal server error' }, 500, origin);
   }
-};
-
-export const onRequest: PagesFunction<Env> = async (context) => {
-  const origin = context.request.headers.get('Origin');
-  return jsonResponse(
-    { ok: false, error: 'Method not allowed' },
-    405,
-    origin,
-  );
 };
