@@ -211,6 +211,34 @@ for (const file of allFiles) {
   }
 }
 
+// Germany/LUCID-context-only FAIL checks — these phrases fail only when
+// the file is a Germany/LUCID page OR LUCID context keywords are nearby.
+// This prevents France/WEEE/other EPR schemes from being blocked by Germany rules.
+const GERMANY_LUCID_FILES = [
+  'germany-epr-packaging-registration.astro',
+  'verpackungsregister-amazon-sellers.astro',
+];
+
+const LUCID_CONTEXT_KEYWORDS = [
+  'lucid',
+  'verpackungsregister',
+  'germany packaging',
+  'german packaging act',
+  'zentrale stelle',
+];
+
+function hasLUCIDContext(plainContent, matchIndex, phraseLen) {
+  const windowSize = 300;
+  const start = Math.max(0, matchIndex - windowSize);
+  const end = Math.min(plainContent.length, matchIndex + phraseLen + windowSize);
+  const window = plainContent.slice(start, end).toLowerCase();
+  return LUCID_CONTEXT_KEYWORDS.some(kw => window.includes(kw));
+}
+
+function isGermanyLUCIDFile(relativePath) {
+  return GERMANY_LUCID_FILES.some(f => relativePath.includes(f));
+}
+
 // === Germany/LUCID-context-only FAIL checks ===
 for (const file of allFiles) {
   const content = readFileSync(file, 'utf-8');
@@ -275,34 +303,6 @@ for (const file of allFiles) {
       idx = lowerContent.indexOf(phrase.toLowerCase(), idx + 1);
     }
   }
-}
-
-// Germany LUCID/EPR delegation errors — soft risks (WARN only)
-// Only triggers for Germany/LUCID pages OR when LUCID-specific context is present nearby.
-// France, WEEE, and other non-LUCID schemes are excluded.
-const GERMANY_LUCID_FILES = [
-  'germany-epr-packaging-registration.astro',
-  'verpackungsregister-amazon-sellers.astro',
-];
-
-const LUCID_CONTEXT_KEYWORDS = [
-  'lucid',
-  'verpackungsregister',
-  'germany packaging',
-  'german packaging act',
-  'zentrale stelle',
-];
-
-function hasLUCIDContext(plainContent, matchIndex, phraseLen) {
-  const windowSize = 300;
-  const start = Math.max(0, matchIndex - windowSize);
-  const end = Math.min(plainContent.length, matchIndex + phraseLen + windowSize);
-  const window = plainContent.slice(start, end).toLowerCase();
-  return LUCID_CONTEXT_KEYWORDS.some(kw => window.includes(kw));
-}
-
-function isGermanyLUCIDFile(relativePath) {
-  return GERMANY_LUCID_FILES.some(f => relativePath.includes(f));
 }
 
 // === Germany LUCID Delegation checks (warnings, not failures) ===
