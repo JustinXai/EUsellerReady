@@ -52,6 +52,22 @@ const BANNED = [
   'we guarantee your products are compliant',
   'avoid all fines',
   'legally required in every case',
+  // Germany LUCID delegation — exact errors that must FAIL
+  'LUCID registration and account management',
+  'complete LUCID registration for you',
+  'manage LUCID registration',
+  // 'register on your behalf', 'provider may manage registration',
+  // and 'use a compliance service provider to manage registration'
+  // are scoped to Germany/LUCID context only (see GERMANY_LUCID_FAIL below)
+];
+
+// Germany/LUCID-context-only FAIL checks — these phrases fail only when
+// the file is a Germany/LUCID page OR LUCID context keywords are nearby.
+// This prevents France/WEEE/other EPR schemes from being blocked by Germany rules.
+const GERMANY_LUCID_FAIL = [
+  { phrase: 'register on your behalf', context: 'LUCID registration cannot be delegated to providers' },
+  { phrase: 'provider may manage registration', context: 'Providers cannot manage LUCID registration on producers\' behalf' },
+  { phrase: 'use a compliance service provider to manage registration', context: 'Providers cannot manage LUCID registration on producers\' behalf' },
 ];
 
 // Phrases that cause WARN — these are softer risks to review
@@ -104,7 +120,14 @@ const SOFT_RISK = [
   { phrase: 'does not need WEEE registration', context: 'Too conclusive — prefer "may not need to review WEEE registration topics depending on product setup"' },
   { phrase: 'battery registration requirements vary', context: 'Too conclusive — prefer "battery registration topics can vary by country"' },
   { phrase: 'Packaging quantities must be reported', context: 'Too strong — prefer "Packaging quantity reporting topics may need to be reviewed"' },
-  { phrase: 'separate registration, reporting', context: 'Too strong — prefer "separate schemes, registration topics, reporting topics, or fee contribution topics"' },
+];
+
+// Germany LUCID/EPR delegation errors — broader patterns that are soft risks (WARN only)
+// Exact errors are already in BANNED. These wider patterns catch partial matches.
+const LUCID_DELEGATION = [
+  { phrase: 'provider.*manage.*registration', regex: true, context: 'Ensure provider is not framed as completing registration on producer\'s behalf' },
+  { phrase: 'handle.*registration.*directly', regex: false, context: 'Ensure registration is not framed as something providers can take over directly' },
+  { phrase: 'registration and account management', regex: false, context: 'Avoid implying providers manage LUCID accounts — use "preparation guidance" or "separate obligations"' },
 ];
 
 let exitCode = 0;
@@ -145,6 +168,9 @@ log('INFO', `Scanning ${htmlFiles.length} built files and ${srcFiles.length} sou
 const allFiles = [...htmlFiles, ...srcFiles];
 
 // === HARD FAIL checks ===
+
+// === HARD FAIL checks ===
+let checkedFiles = 0;
 for (const file of allFiles) {
   const content = readFileSync(file, 'utf-8').toLowerCase();
   const relativePath = file.replace(rootDir, '').replace(/\\/g, '/');
@@ -179,8 +205,38 @@ for (const file of allFiles) {
       continue;
     }
 
-    if (content.includes(phrase)) {
+    if (content.includes(phrase.toLowerCase())) {
       log('FAIL', `${relativePath}: banned phrase "${phrase}"`);
+    }
+  }
+}
+
+// === Germany/LUCID-context-only FAIL checks ===
+for (const file of allFiles) {
+  const content = readFileSync(file, 'utf-8');
+  const plainContent = content.replace(/<[^>]+>/g, ' ');
+  const relativePath = file.replace(rootDir, '').replace(/\\/g, '/');
+
+  for (const entry of GERMANY_LUCID_FAIL) {
+    const { phrase, context } = entry;
+    const lowerContent = plainContent.toLowerCase();
+    let idx = lowerContent.indexOf(phrase.toLowerCase());
+    while (idx !== -1) {
+      // Skip negation / disclaimer / FAQ contexts
+      const before = plainContent.slice(Math.max(0, idx - 100), idx).toLowerCase();
+      const after = plainContent.slice(idx + phrase.length, idx + phrase.length + 100).toLowerCase();
+      const window = before + after;
+      const isNegated = /not\s+[^.]{0,80}register|don't\s+[^.]{0,80}register|doesn't\s+[^.]{0,80}register|cannot\s+[^.]{0,80}register/.test(window);
+      const isDisclaimer = window.includes('not legal advice');
+      const isQuestion = plainContent.slice(Math.max(0, idx - 5), idx).includes('?') ||
+                         plainContent.slice(idx, Math.min(plainContent.length, idx + 5)).includes('?');
+      // Only fail if file is Germany/LUCID page OR LUCID context present
+      const isGermanyPage = isGermanyLUCIDFile(relativePath);
+      const hasLUCIDCtx = hasLUCIDContext(plainContent, idx, phrase.length);
+      if (!isNegated && !isDisclaimer && !isQuestion && (isGermanyPage || hasLUCIDCtx)) {
+        log('FAIL', `${relativePath}: Germany/LUCID-context banned phrase "${phrase}" — ${context}`);
+      }
+      idx = lowerContent.indexOf(phrase.toLowerCase(), idx + 1);
     }
   }
 }
@@ -217,6 +273,82 @@ for (const file of allFiles) {
       }
 
       idx = lowerContent.indexOf(phrase.toLowerCase(), idx + 1);
+    }
+  }
+}
+
+// Germany LUCID/EPR delegation errors — soft risks (WARN only)
+// Only triggers for Germany/LUCID pages OR when LUCID-specific context is present nearby.
+// France, WEEE, and other non-LUCID schemes are excluded.
+const GERMANY_LUCID_FILES = [
+  'germany-epr-packaging-registration.astro',
+  'verpackungsregister-amazon-sellers.astro',
+];
+
+const LUCID_CONTEXT_KEYWORDS = [
+  'lucid',
+  'verpackungsregister',
+  'germany packaging',
+  'german packaging act',
+  'zentrale stelle',
+];
+
+function hasLUCIDContext(plainContent, matchIndex, phraseLen) {
+  const windowSize = 300;
+  const start = Math.max(0, matchIndex - windowSize);
+  const end = Math.min(plainContent.length, matchIndex + phraseLen + windowSize);
+  const window = plainContent.slice(start, end).toLowerCase();
+  return LUCID_CONTEXT_KEYWORDS.some(kw => window.includes(kw));
+}
+
+function isGermanyLUCIDFile(relativePath) {
+  return GERMANY_LUCID_FILES.some(f => relativePath.includes(f));
+}
+
+// === Germany LUCID Delegation checks (warnings, not failures) ===
+for (const file of allFiles) {
+  const content = readFileSync(file, 'utf-8');
+  const plainContent = content.replace(/<[^>]+>/g, ' ');
+  const relativePath = file.replace(rootDir, '').replace(/\\/g, '/');
+
+  for (const entry of LUCID_DELEGATION) {
+    const phrase = entry.phrase;
+    const context = entry.context || '';
+    const lowerContent = plainContent.toLowerCase();
+    let idx = -1;
+
+    if (entry.regex) {
+      try {
+        const re = new RegExp(phrase, 'gi');
+        let match;
+        while ((match = re.exec(lowerContent)) !== null) {
+          const before = plainContent.slice(Math.max(0, match.index - 40), match.index).toLowerCase();
+          const after = plainContent.slice(match.index + match[0].length, match.index + match[0].length + 40).toLowerCase();
+          const sentence = before + match[0] + after;
+          const isNegated = /not\s+\S+\s+manage|don't\s+manage|does\s+not\s+manage/.test(sentence);
+          const isQuestion = sentence.includes('?');
+          // Only warn if file is Germany/LUCID page OR LUCID context present
+          const isRelevant = isGermanyLUCIDFile(relativePath) || hasLUCIDContext(plainContent, match.index, match[0].length);
+          if (!isNegated && !isQuestion && isRelevant) {
+            log('WARN', `${relativePath}: LUCID delegation risk "${phrase}" — ${context}`);
+          }
+        }
+      } catch (e) { /* invalid regex, skip */ }
+    } else {
+      idx = lowerContent.indexOf(phrase.toLowerCase());
+      while (idx !== -1) {
+        const before = plainContent.slice(Math.max(0, idx - 40), idx).toLowerCase();
+        const after = plainContent.slice(idx + phrase.length, idx + phrase.length + 40).toLowerCase();
+        const sentence = before + phrase.toLowerCase() + after;
+        const isNegated = sentence.includes('not manage') || sentence.includes('does not manage') || sentence.includes("don't manage");
+        const isQuestion = sentence.includes('?');
+        // Only warn if file is Germany/LUCID page OR LUCID context present
+        const isRelevant = isGermanyLUCIDFile(relativePath) || hasLUCIDContext(plainContent, idx, phrase.length);
+        if (!isNegated && !isQuestion && isRelevant) {
+          log('WARN', `${relativePath}: LUCID delegation risk "${phrase}" — ${context}`);
+        }
+        idx = lowerContent.indexOf(phrase.toLowerCase(), idx + 1);
+      }
     }
   }
 }
