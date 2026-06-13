@@ -1,0 +1,39 @@
+---
+alwaysApply: true
+---
+
+# EUReadySeller Release Gate
+
+No task is complete until source, build, and live checks pass.
+
+## Required checks
+Run the applicable checks before marking work done:
+- `npm run build`
+- `npm run validate` if available
+- `npm run validate:claims` if available
+- `npm run validate:routes` if available
+- `npm run validate:seo` if available
+- `npm run validate:links` if available
+- `npm run validate:schema` if available
+- `npm run validate:content-roadmap` if available
+- `npm run validate:artifacts` if available
+- External live curl checks with cache-busting for every changed URL
+
+## Live verification expectations
+For every changed page, verify on the public site:
+- HTTP 200
+- expected H1 and title
+- canonical trailing slash
+- required phrases present
+- forbidden phrases absent
+- internal links present
+- no cross-project contamination
+- sitemap.xml includes the page
+- llms.txt includes the page
+
+## Completion status
+Final status must be one of:
+- `GSC_READY`
+- `NEEDS_FIX`
+
+Do not treat a task as done if live verification has not passed.

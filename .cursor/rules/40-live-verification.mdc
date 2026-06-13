@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+---
+
+# EUReadySeller Live Verification
+
+Do not rely on local-only checks when confirming a change.
+
+## Required public checks
+For every changed page, verify via public curl or equivalent live request:
+- HTTP 200
+- H1/title expected
+- canonical trailing slash
+- required phrases present
+- forbidden phrases absent
+- internal links present
+- no cross-project contamination
+- sitemap.xml includes the changed/new page
+- llms.txt includes the changed/new page
+
+## Cache-busting
+Use a cache-busting query string for live checks:
+- `?smoke=TIMESTAMP`
+
+## URL hygiene checks when relevant
+Also verify:
+- `http` redirects to `https`
+- non-trailing-slash redirects to trailing slash
+- trailing-slash canonical returns 200
+
+## Rule of evidence
+If public live checks disagree with local checks, trust the public live result and investigate further.

@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+---
+
+# EUReadySeller Project Identity
+
+This repository is **EUReadySeller / eureadyseller.com**.
+
+## Identity guardrails
+- Treat this repo as EUReadySeller only.
+- Do not mix this project with RutaAPI, LinkAI, SellerFixHub, ExtensionFixes, EInvoiceAtlas, AI API Radar, or AI API Ops.
+- Use the actual site and repo context when reasoning about files, routes, content, and release steps.
+
+## Before editing
+Before making changes in this repo, Cursor should verify the current state with:
+1. `pwd`
+2. `git status`
+3. `git log -1 --oneline`
+4. Inspect `package.json` scripts
+
+## Operational reminder
+- Prefer repository truth over memory when there is any conflict.
+- Keep project-specific reasoning anchored to EUReadySeller pages, validations, and release workflow.

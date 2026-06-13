@@ -1,0 +1,37 @@
+---
+alwaysApply: true
+---
+
+# EUReadySeller Content Factory and GSC Workflow
+
+EUReadySeller updates must follow the Content Factory system.
+
+## Page creation rules
+- Do not randomly create detached pages.
+- Every new page must have:
+  - user intent category
+  - target queries
+  - page template
+  - primary keyword
+  - secondary keywords
+  - long-tail questions
+  - required internal links
+  - sitemap inclusion
+  - llms.txt inclusion
+  - canonical trailing slash
+  - GSC submission recommendation
+- Prefer one focused page per sprint.
+
+## Current strategy
+- Current EPR pages are growing and should not be repeatedly edited unless GSC data supports it.
+- Use GSC and Semrush signals to guide page priority and wording.
+- Avoid over-editing pages already showing growth.
+
+## Next roadmap
+- `/weee-registration-germany/`
+- `/eu-batteries-regulation-for-sellers/`
+
+## Content maintenance
+- Keep Content Factory metadata in sync with page content, routes, and internal links.
+- Use cautious wording and preserve SEO semantics.
+- Only update a page when there is a clear search-intent or GSC reason.
